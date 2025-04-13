@@ -1,0 +1,80 @@
+/* components/chat/ChatMessage.css */
+
+.chat-message {
+    display: flex;
+    width: 100%;
+    margin: 12px 0;
+}
+
+/* 왼쪽 정렬 (bot) */
+.chat-message.bot {
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 오른쪽 정렬 (user) */
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.message-bubble {
+    display: flex;
+    width: fit-content;
+    max-width: 60%;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    word-break: break-word;
+
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.04);
+}
+
+/* 봇 말풍선 */
+.chat-message.bot .message-bubble {
+    background: #FFF;
+}
+
+/* 유저 말풍선 */
+.chat-message.user .message-bubble {
+    color: white;
+    background: var(--orange-400, #FD8B3E);
+}
+.chat-bot-wrap{
+    flex-direction: column;
+}
+.chat-profile{
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    gap: 6px;
+}
+
+.chat-avatar-bg {
+    background-color: #FFF; /* 주황색 */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-name {
+    color: var(--maincolor-black, #131115);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/bold/Small */
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
