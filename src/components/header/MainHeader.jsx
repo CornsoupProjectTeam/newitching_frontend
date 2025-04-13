@@ -4,15 +4,16 @@ import { useLocation } from 'react-router-dom';
 import './MainHeader.css';
 
 /* asset */
-import mainHeaderLogo from '../../assets/images/MainHeader_Logo.png';
+import mainHeaderLogo from '../../assets/images/itching.svg';
 import { HiOutlineMenu, HiX } from 'react-icons/hi';
 
 function MainHeader() {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const isMobile = window.innerWidth <= 768;
-    const showRightMenu = currentPath !== '/matching' || isMobile;
+    const hiddenMenuPaths = ['/matching', '/chat'];
+    const showRightMenu = !hiddenMenuPaths.includes(currentPath);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(prev => !prev);
 
@@ -50,7 +51,11 @@ function MainHeader() {
                                 </a>
                             </li>
                             <li>
-                                <a href="/matching" className="nav-button primary">
+                                <a
+                                    href="/matching"
+                                    className="nav-button primary"
+                                    target="_blank"
+                                    rel="noopener noreferrer" >
                                     프로젝트 등록하기
                                 </a>
                             </li>

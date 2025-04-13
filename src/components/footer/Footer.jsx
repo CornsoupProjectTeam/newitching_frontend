@@ -17,20 +17,18 @@ const Footer = () => {
         "/", // 홈
     ];
 
-    // // 채팅 동적 경로 매칭 정은이가 채팅 라우터 설정후 수정예정
-    // const isClientDetailsPage = useMatch(
-    //     "/explore-client/details/:client_post_id"
-    // );
-    //
-    // // 경로 숨기기 조건: 고정된 경로나 동적 경로가 포함된 경우
-    // const shouldHideFooter =
-    //     hideFooterPaths.includes(location.pathname) || isClientDetailsPage;
-    //
-    // // 조건에 맞으면 푸터를 숨김
-    // if (shouldHideFooter) {
-    //     return null;
-    // }
+    // 채팅 고정 경로
+    const isChatPage = location.pathname.startsWith("/chat");
 
+    // 동적 채팅 상세 페이지가 있다면 useMatch로 처리
+    const isChatDetail = useMatch("/chat/:chatId");
+
+    const shouldHideFooter =
+        hideFooterPaths.includes(location.pathname) || isChatPage || isChatDetail;
+
+    if (shouldHideFooter) {
+        return null;
+    }
     return (
         <footer className="footer">
             <div className="footer-container">
