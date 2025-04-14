@@ -4,6 +4,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header/MainHeader";
 import Footer from "./components/footer/Footer";
+import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
+import MatchStart from "./pages/RegisterProject/MatchStart";
 
 
 const App = () => {
