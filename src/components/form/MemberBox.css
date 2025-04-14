@@ -1,0 +1,113 @@
+.member-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    width: 952px;
+    height: 563px;
+    gap: 56px;
+    margin-top: -150px;
+}
+
+.member-box-title {
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.member-box-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 384px;
+    gap: 42px;
+}
+
+.member-box-form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.member-box-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--grayscale-gray900, #6A6666);
+    font-family: Pretendard;
+}
+
+.member-box-input,
+.member-box-readonly {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #aca5a3;
+    font-family: Pretendard;
+    box-sizing: border-box;
+    color: #131115;
+    background-color: #fff;
+}
+
+.member-box-readonly {
+    height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.member-box-start-btn {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.member-box-start-btn button {
+    all: unset; /* 기본 스타일 완전 초기화 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none !important; /* ✅ 포커스 테두리 제거 */
+    border: none !important;  /* ✅ 남아있을 수 있는 테두리 제거 */
+    background: none;
+}
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .member-box {
+        width: 90%;
+        padding: 32px 24px;
+        gap: 40px;
+    }
+
+    .member-box-form {
+        max-width: 100%;
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .member-box {
+        width: 100%;
+        padding: 24px 16px;
+        gap: 32px;
+    }
+
+    .member-box-title {
+        font-size: 18px;
+    }
+
+    .member-box-input,
+    .member-box-readonly {
+        font-size: 14px;
+    }
+}

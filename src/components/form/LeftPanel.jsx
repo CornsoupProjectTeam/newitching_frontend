@@ -5,7 +5,7 @@ import "./LeftPanel.css";
 
 /* assets */
 import orangelogo from "../../assets/images/Orange_logo.svg";
-import leftpanellogo from "../../assets/icons/LeftPanel_logo.svg";
+import leftpanellogo from "../../assets/images/LeftPanel_logo.svg";
 import explainlogo from "../../assets/fonts/LeftPanel_explain.svg";
 
 const LeftPanel = () => {

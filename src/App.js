@@ -6,7 +6,9 @@ import MainHeader from "./components/header/MainHeader";
 import Footer from "./components/footer/Footer";
 import Chat from "./pages/ChatPage"
 import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
-import MatchStart from "./pages/RegisterProject/MatchStart";
+import RegisterStart from "./pages/RegisterProject/RegisterStart";
+import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
+import MemberRegister from "./pages/MemberRegister";
 
 const App = () => {
   return (
@@ -14,6 +16,10 @@ const App = () => {
           <MainHeader />
           <Routes>
               <Route path="/chat" element={<Chat />} />
+              <Route path="/registermatch" element={<RegisterMatch />} />
+              <Route path="/registerstart" element={<RegisterStart />} />
+              <Route path="/registerurl" element={<RegisterUrl />} />
+              <Route path="/memberregister" element={<MemberRegister />} />
           </Routes>
           <Footer />
         </Router>

@@ -1,30 +1,58 @@
 .left-panel {
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;        /* 수직 정렬 */
+    justify-content: flex-start;   /* 위쪽 정렬 */
+    align-items: flex-start;       /* 왼쪽 정렬 */
+    padding: 60px;        /* 위쪽 208px, 왼쪽 60px */
     height: 100vh;
-    background-color: #ffffff;
+    box-sizing: border-box;
 }
 
 .left-panel-side {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
+    align-items: flex-start;
 }
 
 .leftpanel-explain {
-    width: 200px;
+    font-size: 16px;
+    line-height: 1.5;
     margin-bottom: 20px;
 }
 
 .itching-logo {
-    width: 140px;
+    width: 185px;
+    height: auto;
     margin-bottom: 20px;
 }
 
 .orange-logo {
-    width: 180px;
+    width: 270px;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* 💻 태블릿 대응 (768px ~ 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .left-panel {
+        padding: 40px;
+    }
+
+    .itching-logo {
+        width: 150px;
+        margin-bottom: 16px;
+    }
+
+    .orange-logo {
+        width: 220px;
+        margin-top: 16px;
+    }
+
+    .leftpanel-explain {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
 }
 
 /* 📱 모바일 대응: 화면이 작아지면 LeftPanel 숨기기 */

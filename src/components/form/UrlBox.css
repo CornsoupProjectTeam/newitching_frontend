@@ -1,0 +1,171 @@
+.url-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    width: 952px;
+    height: 661px;
+    gap: 56px;
+    margin-top: -52px;
+}
+
+.url-box-title h2 {
+    color: var(--blue-900, #1B1E33);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.url-box-title p {
+    color: var(--grayscale-gray900, #6A6666);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/medium/Medium */
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.url-box-content {
+    display: flex;
+    padding: 24px 298px;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    align-self: stretch;
+    text-align: center;
+}
+
+.url-box-img {
+    width: 250px;
+    height: auto;
+    margin-top: -30px;
+}
+
+.url-box-info {
+    color: var(--orange-300, #FDA265);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/medium/Small */
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+}
+
+.url-box-btn-group {
+    display: flex;
+    align-self: flex-end;
+}
+
+.url-box-copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #131115;
+}
+
+.url-box-copy-btn svg {
+    display: flex;
+    padding: -10px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.url-box-copy-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* 알림 이미지 */
+.url-box-noti {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* ✅ 태블릿 반응형 */
+@media (max-width: 1024px) {
+    .url-box {
+        width: 90%;
+        padding: 32px 24px;
+        height: auto;
+        gap: 40px;
+    }
+
+    .url-box-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+    }
+
+    .url-box-img {
+        align-self: center;
+    }
+
+    .url-box-info {
+        text-align: left;
+    }
+}
+
+@media (max-width: 768px) {
+    .url-box-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .url-box-info {
+        font-size: 14px;
+        white-space: normal;
+        gap: 6px;
+        line-height: 1.4;
+    }
+
+    .url-box-img {
+        width: 140px;
+    }
+}
