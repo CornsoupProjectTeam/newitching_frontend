@@ -1,4 +1,5 @@
-/* MemberRegister 전체 페이지 레이아웃 */
+/* components/chat/MemberRegister.css */
+
 .MemberRegister-container {
     display: flex;
     flex-direction: row;

@@ -1,11 +1,11 @@
 .left-panel {
     flex: 1;
     display: flex;
+    max-width: fit-content;
     flex-direction: column;        /* 수직 정렬 */
     justify-content: flex-start;   /* 위쪽 정렬 */
     align-items: flex-start;       /* 왼쪽 정렬 */
-    padding: 60px;        /* 위쪽 208px, 왼쪽 60px */
-    height: 100vh;
+    padding: 40px;
     box-sizing: border-box;
 }
 

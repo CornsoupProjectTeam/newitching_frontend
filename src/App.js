@@ -8,7 +8,7 @@ import Chat from "./pages/ChatPage"
 import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
 import RegisterStart from "./pages/RegisterProject/RegisterStart";
 import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
-import MemberRegister from "./pages/MemberRegister";
+import MemberRegister from "./components/chat/MemberRegister";
 
 const App = () => {
   return (

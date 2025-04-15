@@ -1,10 +1,10 @@
-// src/pages/RegisterProject/MemberRegister.jsx
+// components/chat/MemberRegister.jsx
 
 import React from "react";
 import "./MemberRegister.css";
 
-import LeftPanel from "../components/form/LeftPanel";
-import MemberBox from "../components/form/MemberBox";
+import LeftPanel from "../form/LeftPanel";
+import MemberBox from "../form/MemberBox";
 
 const MemberRegister = () => {
     return (
