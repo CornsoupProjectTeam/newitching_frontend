@@ -1,0 +1,118 @@
+.matchresult-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    width: 952px;
+    height: 563px;
+    gap: 56px;
+    margin-top: -150px;
+}
+
+.matchresult-title {
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.matchresult-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 384px;
+    gap: 42px;
+}
+
+.matchresult-form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.matchresult-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--grayscale-gray900, #6A6666);
+    font-family: Pretendard;
+}
+
+.matchresult-input{
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #aca5a3;
+    font-family: Pretendard;
+    box-sizing: border-box;
+    color: #131115;
+    background-color: #fff;
+}
+
+.matchresult-box-btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    align-self: stretch;
+    margin-top: 24px;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.matchresult-box-cancel-btn,
+.matchresult-box-next-btn {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none !important;
+    border: none !important;
+    background: none;
+    background: none;
+}
+
+.matchresult-box-invalid {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #c75b00;
+    font-family: Pretendard;
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .matchresult-box {
+        width: 90%;
+        padding: 32px 24px;
+        gap: 40px;
+    }
+
+    .matchresult-form {
+        max-width: 100%;
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .matchresult-box {
+        width: 100%;
+        padding: 24px 16px;
+        gap: 32px;
+    }
+
+    .matchresult-title {
+        font-size: 18px;
+    }
+
+    .matchresult-input,
+    .matchresult-readonly {
+        font-size: 14px;
+    }
+}

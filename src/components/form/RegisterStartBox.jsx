@@ -65,14 +65,14 @@ const RegisterStartBox = () => {
                 />
             </div>
 
-            <div className="register-box-btn-group">
-                <button className="register-box-before-btn" onClick={handleBack}>
-                    <BeforeButton />
-                </button>
-                <button className="register-box-start-btn" onClick={handleStart}>
-                    <StartButton />
-                </button>
-            </div>
+                <div className="register-box-btn-group">
+                    <button className="register-box-before-btn" onClick={handleBack}>
+                        <BeforeButton />
+                    </button>
+                    <button className="register-box-start-btn" onClick={handleStart}>
+                        <StartButton />
+                    </button>
+                </div>
         </div>
     );
 };

@@ -9,21 +9,24 @@ import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
 import RegisterStart from "./pages/RegisterProject/RegisterStart";
 import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
 import MemberRegister from "./components/chat/MemberRegister";
+import MatchResultSignIn from "./pages/MatchResultProject/MatchResultSignIn";
 
 const App = () => {
-  return (
+    return (
         <Router>
-          <MainHeader />
-          <Routes>
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/registermatch" element={<RegisterMatch />} />
-              <Route path="/registerstart" element={<RegisterStart />} />
-              <Route path="/registerurl" element={<RegisterUrl />} />
-              <Route path="/memberregister" element={<MemberRegister />} />
-          </Routes>
-          <Footer />
+            <MainHeader />
+            <Routes>
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/registermatch" element={<RegisterMatch />} />
+                <Route path="/registerstart" element={<RegisterStart />} />
+                <Route path="/registerurl" element={<RegisterUrl />} />
+                <Route path="/memberregister" element={<MemberRegister />} />
+                <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
+
+            </Routes>
+            <Footer />
         </Router>
-  );
+    );
 };
 
 export default App;
