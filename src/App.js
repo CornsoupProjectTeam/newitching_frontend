@@ -9,6 +9,7 @@ import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
 import RegisterStart from "./pages/RegisterProject/RegisterStart";
 import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
 import MemberRegister from "./pages/MemberRegister";
+import MatchResultSignIn from "./pages/MatchResultProject/MatchResultSignIn";
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
               <Route path="/registerstart" element={<RegisterStart />} />
               <Route path="/registerurl" element={<RegisterUrl />} />
               <Route path="/memberregister" element={<MemberRegister />} />
+              <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
+
           </Routes>
           <Footer />
         </Router>
