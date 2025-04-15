@@ -12,6 +12,7 @@ const MemberBox = () => {
     const handleStart = () => {
         console.log("이름:", name, "소속:", organization, "프로젝트:", projectId);
         // TODO: 이후 API 요청 또는 페이지 이동 로직 작성
+        navigate("/chat");
     };
 
     return (

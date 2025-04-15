@@ -1,9 +1,25 @@
 /* components/chat/ChatWindow.css */
+.chat-page{
+    display: flex;
+    align-items: flex-start;
+    gap: 140px;
+    flex: 1 0 0;
+    padding: 0px 60px;
+}
+
+/* 모바일 대응: 768px 이하일 때 패딩 제거 */
+@media (max-width: 768px) {
+    .chat-page {
+        padding: 0;
+        gap: 0;
+    }
+}
 
 .chat-window {
     display: flex;
     flex-direction: column;
     height: 90vh;
+    flex: 1;
 }
 
 .chat-header-wrap {

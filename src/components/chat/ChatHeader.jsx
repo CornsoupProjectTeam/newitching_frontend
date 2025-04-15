@@ -7,13 +7,8 @@ import './ChatHeader.css';
 import itchingSymbol from '../../assets/images/itchingSymbol.svg';
 
 const ChatHeader = () => {
-    const teamName = "콘스프"; // 임의 설정
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+    // TODO: 팀 이름 동적 설정, 헤더 설명 추가
+    const teamName = "콘스프";
 
     return (
         <div className="chat-header">
@@ -24,7 +19,6 @@ const ChatHeader = () => {
                 <div className="chat-topic">{teamName} 팀의 멤버 성향 분석하기</div>
             </div>
             <div className="chat-text">
-                <div className="chat-date">{formattedDate}</div>
             </div>
         </div>
     );
