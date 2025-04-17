@@ -23,7 +23,7 @@ const App = () => {
                 <Route path="/registerurl" element={<RegisterUrl />} />
                 <Route path="/memberregister" element={<MemberRegister />} />
                 <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
-                <Route path="/home" element={<HomePage />} />
+                <Route path="/" element={<HomePage />} />
             </Routes>
             <Footer />
         </Router>
