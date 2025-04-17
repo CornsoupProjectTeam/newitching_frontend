@@ -10,6 +10,7 @@ import RegisterStart from "./pages/RegisterProject/RegisterStart";
 import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
 import MemberRegister from "./components/chat/MemberRegister";
 import MatchResultSignIn from "./pages/MatchResultProject/MatchResultSignIn";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
     return (
@@ -22,7 +23,7 @@ const App = () => {
                 <Route path="/registerurl" element={<RegisterUrl />} />
                 <Route path="/memberregister" element={<MemberRegister />} />
                 <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
-
+                <Route path="/home" element={<HomePage />} />
             </Routes>
             <Footer />
         </Router>
