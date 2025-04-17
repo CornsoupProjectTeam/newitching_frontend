@@ -1,0 +1,25 @@
+.starthomebutton-btn {
+    display: flex;
+    padding: 20px 36px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 30px;
+    border: none;
+    background: var(--orange-400, #FD8B3E);
+    color: var(--maincolor-white, #FFF);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* body/bold/Large - prominent */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 25.6px */
+}
+
+.starthomebutton-btn:hover {
+    color: #111015;            /* hover시 검은 텍스트 */
+}
