@@ -1,0 +1,20 @@
+.left-panel-explain {
+    display: flex;
+    padding: 16px 4px 16px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.explain-text {
+    color: var(--grayscale-gray800, #ACA5A3);
+    leading-trim: both;
+
+    text-edge: cap;
+    /* title/bold/Medium */
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
