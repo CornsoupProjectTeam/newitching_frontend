@@ -1,22 +1,22 @@
-/* RegisterStart 전체 페이지 레이아웃 */
-.RegisterMatch-container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    background-color: #f9f8f6; /* 피그마 배경 */
-}
+/*!* RegisterStart 전체 페이지 레이아웃 *!*/
+/*.RegisterMatch-container {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    height: 100vh;*/
+/*    background-color: #f9f8f6; !* 피그마 배경 *!*/
+/*}*/
 
-.RegisterMatch-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-}
-/* 우측 패널 */
-.RegisterMatch-right {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 64px 40px;
-}
+/*.RegisterMatch-right {*/
+/*    !*display: flex;*!*/
+/*    !*align-items: center;*!*/
+/*    !*justify-content: center;*!*/
+/*    !*flex: 1;*!*/
+/*}*/
+/*!* 우측 패널 *!*/
+/*.RegisterMatch-right {*/
+/*    flex: 2;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    padding: 64px 40px;*/
+/*}*/
