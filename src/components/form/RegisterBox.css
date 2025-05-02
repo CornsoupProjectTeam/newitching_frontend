@@ -1,156 +1,150 @@
-.register-box {
+.registerbox-container {
     display: flex;
     flex-direction: column;
-    justify-content: left;
     align-items: flex-start;
-    background: #fff;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
     padding: 40px;
+    gap: 32px; /* 🔽 줄임 */
+    background: var(--maincolor-white, #FFF);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
-    width: 952px;
-    height: 563px;
-    gap: 56px;
-    margin-top: -150px;
+    box-sizing: border-box;
 }
 
-.register-box-title {
+.registerbox-title {
     font-size: 24px;
     font-weight: 700;
-    color: #1b1e33;
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
 }
 
-.register-box-form-group {
+.registerbox-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     max-width: 600px;
-    gap: 8px;
+    gap: 10px; /* 🔽 여백 축소 */
     position: relative;
 }
 
-.register-box-label {
+.registerbox-group label {
     color: var(--grayscale-gray900, #6A6666);
-    leading-trim: both;
-    text-edge: cap;
-    font-family: Pretendard;
     font-size: 18px;
-    font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    font-family: Pretendard;
 }
 
-.register-box-input-group {
-    position: relative; /* 버튼 절대 위치 기준 */
-    width: 384px;        /* 전체 입력 필드 길이 고정 */
+.registerbox-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 384px;
 }
 
-.register-box-check-btn {
-    position: absolute;
-    right: 76px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px 12px;
-    height: 32px;
-    background-color: #ff7a00;
-    color: #fff;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.register-box-input {
-    flex: 1;
+.registerbox-input-wrapper input,
+.registerbox-group input[type="password"] {
+    width: 100%;
+    height: 40px;
     padding: 12px 120px 12px 16px;
     border: 1px solid var(--grayscale-gray800, #ACA5A3);
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
+    background: var(--maincolor-white, #FFF);
 }
 
-.register-box-check-btn,
-.register-box-cancel-btn,
-.register-box-next-btn{
+.registerbox-input-wrapper input:focus,
+.registerbox-group input[type="password"]:focus {
+    outline: none;
+    border-color: var(--grayscale-gray800, #ACA5A3); /* 기존 테두리 색으로 고정 */
+    box-shadow: none;
+}
+
+.registerbox-inline-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerbox-msg-area {
+    min-height: 20px;
+    position: relative;
+}
+
+.registerbox-msg {
+    font-size: 12px;
+    font-family: Pretendard;
+    font-weight: 500;
+    position: absolute;
+    bottom: -5px;
+    white-space: nowrap;
+}
+
+.registerbox-msg.valid {
+    color: #41A063;
+}
+
+.registerbox-msg.invalid {
+    color: #b76632;
+}
+
+/* 버튼 그룹 */
+.registerbox-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 0px;
+    padding: 0 0 0 135px;
+}
+
+.registerbox-button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
 }
 
-.register-box-message {
-    font-size: 12px;
-    font-family: Pretendard;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    min-height: 16px;
-    margin-top: 4px;
-    white-space: nowrap;
-    position: absolute;
-    bottom: -20px;
-}
-
-.register-box-valid {
-    color: var(--green-700, #41A063);
-}
-
-.register-box-invalid {
-    color: var(--orange-700, #b76632);
-    font-size: 12px;
-    font-family: Pretendard;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    min-height: 16px;
-    white-space: nowrap;
-    position: absolute;
-    bottom: -20px;
-}
-
-.register-box-btn-group {
-    display: flex;
-    gap: 16px;
-    align-self: flex-start;
-}
-
-.svg-btn svg {
-    width: 100%;
-    height: 100%;
-    max-width: 120px;
-    max-height: 48px;
-}
-
-/* 포항형: 탭블릿 이하 */
-@media (max-width: 1024px) {
-    .register-box {
-        width: 90%;
-        padding: 32px 24px;
-        gap: 40px;
-        height: auto;
-    }
-
-    .register-box-input,
-    .register-box-form-group {
-        max-width: 100%;
-    }
-}
-
-/* 포항형: 모바일 */
+/* ✅ 반응형 */
 @media (max-width: 768px) {
-    .register-box {
-        width: 100%;
-        padding: 24px 16px;
-        gap: 32px;
-        height: auto;
-
+    .registerbox-container {
+        padding: 24px;
+        gap: 24px;
     }
 
-    .register-box-input,
-    .register-box-form-group {
-        max-width: 100%;
+    .registerbox-title {
+        font-size: 20px;
+    }
+
+    .registerbox-input-wrapper input,
+    .registerbox-group input[type="password"] {
+        font-size: 13px;
+        padding: 10px 80px 10px 10px;
+    }
+
+    .registerbox-inline-btn {
+        font-size: 13px;
+        height: 30px;
+        padding: 10 10px;
+    }
+
+    .registerbox-msg {
+        font-size: 13px;
+    }
+
+    .registerbox-buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        margin-left: -76px;
     }
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./RegisterButton.css";
+import "./BeforeButton.css";
 
-const RegisterButton = () => {
+const BeforeButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -10,10 +10,10 @@ const RegisterButton = () => {
     };
 
     return (
-        <button className="registerhome-btn" onClick={handleClick}>
-            팀 매칭 등록하기
+        <button className="before-btn" onClick={handleClick}>
+            이전으로
         </button>
     );
 };
 
-export default RegisterButton;
+export default BeforeButton;

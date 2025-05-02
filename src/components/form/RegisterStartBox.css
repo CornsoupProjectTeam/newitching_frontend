@@ -1,35 +1,24 @@
 .register-start-box {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: flex-start;
-    background: #fff;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
     padding: 40px;
+    gap: 32px;
+    background: var(--maincolor-white, #FFF);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
-    width: 952px;
-    height: 563px;
-    gap: 56px;
-    margin-top: -150px;
+    box-sizing: border-box;
 }
 
 .register-start-box-title {
     font-size: 24px;
     font-weight: 700;
-    color: #1b1e33;
-}
-
-.register-start-box-label {
-    color: var(--grayscale-gray900, #6A6666);
-    leading-trim: both;
-
-    text-edge: cap;
-    /* title/medium/Small */
+    color: var(--blue-900, #1B1E33);
     font-family: Pretendard;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 28px; /* 155.556% */
 }
 
 .register-start-box-form-group {
@@ -37,16 +26,23 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-width: 600px;
+    max-width: 384px;
     gap: 8px;
     position: relative;
 }
 
-/* 공통 인풋/드롭다운/날짜 */
+.register-start-box-label {
+    color: var(--grayscale-gray900, #6A6666);
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
 .register-start-box-input,
 .register-start-box-select,
 .register-start-box-date {
-    width: 315px;
+    width: 100%;
     padding: 12px 16px;
     font-size: 14px;
     border: 1px solid #aca5a3;
@@ -56,13 +52,11 @@
     color: #131115;
 }
 
-/* 셀렉트 래퍼 */
 .register-start-box-select-wrapper {
     position: relative;
-    width: 384px;
+    width: 100%;
 }
 
-/* 셀렉트 */
 .register-start-box-select {
     appearance: none;
     -webkit-appearance: none;
@@ -72,91 +66,46 @@
     cursor: pointer;
 }
 
-/* 드롭다운 화살표 아이콘 */
 .register-start-box-arrow-icon {
     position: absolute;
-    right: 80px;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
 }
 
-/* 달력(Date Input) */
 .register-start-box-date {
     cursor: pointer;
 }
 
-/* 버튼 */
+/* 버튼 그룹 */
+.register-start-box-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 32px;
+}
+
 .register-box-before-btn,
 .register-box-start-btn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
-    margin-top: -15px;
-    display: flex;
-    align-items: center;
 }
 
-/* 반응형 - 태블릿 */
-@media (max-width: 1024px) {
-    .register-start-box {
-        width: 90%;
-        padding: 32px 24px;
-        gap: 40px;
-        height: auto;
-    }
-
-    .register-start-box-input,
-    .register-start-box-select,
-    .register-start-box-date {
-        width: 100%;
-    }
-
-    .register-start-box-form-group {
-        max-width: 100%;
-    }
-}
-
-/* 반응형 - 모바일 */
+/* 반응형 */
 @media (max-width: 768px) {
     .register-start-box {
-        width: 100%;
         padding: 24px 16px;
         gap: 32px;
-        height: auto;
-    }
-    .register-start-box-arrow-icon {
-        right: 10px;  /* 필요시 조정 */}
-
-    .register-start-box-input,
-    .register-start-box-select,
-    .register-start-box-date {
-        width: 100%;
     }
 
     .register-start-box-form-group {
         max-width: 100%;
     }
-}
 
-/* 스크롤바 스타일 (Webkit 기반 브라우저용) */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #aca5a3;
-    border-radius: 8px;
-    border: 1px solid #fff;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #888;
+    .register-start-box-select-wrapper {
+        width: 100%;
+    }
 }

@@ -1,118 +1,117 @@
-.matchresult-box {
+.matchresult-container {
     display: flex;
     flex-direction: column;
-    justify-content: left;
     align-items: flex-start;
-    background: #fff;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
     padding: 40px;
+    gap: 32px;
+    background: var(--maincolor-white, #FFF);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
-    width: 952px;
-    height: 563px;
-    gap: 56px;
-    margin-top: -150px;
+    box-sizing: border-box;
 }
 
 .matchresult-title {
-    color: var(--blue-900, #1B1E33);
-    font-family: Pretendard;
     font-size: 24px;
     font-weight: 700;
-    line-height: normal;
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
 }
 
-.matchresult-form {
+.matchresult-group {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     width: 100%;
-    max-width: 384px;
-    gap: 42px;
+    max-width: 600px;
+    gap: 10px;
+    position: relative;
 }
 
-.matchresult-form-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-}
-
-.matchresult-label {
+.matchresult-group label {
+    color: var(--grayscale-gray900, #6A6666);
     font-size: 18px;
     font-weight: 500;
-    color: var(--grayscale-gray900, #6A6666);
     font-family: Pretendard;
 }
 
-.matchresult-input{
+.matchresult-input-wrapper {
+    position: relative;
     width: 100%;
-    padding: 12px 16px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #aca5a3;
-    font-family: Pretendard;
-    box-sizing: border-box;
-    color: #131115;
-    background-color: #fff;
+    max-width: 384px;
 }
 
-.matchresult-box-btn-group {
+.matchresult-input-wrapper input,
+.matchresult-group input[type="password"] {
+    width: 100%;
+    height: 40px;
+    padding: 12px 16px;
+    border: 1px solid var(--grayscale-gray800, #ACA5A3);
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: var(--maincolor-white, #FFF);
+}
+
+.matchresult-input-wrapper input:focus,
+.matchresult-group input[type="password"]:focus {
+    outline: none;
+    border-color: var(--grayscale-gray800, #ACA5A3);
+    box-shadow: none;
+}
+
+.matchresult-msg {
+    font-size: 12px;
+    font-family: Pretendard;
+    font-weight: 500;
+    color: #b76632;
+    margin-top: -4px;
+}
+
+/* 버튼 그룹 */
+.matchresult-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
-    align-self: stretch;
-    margin-top: 24px;
-    outline: none;
+    align-items: flex-start;
+    gap: 0px;
+    padding: 0 0 0 135px;
+}
+
+.matchresult-button {
+    background: none;
     border: none;
-    background: transparent;
-}
-
-.matchresult-box-cancel-btn,
-.matchresult-box-next-btn {
-    all: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    outline: none !important;
-    border: none !important;
-    background: none;
-    background: none;
 }
 
-.matchresult-box-invalid {
-    margin-top: 4px;
-    font-size: 14px;
-    color: #c75b00;
-    font-family: Pretendard;
-}
-
-/* 반응형 - 태블릿 */
-@media (max-width: 1024px) {
-    .matchresult-box {
-        width: 90%;
-        padding: 32px 24px;
-        gap: 40px;
-    }
-
-    .matchresult-form {
-        max-width: 100%;
-    }
-}
-
-/* 반응형 - 모바일 */
+/* ✅ 반응형 */
 @media (max-width: 768px) {
-    .matchresult-box {
-        width: 100%;
-        padding: 24px 16px;
-        gap: 32px;
+    .matchresult-container {
+        padding: 24px;
+        gap: 24px;
     }
 
     .matchresult-title {
-        font-size: 18px;
+        font-size: 20px;
     }
 
-    .matchresult-input,
-    .matchresult-readonly {
-        font-size: 14px;
+    .matchresult-input-wrapper input,
+    .matchresult-group input[type="password"] {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .matchresult-msg {
+        font-size: 13px;
+    }
+
+    .matchresult-buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        margin-left: -76px;
     }
 }

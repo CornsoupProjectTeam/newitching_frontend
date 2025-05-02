@@ -1,0 +1,22 @@
+.cancel-btn {
+    display: flex;
+    padding: 14px 36px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 50px;
+    border: 1.5px solid var(--grayscale-alpha-200, rgba(19, 17, 21, 0.20));
+    background: var(--maincolor-white, #FFF);
+
+    color: var(--maincolor-black, #131115);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* body/bold/Large - prominent */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+}
