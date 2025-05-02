@@ -11,7 +11,7 @@ function MainHeader() {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matchresultsignin'];
+    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matchresultsignin', '/memberregister'];
     const showRightMenu = !hiddenMenuPaths.includes(currentPath);
 
     const [menuOpen, setMenuOpen] = useState(false);

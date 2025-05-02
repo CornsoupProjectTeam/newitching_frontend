@@ -8,7 +8,7 @@ import BeforeButton from "../button/RegisterMatching/BeforeButton";
 import StartButton from "../button/RegisterMatching/StartButton";
 import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
 
-const RegisterStartBox = () => {
+const RegisterStartBox = ({ onStepChange }) => {
     const [maxTesters, setMaxTesters] = useState("");
     const [teamSize, setTeamSize] = useState("");
     const [deadline, setDeadline] = useState(null);
@@ -33,7 +33,7 @@ const RegisterStartBox = () => {
     };
 
     const handleBack = () => {
-        navigate(-1);
+        onStepChange(1);
     };
 
     const validTeamSizes = () => {

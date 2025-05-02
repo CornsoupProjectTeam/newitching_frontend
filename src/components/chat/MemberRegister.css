@@ -16,7 +16,7 @@
 }
 /* 반응형 대응 */
 @media (max-width: 768px) {
-    .matching-content {
+    .MemberRegister-right {
         padding: 32px 16px;
     }
 }
