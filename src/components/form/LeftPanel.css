@@ -5,60 +5,43 @@
     flex-direction: column;        /* 수직 정렬 */
     justify-content: flex-start;   /* 위쪽 정렬 */
     align-items: flex-start;       /* 왼쪽 정렬 */
-    padding: 40px;
     box-sizing: border-box;
+    padding: 40px 0 0 60px;
 }
 
-.left-panel-side {
+.left-panel-logo {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.leftpanel-explain {
-    width: 300px;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.itching-logo {
-    width: 285px;
-    height: auto;
-    margin-bottom: 20px;
+    padding: 6.75px 6.29px 23.088px 8.438px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 185.273px;
+    height: 58.162px;
 }
 
 .orange-logo {
     width: 276px;
     height: 180px;
-    margin-top: 20px;
+    flex-shrink: 0;
 }
 
-/* 💻 태블릿 대응 (768px ~ 1024px) */
-@media (max-width: 1024px) and (min-width: 769px) {
+/* 🧾 모바일 반응형 스타일 */
+@media screen and (max-width: 768px) {
     .left-panel {
-        padding: 40px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: auto;
+        align-items: center;
+        justify-content: center;
     }
 
-    .itching-logo {
-        width: 150px;
-        margin-bottom: 16px;
-    }
-
-    .orange-logo {
-        width: 220px;
-        margin-top: 16px;
-    }
-
-    .leftpanel-explain {
-        font-size: 14px;
-        margin-bottom: 16px;
+    /* 모바일에서 숨길 요소들 */
+    .orange-logo,
+    .itching-logo,
+    .left-panel-logo,
+    .left-panel-explain {
+        display: none !important;
     }
 }
 
-/* 📱 모바일 대응: 화면이 작아지면 LeftPanel 숨기기 */
-@media (max-width: 768px) {
-    .left-panel {
-        display: none;
-    }
-}

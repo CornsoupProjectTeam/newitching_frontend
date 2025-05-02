@@ -1,6 +1,4 @@
-/* components/chat/MemberRegister.css */
-
-.MemberRegister-container {
+.matching-container {
     display: flex;
     width: 100%;
     min-height: 150vh;
@@ -9,14 +7,15 @@
     box-sizing: border-box;
 }
 
-.MemberRegister-right {
+.matching-content {
     padding: 65px 0 0 100px;
     width: 100%;
     box-sizing: border-box;
 }
+
 /* 반응형 대응 */
 @media (max-width: 768px) {
-    .MemberRegister-right {
+    .matching-content {
         padding: 32px 16px;
     }
 }
