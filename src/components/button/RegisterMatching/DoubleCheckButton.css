@@ -1,0 +1,19 @@
+.doublecheck-btn {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 6px;
+    background: var(--orange-400, #FD8B3E);
+    color: var(--maincolor-white, #FFF);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+}

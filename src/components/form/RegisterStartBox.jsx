@@ -1,26 +1,56 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./RegisterStartBox.css";
-import { ReactComponent as BeforeButton } from "../button/BeforeButton.svg";
-import { ReactComponent as StartButton } from "../button/StartButton.svg";
-import { ReactComponent as ArrowDownButton } from "../button/arrow-down.svg"; // 추가
+import "../../components/drop-down/CustomCalender.css"; // 추가된 커스텀 스타일
+import BeforeButton from "../button/RegisterMatching/BeforeButton";
+import StartButton from "../button/RegisterMatching/StartButton";
+import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
 
-const RegisterStartBox = () => {
+const RegisterStartBox = ({ onStepChange }) => {
     const [maxTesters, setMaxTesters] = useState("");
-    const [teamSize, setTeamSize] = useState("2명");
-    const [deadline, setDeadline] = useState("");
+    const [teamSize, setTeamSize] = useState("");
+    const [deadline, setDeadline] = useState(null);
 
     const navigate = useNavigate();
 
     const handleStart = () => {
-        // 실제 사용 시 유효성 검사 및 navigate 실행
-        console.log("시작:", { maxTesters, teamSize, deadline });
-        navigate("/registerurl");
+        if (!maxTesters || !teamSize || !deadline) return;
+
+        const urlKey = "testkey123";
+        const matchCount = Math.floor(maxTesters / teamSize);
+
+        navigate("/matching/register", {
+            state: {
+                urlKey,
+                maxTesters: Number(maxTesters),
+                teamSize: Number(teamSize),
+                matchCount,
+                deadline: deadline.toISOString().split("T")[0],
+            },
+        });
     };
 
     const handleBack = () => {
-        navigate(-1);
+        onStepChange(1);
     };
+
+    const validTeamSizes = () => {
+        const testers = parseInt(maxTesters, 10);
+        if (!testers || testers < 2) return [];
+        const divisors = [];
+        for (let i = 2; i <= testers; i++) {
+            if (testers % i === 0) divisors.push(i);
+        }
+        return divisors;
+    };
+
+    const maxDate = (() => {
+        const date = new Date();
+        date.setMonth(date.getMonth() + 6);
+        return date;
+    })();
 
     return (
         <div className="register-start-box">
@@ -34,7 +64,10 @@ const RegisterStartBox = () => {
                     className="register-start-box-input"
                     placeholder="매칭에 참여할 최대 인원 수를 입력하세요."
                     value={maxTesters}
-                    onChange={(e) => setMaxTesters(e.target.value)}
+                    onChange={(e) => {
+                        setMaxTesters(e.target.value);
+                        setTeamSize("");
+                    }}
                 />
             </div>
 
@@ -46,8 +79,9 @@ const RegisterStartBox = () => {
                         value={teamSize}
                         onChange={(e) => setTeamSize(e.target.value)}
                     >
-                        {[...Array(10)].map((_, i) => (
-                            <option key={i + 1}>{i + 1}명</option>
+                        <option value="" disabled>선택하세요</option>
+                        {validTeamSizes().map((size) => (
+                            <option key={size} value={size}>{size}명</option>
                         ))}
                     </select>
                     <ArrowDownButton className="register-start-box-arrow-icon" />
@@ -56,32 +90,26 @@ const RegisterStartBox = () => {
 
             <div className="register-start-box-form-group">
                 <label className="register-start-box-label">마감 기한</label>
-                <input
-                    type="date"
+                <DatePicker
+                    selected={deadline}
+                    onChange={(date) => setDeadline(date)}
+                    maxDate={maxDate}
+                    dateFormat="yyyy-MM-dd"
+                    placeholderText="마감 기한을 선택하세요"
                     className="register-start-box-date"
-                    value={deadline}
-                    onChange={(e) => setDeadline(e.target.value)}
-                    max={getMaxDate(6)}
                 />
             </div>
 
-                <div className="register-box-btn-group">
-                    <button className="register-box-before-btn" onClick={handleBack}>
-                        <BeforeButton />
-                    </button>
-                    <button className="register-box-start-btn" onClick={handleStart}>
-                        <StartButton />
-                    </button>
-                </div>
+            <div className="register-start-box-buttons">
+                <button className="register-start-box-before-btn" onClick={handleBack}>
+                    <BeforeButton />
+                </button>
+                <button className="register-start-box-start-btn" onClick={handleStart}>
+                    <StartButton />
+                </button>
+            </div>
         </div>
     );
 };
 
 export default RegisterStartBox;
-
-// 최대 6개월 후 날짜 제한
-function getMaxDate(months) {
-    const date = new Date();
-    date.setMonth(date.getMonth() + months);
-    return date.toISOString().split("T")[0];
-}

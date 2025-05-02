@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MatchResultSignInBox.css";
-import { ReactComponent as StartButton } from "../button/ResultStartButton.svg";
-import { ReactComponent as CancelButton } from "../button/ResultCancelButton.svg";
+import "../../components/button/ResultStartButton.css"
+import "../../components/button/ResultStartButton"
+import CancelButton from "../../components/button/RegisterMatching/CancelButton";
+import ResultStartButton from "../button/ResultStartButton";
 
 const MatchResultSignIn = () => {
     const [projectId, setProjectId] = useState("");
@@ -10,6 +12,7 @@ const MatchResultSignIn = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
     const [projectIdError, setProjectIdError] = useState("");
+
     const navigate = useNavigate();
 
     const handleNextClick = async () => {
@@ -21,14 +24,12 @@ const MatchResultSignIn = () => {
             return;
         }
 
-        // ✅ 백엔드에 프로젝트 아이디 유효성 검사
         try {
             const response = await fetch(`/api/project/${projectId}`);
             if (!response.ok) {
                 throw new Error("존재하지 않는 프로젝트");
             }
 
-            // ✅ 모든 조건 통과시 페이지 이동
             navigate("/matchresult", { state: { projectId, password } });
         } catch (error) {
             setProjectIdError("존재하지 않는 아이디입니다!");
@@ -36,60 +37,54 @@ const MatchResultSignIn = () => {
     };
 
     return (
-        <div className="matchresult-box">
-            <h2 className="matchresult-title">팀 매칭 결과 확인하기</h2>
+        <div className="matchresult-container">
+            <h2 className="matchresult-title">팀 매칭 결과 확인</h2>
 
-            <div className="matchresult-form">
-                <div className="matchresult-form-group">
-                    <label className="matchresult-label">프로젝트 아이디</label>
+            {/* 프로젝트 아이디 */}
+            <div className="matchresult-group">
+                <label className="matchresult-label">프로젝트 아이디</label>
+                <div className="matchresult-input-wrapper">
                     <input
                         type="text"
-                        placeholder="프로젝트 아이디를 입력하세요"
                         className="matchresult-input"
                         value={projectId}
-                        onChange={(e) => setProjectId(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                            setProjectId(value);
+                            setProjectIdError("");
+                        }}
+                        placeholder="영어와 숫자 입력 가능"
                     />
-                    {projectIdError && (
-                        <div className="matchresult-box-invalid">
-                            {projectIdError}
-                        </div>
-                    )}
                 </div>
+                {projectIdError && <p className="matchresult-msg">{projectIdError}</p>}
+            </div>
 
-                <div className="matchresult-form-group">
-                    <label className="matchresult-label">비밀번호</label>
+            {/* 비밀번호 */}
+            <div className="matchresult-group">
+                <label className="matchresult-label">비밀번호</label>
+                <div className="matchresult-input-wrapper">
                     <input
                         type="password"
-                        placeholder="비밀번호를 입력하세요"
                         className="matchresult-input"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) =>
+                            setPassword(
+                                e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, "")
+                            )
+                        }
+                        placeholder="영어, 숫자, 특수문자 입력 가능"
                     />
                 </div>
+            </div>
 
-                <div className="matchresult-form-group">
-                    <label className="matchresult-label">비밀번호 확인</label>
-                    <input
-                        type="password"
-                        placeholder="확인을 위해 다시 입력하세요"
-                        className="matchresult-input"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    {!isPasswordMatch && (
-                        <div className="matchresult-box-invalid">
-                            비밀번호 불일치, 다시 입력하세요!
-                        </div>
-                    )}
-                </div>
-                <div className="matchresult-box-btn-group">
-                    <button className="matchresult-box-cancel-btn" onClick={() => navigate("/home")}>
-                        <CancelButton />
-                    </button>
-                    <button className="matchresult-box-next-btn" onClick={handleNextClick}>
-                        <StartButton />
-                    </button>
-                </div>
+            {/* 버튼 */}
+            <div className="matchresult-buttons">
+                <button onClick={() => navigate("/")} className="matchresult-button svg-btn">
+                    <CancelButton />
+                </button>
+                <button onClick={handleNextClick} className="matchresult-button svg-btn">
+                    <ResultStartButton />
+                </button>
             </div>
         </div>
     );

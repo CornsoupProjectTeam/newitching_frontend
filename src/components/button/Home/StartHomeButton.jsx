@@ -6,7 +6,7 @@ const StartHomeButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/registermatch");
+        navigate("/matching");
     };
 
     return (

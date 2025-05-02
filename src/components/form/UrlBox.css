@@ -1,104 +1,89 @@
 .url-box {
     display: flex;
     flex-direction: column;
-    justify-content: left;
     align-items: flex-start;
-    background: #fff;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
     padding: 40px;
+    gap: 32px; /* 🔽 줄임 */
+    background: var(--maincolor-white, #FFF);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
-    width: 952px;
-    height: 661px;
-    gap: 56px;
-    margin-top: -52px;
+    box-sizing: border-box;
+}
+
+/* 제목 영역 */
+.url-box-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
 }
 
 .url-box-title h2 {
-    color: var(--blue-900, #1B1E33);
-    leading-trim: both;
-    text-edge: cap;
-    font-family: Pretendard;
     font-size: 24px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    color: var(--blue-900, #1B1E33);
+    font-family: Pretendard;
 }
 
 .url-box-title p {
-    color: var(--grayscale-gray900, #6A6666);
-    text-align: center;
-    leading-trim: both;
-    text-edge: cap;
-
-    /* title/medium/Medium */
-    font-family: Pretendard;
     font-size: 20px;
-    font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    color: var(--grayscale-gray900, #6A6666);
+    font-family: Pretendard;
+    margin-top: 8px;
+    word-break: break-word;
+    white-space: normal;
 }
 
+/* 본문 영역 */
 .url-box-content {
     display: flex;
-    padding: 24px 298px;
     flex-direction: column;
     align-items: center;
     gap: 36px;
-    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
     text-align: center;
 }
 
 .url-box-img {
-    width: 250px;
+    width: 200px;
+    max-width: 100%;
     height: auto;
-    margin-top: -30px;
 }
 
 .url-box-info {
     color: var(--orange-300, #FDA265);
-    text-align: center;
-    leading-trim: both;
-    text-edge: cap;
-
-    /* title/medium/Small */
-    font-family: Pretendard;
     font-size: 18px;
-    font-style: normal;
     font-weight: 500;
-    line-height: 28px; /* 155.556% */
+    font-family: Pretendard;
+    line-height: 28px;
+    text-align: center;
+    word-break: break-word;
+    white-space: normal;
 }
 
+/* 버튼 영역 */
 .url-box-btn-group {
     display: flex;
-    align-self: flex-end;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .url-box-copy-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    color: #131115;
 }
 
-.url-box-copy-btn svg {
-    display: flex;
-    padding: -10px 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-.url-box-copy-btn:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-/* 알림 이미지 */
+/* 복사 알림 */
 .url-box-noti {
     position: fixed;
     top: 40px;
@@ -106,6 +91,8 @@
     transform: translateX(-50%);
     z-index: 9999;
     animation: fadeInOut 2s ease;
+    padding: 14px 24px;
+    max-width: 90%;
 }
 
 @keyframes fadeInOut {
@@ -127,45 +114,40 @@
     }
 }
 
-/* ✅ 태블릿 반응형 */
-@media (max-width: 1024px) {
-    .url-box {
-        width: 90%;
-        padding: 32px 24px;
-        height: auto;
-        gap: 40px;
-    }
 
-    .url-box-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 32px;
-    }
-
-    .url-box-img {
-        align-self: center;
-    }
-
-    .url-box-info {
-        text-align: left;
-    }
-}
-
+/* ✅ 모바일 반응형 */
 @media (max-width: 768px) {
-    .url-box-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    .url-box {
+        padding: 24px;
+        gap: 24px;
     }
 
-    .url-box-info {
-        font-size: 14px;
-        white-space: normal;
-        gap: 6px;
-        line-height: 1.4;
+    .url-box-title h2 {
+        font-size: 20px;
+    }
+
+    .url-box-title p {
+        font-size: 16px;
     }
 
     .url-box-img {
         width: 140px;
+    }
+
+    .url-box-info {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .url-box-btn-group {
+        justify-content: center;
+    }
+
+
+    .url-box-noti {
+        max-width: 110%;
+        border-radius: 80px;
+        white-space: nowrap;         /* 텍스트 줄바꿈 방지 */
+        text-overflow: ellipsis;
     }
 }

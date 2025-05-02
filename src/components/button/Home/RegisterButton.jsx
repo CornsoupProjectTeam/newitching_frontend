@@ -6,7 +6,7 @@ const RegisterButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/registermatch");
+        navigate("/matching");
     };
 
     return (

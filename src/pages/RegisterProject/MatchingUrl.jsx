@@ -3,12 +3,12 @@
 import React from "react";
 import "../../components/form/LeftPanel.css";
 import "../../components/form/UrlBox.css";
-import "./RegisterUrl.css";
+import "./MatchingUrl.css";
 
 import LeftPanel from "../../components/form/LeftPanel";
 import UrlBox from "../../components/form/UrlBox";
 
-const RegisterUrl = () => {
+const MatchingUrl = () => {
     return (
         <div className="RegisterUrl-container">
             <div className="RegisterUrl-left">
@@ -21,4 +21,4 @@ const RegisterUrl = () => {
     );
 };
 
-export default RegisterUrl;
+export default MatchingUrl;

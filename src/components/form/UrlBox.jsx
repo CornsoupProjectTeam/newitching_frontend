@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./UrlBox.css";
-import { ReactComponent as CopyButton } from "../../components/button/DublicateUrl.svg";
-import { ReactComponent as UrlNoti } from "../../assets/images/UrlNoti.svg";
+import DublicateUrlButton from "../button/RegisterMatching/DublicateUrlButton";
+import UrlNoti from "../../assets/images/UrlNoti";
 import emaillogo from "../../assets/images/email.svg";
 
-const UrlBox = ({ urlKey, maxTesters, teamSize, matchCount, deadline }) => {
+const UrlBox = () => {
+    const { state } = useLocation();
     const [copied, setCopied] = useState(false);
+
+    const { urlKey, maxTesters, teamSize, matchCount, deadline } = state || {};
+
     const parsedDate = deadline ? new Date(deadline) : null;
     const year = parsedDate?.getFullYear() ?? "";
     const month = parsedDate ? parsedDate.getMonth() + 1 : "";
     const day = parsedDate?.getDate() ?? "";
-
 
     const handleCopy = () => {
         const url = `${window.location.origin}/chat/${urlKey}`;
@@ -30,17 +34,17 @@ const UrlBox = ({ urlKey, maxTesters, teamSize, matchCount, deadline }) => {
             <div className="url-box-content">
                 <img src={emaillogo} alt="email" className="url-box-img" />
                 <div className="url-box-info">
-                    <div>생성일 : 2025년 4월 14일</div>
+                    <div>생성일 : {formatToday()}</div>
                     <div>최대 테스트 가능 인원 수 : {maxTesters}명</div>
                     <div>팀원 수 : {teamSize}명</div>
-                    <div>AI 매칭될 팀 수 : {Math.floor(maxTesters / teamSize)}개 팀</div>
+                    <div>AI 매칭될 팀 수 : {matchCount}개 팀</div>
                     <div>마감 기한 : {year}년 {month}월 {day}일</div>
                 </div>
             </div>
 
             <div className="url-box-btn-group">
                 <button className="url-box-copy-btn" onClick={handleCopy}>
-                    <CopyButton />
+                    <DublicateUrlButton />
                 </button>
             </div>
 
@@ -55,7 +59,6 @@ const UrlBox = ({ urlKey, maxTesters, teamSize, matchCount, deadline }) => {
 
 export default UrlBox;
 
-// 날짜 포맷
 function formatToday() {
     const now = new Date();
     return `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`;
