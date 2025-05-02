@@ -7,12 +7,11 @@ const MemberBox = () => {
     const { projectId } = useParams(); // URL에서 팀 ID 추출
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
-    const navigate = useNavigate();
 
     const handleStart = () => {
         console.log("이름:", name, "소속:", organization, "프로젝트:", projectId);
         // TODO: 이후 API 요청 또는 페이지 이동 로직 작성
-        navigate("/chat");
+        window.open("/chat");
     };
 
     return (

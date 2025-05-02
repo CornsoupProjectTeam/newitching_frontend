@@ -1,0 +1,28 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.matching-container {
+  max-width: 816px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.matching-layout {
+  display: flex;
+  padding: 0px 60px;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.matching-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+}
