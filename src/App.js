@@ -4,7 +4,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header/MainHeader";
 import Footer from "./components/footer/Footer";
-import Chat from "./pages/ChatPage"
+import Chat from "./pages/Chat/ChatPage"
 import MatchingPage from "./pages/RegisterProject/MatchingPage";
 import MatchingUrl from "./pages/RegisterProject/MatchingUrl";
 import MemberRegister from "./components/chat/MemberRegister";
