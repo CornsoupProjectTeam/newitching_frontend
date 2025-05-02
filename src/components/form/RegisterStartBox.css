@@ -40,9 +40,19 @@
 }
 
 .register-start-box-input,
-.register-start-box-select,
-.register-start-box-date {
+.register-start-box-select {
     width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    border: 1px solid #aca5a3;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+    color: #131115;
+}
+
+.register-start-box-date {
+    width: 176%;
     padding: 12px 16px;
     font-size: 14px;
     border: 1px solid #aca5a3;
@@ -76,19 +86,22 @@
 
 .register-start-box-date {
     cursor: pointer;
+
+
 }
+
 
 /* 버튼 그룹 */
-.register-start-box-button-wrapper {
+.register-start-box-buttons {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    margin-top: 32px;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0 0 0 108px;
 }
 
-.register-box-before-btn,
-.register-box-start-btn {
+.register-start-box-before-btn,
+.register-start-box-start-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -107,5 +120,15 @@
 
     .register-start-box-select-wrapper {
         width: 100%;
+    }
+    .register-start-box-buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        margin-left: -65px;
+    }
+    .register-start-box-date {
+        width: 148%;
     }
 }
