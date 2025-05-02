@@ -1,10 +1,10 @@
-// pages/ChatPage.jsx
+// pages/Chat/ChatPage.jsx
 import React from "react";
 
-import "../components/chat/ChatWindow.css"
+import "../../components/chat/ChatWindow.css"
 
-import ChatWindow from "../components/chat/ChatWindow";
-import LeftPanel from "../components/form/LeftPanel";
+import ChatWindow from "../../components/chat/ChatWindow";
+import LeftPanel from "../../components/form/LeftPanel";
 
 const ChatPage = () => {
     return (

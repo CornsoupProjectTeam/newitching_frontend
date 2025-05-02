@@ -1,0 +1,46 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.trait-score {
+  display: flex;
+  padding: 0px 28px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+
+  border-left: 4px solid var(--grayscale-gray400, #EDE5E0);
+}
+
+.trait-info{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trait-label {
+  color: var(--grayscale-alpha-700, rgba(19, 17, 21, 0.70));
+  leading-trim: both;
+  text-edge: cap;
+
+  /* title/bold/Large */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.trait-explanation{
+  align-self: stretch;
+  margin: 0px;
+  color: var(--grayscale-alpha-600, rgba(19, 17, 21, 0.60));
+  leading-trim: both;
+  text-edge: cap;
+
+  /* title/medium/Small */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 155.556% */
+}

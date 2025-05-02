@@ -16,20 +16,21 @@
 }
 
 .leftpanel-explain {
+    width: 300px;
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 20px;
 }
 
 .itching-logo {
-    width: 185px;
+    width: 285px;
     height: auto;
     margin-bottom: 20px;
 }
 
 .orange-logo {
-    width: 270px;
-    height: auto;
+    width: 276px;
+    height: 180px;
     margin-top: 20px;
 }
 

@@ -4,11 +4,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainHeader from "./components/header/MainHeader";
 import Footer from "./components/footer/Footer";
-import Chat from "./pages/ChatPage"
+import Chat from "./pages/Chat/ChatPage"
 import RegisterMatch from "./pages/RegisterProject/RegisterMatch";
 import RegisterStart from "./pages/RegisterProject/RegisterStart";
 import RegisterUrl from "./pages/RegisterProject/RegisterUrl";
 import MemberRegister from "./components/chat/MemberRegister";
+import Big5ResultPage from "./pages/Big5/Big5Page"
+import MatchingResultPage from "./pages/TeamMatchingResult/MatchingResultPage";
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
               <Route path="/registerstart" element={<RegisterStart />} />
               <Route path="/registerurl" element={<RegisterUrl />} />
               <Route path="/memberregister" element={<MemberRegister />} />
+              <Route path="/big5" element={<Big5ResultPage />} />
+              <Route path="/matching/result" element={<MatchingResultPage />} />
           </Routes>
           <Footer />
         </Router>
