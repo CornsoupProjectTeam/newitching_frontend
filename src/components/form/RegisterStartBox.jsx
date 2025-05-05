@@ -3,33 +3,61 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./RegisterStartBox.css";
-import "../../components/drop-down/CustomCalender.css"; // 추가된 커스텀 스타일
+import "../../components/drop-down/CustomCalender.css";
 import BeforeButton from "../button/RegisterMatching/BeforeButton";
 import StartButton from "../button/RegisterMatching/StartButton";
 import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
 
-const RegisterStartBox = ({ onStepChange }) => {
+const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
     const [maxTesters, setMaxTesters] = useState("");
     const [teamSize, setTeamSize] = useState("");
     const [deadline, setDeadline] = useState(null);
 
     const navigate = useNavigate();
 
-    const handleStart = () => {
+    const handleStart = async () => {
         if (!maxTesters || !teamSize || !deadline) return;
 
-        const urlKey = "testkey123";
-        const matchCount = Math.floor(maxTesters / teamSize);
+        const memberCount = Number(maxTesters);
+        const teamSizeNum = Number(teamSize);
+        const matchCount = Math.floor(memberCount / teamSizeNum);
 
-        navigate("/matching/register", {
-            state: {
-                urlKey,
-                maxTesters: Number(maxTesters),
-                teamSize: Number(teamSize),
-                matchCount,
-                deadline: deadline.toISOString().split("T")[0],
-            },
-        });
+        const payload = {
+            matchingId,
+            password,
+            memberCount,
+            teamSize: teamSizeNum,
+            deadline: deadline.toISOString(),
+        };
+
+        try {
+            const response = await fetch("/matching/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error("등록 실패");
+            }
+
+            const data = await response.json();
+            const { urlkey } = data;
+
+            navigate("/matching/register", {
+                state: {
+                    urlKey: urlkey,
+                    maxTesters: memberCount,
+                    teamSize: teamSizeNum,
+                    matchCount,
+                    deadline: deadline.toISOString(),
+                },
+            });
+        } catch (err) {
+            console.error("등록 오류:", err);
+        }
     };
 
     const handleBack = () => {

@@ -11,12 +11,13 @@ const UrlBox = () => {
 
     const { urlKey, maxTesters, teamSize, matchCount, deadline } = state || {};
 
-    const parsedDate = deadline ? new Date(deadline) : null;
-    const year = parsedDate?.getFullYear() ?? "";
-    const month = parsedDate ? parsedDate.getMonth() + 1 : "";
-    const day = parsedDate?.getDate() ?? "";
+    const parsedDeadline = deadline ? new Date(deadline) : null;
+    const formattedDeadline = parsedDeadline
+        ? `${parsedDeadline.getFullYear()}년 ${parsedDeadline.getMonth() + 1}월 ${parsedDeadline.getDate()}일`
+        : "";
 
     const handleCopy = () => {
+        if (!urlKey) return;
         const url = `${window.location.origin}/chat/${urlKey}`;
         navigator.clipboard.writeText(url).then(() => {
             setCopied(true);
@@ -38,7 +39,7 @@ const UrlBox = () => {
                     <div>최대 테스트 가능 인원 수 : {maxTesters}명</div>
                     <div>팀원 수 : {teamSize}명</div>
                     <div>AI 매칭될 팀 수 : {matchCount}개 팀</div>
-                    <div>마감 기한 : {year}년 {month}월 {day}일</div>
+                    <div>마감 기한 : {formattedDeadline}</div>
                 </div>
             </div>
 
@@ -63,10 +64,3 @@ function formatToday() {
     const now = new Date();
     return `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`;
 }
-
-function formatDate(iso) {
-    const d = new Date(iso);
-    return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
-}
-
-
