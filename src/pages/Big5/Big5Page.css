@@ -160,7 +160,7 @@
     /* width는 인라인 스타일로 설정: style={{ width: `${score}%` }} */
 }
 
-.trait-score {
+.trait-percent {
     color: white;
     font-size: 14px;
     line-height: 1;

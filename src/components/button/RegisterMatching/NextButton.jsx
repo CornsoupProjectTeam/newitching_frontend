@@ -3,9 +3,9 @@ import "./NextButton.css";
 
 const NextButton = () => {
     return (
-        <button className="next-btn">
+        <div className="next-btn">
             다음으로
-        </button>
+        </div>
     );
 };
 

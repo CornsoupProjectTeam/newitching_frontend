@@ -35,7 +35,6 @@ const TraitScore = ({ label, score, eval: evalScore, showBadge = true }) => {
                     <span className="trait-badge">
             {isGold && <GoldBadge className="badge-icon" />}
                         {isSilver && <SilverBadge className="badge-icon" />}
-                        <span className="badge-label">{resultLabel}</span>
           </span>
                 )}
             </div>

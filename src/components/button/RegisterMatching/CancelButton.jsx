@@ -10,9 +10,9 @@ const CancelButton = () => {
     };
 
     return (
-        <button className="cancel-btn" onClick={handleClick}>
+        <div className="cancel-btn" onClick={handleClick}>
             취소
-        </button>
+        </div>
     );
 };
 

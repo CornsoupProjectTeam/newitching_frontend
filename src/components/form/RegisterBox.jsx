@@ -8,33 +8,32 @@ import CancelButton from "../../components/button/RegisterMatching/CancelButton"
 import NextButton from "../../components/button/RegisterMatching/NextButton";
 import DoubleCheckButton from "../button/RegisterMatching/DoubleCheckButton";
 
-const RegisterBox = ({ onStepChange }) => {
-    const [projectId, setProjectId] = useState("");
+const RegisterBox = ({ onStepChange, setProjectId, setPassword }) => {
+    const [localProjectId, setLocalProjectId] = useState("");
     const [isProjectIdChecked, setIsProjectIdChecked] = useState(false);
     const [isProjectIdAvailable, setIsProjectIdAvailable] = useState(null);
     const [projectIdError, setProjectIdError] = useState("");
 
-    const [password, setPassword] = useState("");
+    const [localPassword, setLocalPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
 
     const navigate = useNavigate();
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     const handleCheckProjectId = async () => {
-        if (!projectId.trim()) {
-            setProjectIdError("프로젝트 아이디를 입력해주세요.");
+        if (!localProjectId.trim()) {
+            setProjectIdError("매칭 아이디를 입력해주세요.");
             setIsProjectIdChecked(false);
             setIsProjectIdAvailable(false);
             return;
         }
 
         try {
-            const response = await fetch("/matching/doublecheck", {
+            const response = await fetch(`${BACKEND_URL}/matching/doublecheck`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ projectId })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ projectId: localProjectId }),
             });
 
             if (response.ok) {
@@ -42,8 +41,9 @@ const RegisterBox = ({ onStepChange }) => {
                 setIsProjectIdAvailable(data.available);
                 setProjectIdError("");
             } else {
+                const errorData = await response.json();
                 setIsProjectIdAvailable(false);
-                setProjectIdError("아이디 확인 중 오류가 발생했습니다.");
+                setProjectIdError(errorData.error || "아이디 확인 중 오류가 발생했습니다.");
             }
         } catch (error) {
             console.error("중복 확인 실패", error);
@@ -54,45 +54,33 @@ const RegisterBox = ({ onStepChange }) => {
         setIsProjectIdChecked(true);
     };
 
-    // const handleNext = () => {
-    //     const passwordMatch = password === confirmPassword;
-    //     setIsPasswordMatch(passwordMatch);
-    //
-    //     if (isProjectIdChecked && isProjectIdAvailable && passwordMatch) {
-    //         onStepChange(2);
-    //     }
-    // };
-
     const handleNext = () => {
-        const passwordMatch = password === confirmPassword;
+        const passwordMatch = localPassword === confirmPassword;
         setIsPasswordMatch(passwordMatch);
-
-        // ✅ 임시 하드코딩: cornsoup이면 무조건 넘어가도록
-        if (projectId === "cornsoup" && passwordMatch) {
-            onStepChange(2);
-            return;
-        }
-
-        if (isProjectIdChecked && isProjectIdAvailable && passwordMatch) {
+        // TODO: 중복확인
+        // 중복 확인 없이 테스트용으로 바로 넘기기
+        if (passwordMatch) {
+            setProjectId(localProjectId);
+            setPassword(localPassword);
             onStepChange(2);
         }
     };
+
 
     return (
         <div className="registerbox-container">
             <h2 className="registerbox-title">팀 매칭 등록하기</h2>
 
-            {/* 프로젝트 아이디 */}
             <div className="registerbox-group">
-                <label className="registerbox-label">프로젝트 아이디</label>
+                <label className="registerbox-label">매칭 아이디</label>
                 <div className="registerbox-input-wrapper">
                     <input
                         type="text"
                         className="registerbox-input"
-                        value={projectId}
+                        value={localProjectId}
                         onChange={(e) => {
-                            const value = e.target.value.replace(/[^a-zA-Z0-9]/g, ""); // 영어+숫자만 허용
-                            setProjectId(value);
+                            const value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                            setLocalProjectId(value);
                             setIsProjectIdChecked(false);
                             setIsProjectIdAvailable(null);
                             setProjectIdError("");
@@ -122,24 +110,22 @@ const RegisterBox = ({ onStepChange }) => {
                 </div>
             </div>
 
-            {/* 비밀번호 */}
             <div className="registerbox-group">
                 <label className="registerbox-label">비밀번호</label>
                 <div className="registerbox-input-wrapper">
                     <input
                         type="password"
                         className="registerbox-input"
-                        value={password}
+                        value={localPassword}
                         onChange={(e) => {
-                            const value = e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, ""); // 영어, 숫자, 특수문자
-                            setPassword(value);
+                            const value = e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, "");
+                            setLocalPassword(value);
                         }}
                         placeholder="영어, 숫자, 특수문자 입력 가능"
                     />
                 </div>
             </div>
 
-            {/* 비밀번호 확인 */}
             <div className="registerbox-group">
                 <label className="registerbox-label">비밀번호 확인</label>
                 <div className="registerbox-input-wrapper">
@@ -148,7 +134,7 @@ const RegisterBox = ({ onStepChange }) => {
                         className="registerbox-input"
                         value={confirmPassword}
                         onChange={(e) => {
-                            const value = e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, ""); // 동일한 필터링
+                            const value = e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, "");
                             setConfirmPassword(value);
                             setIsPasswordMatch(true);
                         }}
@@ -161,7 +147,6 @@ const RegisterBox = ({ onStepChange }) => {
                     </p>
                 </div>
 
-                {/* 버튼 그룹 */}
                 <div className="registerbox-buttons">
                     <button onClick={() => navigate("/")} className="registerbox-button svg-btn">
                         <CancelButton />

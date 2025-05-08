@@ -13,9 +13,7 @@ const Footer = () => {
     const location = useLocation();
 
     // 숨길 경로 리스트
-    // const hideFooterPaths = [
-    //     "/", // 홈
-    // ];
+     const hideFooterPaths = [     ];
 
     // 채팅 고정 경로
     const isChatPage = location.pathname.startsWith("/chat");
@@ -23,12 +21,11 @@ const Footer = () => {
     // 동적 채팅 상세 페이지가 있다면 useMatch로 처리
     const isChatDetail = useMatch("/chat/:chatId");
 
-    // const shouldHideFooter =
-    //     hideFooterPaths.includes(location.pathname) || isChatPage || isChatDetail;
-    //
-    // if (shouldHideFooter) {
-    //     return null;
-    // }
+     const shouldHideFooter = hideFooterPaths.includes(location.pathname) || isChatPage || isChatDetail;
+
+    if (shouldHideFooter) {
+         return null;
+     }
     return (
         <footer className="footer">
             <div className="footer-container">

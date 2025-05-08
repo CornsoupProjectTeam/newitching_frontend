@@ -51,7 +51,7 @@ const Big5Page = () => {
                                             backgroundColor: getBarColor(trait.score),
                                         }}
                                     >
-                                        <span className="trait-score">{trait.score}</span>
+                                        <span className="trait-percent">{trait.score}</span>
                                     </div>
                                 </div>
                             </div>

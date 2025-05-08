@@ -40,9 +40,9 @@ const MatchResultSignIn = () => {
         <div className="matchresult-container">
             <h2 className="matchresult-title">팀 매칭 결과 확인</h2>
 
-            {/* 프로젝트 아이디 */}
+            {/* 매칭 아이디 */}
             <div className="matchresult-group">
-                <label className="matchresult-label">프로젝트 아이디</label>
+                <label className="matchresult-label">매칭 아이디</label>
                 <div className="matchresult-input-wrapper">
                     <input
                         type="text"

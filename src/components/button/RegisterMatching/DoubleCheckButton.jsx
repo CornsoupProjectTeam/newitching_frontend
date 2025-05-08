@@ -3,9 +3,9 @@ import "./DoubleCheckButton.css";
 
 const DoubleCheckButton = () => {
     return (
-        <button className="doublecheck-btn">
+        <div className="doublecheck-btn">
             중복 확인
-        </button>
+        </div>
     );
 };
 

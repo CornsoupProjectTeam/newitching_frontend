@@ -4,9 +4,9 @@ import "./BeforeButton.css";
 
 const BeforeButton = () => {
     return (
-        <button className="before-btn">
+        <div className="before-btn">
             이전으로
-        </button>
+        </div>
     );
 };
 
