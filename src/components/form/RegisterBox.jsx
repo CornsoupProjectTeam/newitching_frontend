@@ -8,64 +8,70 @@ import CancelButton from "../../components/button/RegisterMatching/CancelButton"
 import NextButton from "../../components/button/RegisterMatching/NextButton";
 import DoubleCheckButton from "../button/RegisterMatching/DoubleCheckButton";
 
-const RegisterBox = ({ onStepChange, setProjectId, setPassword }) => {
-    const [localProjectId, setLocalProjectId] = useState("");
-    const [isProjectIdChecked, setIsProjectIdChecked] = useState(false);
-    const [isProjectIdAvailable, setIsProjectIdAvailable] = useState(null);
-    const [projectIdError, setProjectIdError] = useState("");
+const RegisterBox = ({ onStepChange }) => {
+    const [matchingId, setMatchingId] = useState("");
+    const [isMatchingIdChecked, setIsMatchingIdChecked] = useState(false);
+    const [isMatchingIdAvailable, setIsMatchingIdAvailable] = useState(null);
+    const [matchingIdError, setMatchingIdError] = useState("");
 
-    const [localPassword, setLocalPassword] = useState("");
+    const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
 
     const navigate = useNavigate();
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-    const handleCheckProjectId = async () => {
-        if (!localProjectId.trim()) {
-            setProjectIdError("매칭 아이디를 입력해주세요.");
-            setIsProjectIdChecked(false);
-            setIsProjectIdAvailable(false);
+    const handleCheckMatchingId = async () => {
+        if (!matchingId.trim()) {
+            setMatchingIdError("매칭 아이디를 입력해주세요.");
+            setIsMatchingIdChecked(false);
+            setIsMatchingIdAvailable(false);
             return;
         }
 
         try {
-            const response = await fetch(`${BACKEND_URL}/matching/doublecheck`, {
+            const response = await fetch("/matching/doublecheck", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ projectId: localProjectId }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ matchingId })
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                const data = await response.json();
-                setIsProjectIdAvailable(data.available);
-                setProjectIdError("");
+                setIsMatchingIdAvailable(true);
+                setMatchingIdError("");
+            } else if (response.status === 400) {
+                setIsMatchingIdAvailable(false);
+                setMatchingIdError(data.message || "이미 존재하는 매칭 ID입니다.");
             } else {
-                const errorData = await response.json();
-                setIsProjectIdAvailable(false);
-                setProjectIdError(errorData.error || "아이디 확인 중 오류가 발생했습니다.");
+                setIsMatchingIdAvailable(false);
+                setMatchingIdError("알 수 없는 오류가 발생했습니다.");
             }
         } catch (error) {
             console.error("중복 확인 실패", error);
-            setIsProjectIdAvailable(false);
-            setProjectIdError("네트워크 오류가 발생했습니다.");
+            setIsMatchingIdAvailable(false);
+            setMatchingIdError("네트워크 오류가 발생했습니다.");
         }
 
-        setIsProjectIdChecked(true);
+        setIsMatchingIdChecked(true);
     };
 
     const handleNext = () => {
-        const passwordMatch = localPassword === confirmPassword;
+        const passwordMatch = password === confirmPassword;
         setIsPasswordMatch(passwordMatch);
-        // TODO: 중복확인
-        // 중복 확인 없이 테스트용으로 바로 넘기기
-        if (passwordMatch) {
-            setProjectId(localProjectId);
-            setPassword(localPassword);
-            onStepChange(2);
+
+        if (isMatchingIdChecked && isMatchingIdAvailable && passwordMatch) {
+            navigate("/matching", {
+                state: {
+                    matchingId,
+                    password,
+                    step: 2,
+                },
+            });
         }
     };
-
 
     return (
         <div className="registerbox-container">
@@ -77,33 +83,33 @@ const RegisterBox = ({ onStepChange, setProjectId, setPassword }) => {
                     <input
                         type="text"
                         className="registerbox-input"
-                        value={localProjectId}
+                        value={matchingId}
                         onChange={(e) => {
                             const value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                            setLocalProjectId(value);
-                            setIsProjectIdChecked(false);
-                            setIsProjectIdAvailable(null);
-                            setProjectIdError("");
+                            setMatchingId(value);
+                            setIsMatchingIdChecked(false);
+                            setIsMatchingIdAvailable(null);
+                            setMatchingIdError("");
                         }}
                         placeholder="영어와 숫자 입력 가능"
                     />
-                    <button onClick={handleCheckProjectId} className="registerbox-inline-btn">
+                    <button onClick={handleCheckMatchingId} className="registerbox-inline-btn">
                         <DoubleCheckButton />
                     </button>
                 </div>
                 <div className="registerbox-msg-area">
                     <p className={`registerbox-msg ${
-                        projectIdError ? "invalid" :
-                            isProjectIdChecked
-                                ? isProjectIdAvailable
+                        matchingIdError ? "invalid" :
+                            isMatchingIdChecked
+                                ? isMatchingIdAvailable
                                     ? "valid"
                                     : "invalid"
                                 : ""
                     }`}>
-                        {projectIdError ||
-                            (isProjectIdChecked
-                                ? isProjectIdAvailable
-                                    ? "사용 가능한 프로젝트 아이디입니다!"
+                        {matchingIdError ||
+                            (isMatchingIdChecked
+                                ? isMatchingIdAvailable
+                                    ? "사용 가능한 매칭 아이디입니다!"
                                     : "이미 사용 중입니다. 다른 아이디를 입력해보세요!"
                                 : "")}
                     </p>
@@ -116,10 +122,10 @@ const RegisterBox = ({ onStepChange, setProjectId, setPassword }) => {
                     <input
                         type="password"
                         className="registerbox-input"
-                        value={localPassword}
+                        value={password}
                         onChange={(e) => {
                             const value = e.target.value.replace(/[^a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, "");
-                            setLocalPassword(value);
+                            setPassword(value);
                         }}
                         placeholder="영어, 숫자, 특수문자 입력 가능"
                     />

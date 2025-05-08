@@ -8,54 +8,55 @@ import BeforeButton from "../button/RegisterMatching/BeforeButton";
 import StartButton from "../button/RegisterMatching/StartButton";
 import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
 
-const RegisterStartBox = ({ onStepChange, projectId, password }) => {
+const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
     const [maxTesters, setMaxTesters] = useState("");
     const [teamSize, setTeamSize] = useState("");
     const [deadline, setDeadline] = useState(null);
 
     const navigate = useNavigate();
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     const handleStart = async () => {
-        if (!maxTesters || !teamSize || !deadline) {
-            alert("모든 항목을 입력해주세요.");
-            return;
-        }
+        if (!maxTesters || !teamSize || !deadline) return;
 
-        // ISO 문자열에서 밀리초와 Z 제거 (예: 2025-04-06T17:47:00)
-        const formattedDeadline = deadline.toISOString().split('.')[0];
+        const memberCount = Number(maxTesters);
+        const teamSizeNum = Number(teamSize);
+        const matchCount = Math.floor(memberCount / teamSizeNum);
+
+        const payload = {
+            matchingId,
+            password,
+            memberCount,
+            teamSize: teamSizeNum,
+            deadline: deadline.toISOString(),
+        };
 
         try {
-            const response = await fetch(`${BACKEND_URL}/matching/register`, {
+            const response = await fetch("/matching/register", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    matchingId: projectId,
-                    password,
-                    memberCount: Number(maxTesters),
-                    teamSize: Number(teamSize),
-                    deadline: formattedDeadline,
-                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                navigate("/matching/register", {
-                    state: {
-                        urlKey: data.urlkey,
-                        maxTesters: Number(maxTesters),
-                        teamSize: Number(teamSize),
-                        matchCount: Math.floor(maxTesters / teamSize),
-                        deadline: formattedDeadline.split("T")[0],
-                    },
-                });
-            } else {
-                const errorData = await response.json();
-                alert(errorData.error || "등록 중 오류가 발생했습니다.");
+            if (!response.ok) {
+                throw new Error("등록 실패");
             }
-        } catch (error) {
-            console.error("등록 실패:", error);
-            alert("네트워크 오류가 발생했습니다.");
+
+            const data = await response.json();
+            const { urlkey } = data;
+
+            navigate("/matching/register", {
+                state: {
+                    urlKey: urlkey,
+                    maxTesters: memberCount,
+                    teamSize: teamSizeNum,
+                    matchCount,
+                    deadline: deadline.toISOString(),
+                },
+            });
+        } catch (err) {
+            console.error("등록 오류:", err);
         }
     };
 
