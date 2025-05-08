@@ -58,7 +58,6 @@ const MatchResultSignIn = () => {
                         placeholder="영어와 숫자 입력 가능"
                     />
                 </div>
-                {matchingIdError && <p className="matchresult-msg">{matchingIdError}</p>}
             </div>
 
             {/* 비밀번호 입력 */}
@@ -77,6 +76,7 @@ const MatchResultSignIn = () => {
                         placeholder="영어, 숫자, 특수문자 입력 가능"
                     />
                 </div>
+                {matchingIdError && <p className="matchresult-msg">{matchingIdError}</p>}
             </div>
 
             {/* 버튼 영역 */}

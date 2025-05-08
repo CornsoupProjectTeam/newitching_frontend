@@ -76,7 +76,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    gap: 0px;
+    gap: 0;
     padding: 0 0 0 135px;
 }
 
@@ -86,7 +86,7 @@
     cursor: pointer;
 }
 
-/* ✅ 반응형 */
+/* 반응형 */
 @media (max-width: 768px) {
     .matchresult-container {
         padding: 24px;
