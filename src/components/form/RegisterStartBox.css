@@ -126,9 +126,9 @@
         justify-content: flex-start;
         align-items: center;
         width: 100%;
-        margin-left: -65px;
+        padding-left: 23px;
     }
     .register-start-box-date {
-        width: 148%;
+        width: 137%;
     }
 }
