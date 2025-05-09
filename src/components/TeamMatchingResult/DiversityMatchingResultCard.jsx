@@ -1,6 +1,14 @@
+// components/TeamMatchingResult/DiversityMatchingResultCard.jsx
+
 import React from 'react';
-import './MatchingResultCard.css'; // 공통 스타일 사용
+
+/* css */
+import './MatchingResultCard.css';
+
+/* components */
 import TraitScore from './TraitScore';
+
+/* assets */
 import Logo_wb from "../../assets/images/Logo_wb.svg";
 
 const DiversityMatchingResultCard = ({ scores, teamIndex }) => {

@@ -1,6 +1,12 @@
+// components/TeamMatchingResult/AverageMatchingResultCard.jsx
+
 import React from 'react';
 import './MatchingResultCard.css';
+
+/* components */
 import TraitScore from './TraitScore';
+
+/* assets */
 import Logo_wb from "../../assets/images/Logo_wb.svg";
 
 const AverageMatchingResultCard = ({ scores, teamIndex }) => {

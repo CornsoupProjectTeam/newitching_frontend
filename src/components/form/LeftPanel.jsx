@@ -1,6 +1,8 @@
-// src/components/layout/LeftPanel.jsx
+// components/form/LeftPanel.jsx
 
 import React from "react";
+
+/* css */
 import "./LeftPanel.css";
 
 /* assets */

@@ -2,6 +2,8 @@
 
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+/* components */
 import MainHeader from "./components/header/MainHeader";
 import Footer from "./components/footer/Footer";
 import Chat from "./pages/Chat/ChatPage"
@@ -9,7 +11,7 @@ import MatchingPage from "./pages/RegisterProject/MatchingPage";
 import MatchingUrl from "./pages/RegisterProject/MatchingUrl";
 import MemberRegister from "./components/chat/MemberRegister";
 import MatchResultSignIn from "./pages/MatchResultProject/MatchResultSignIn";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import Big5ResultPage from "./pages/Big5/Big5Page"
 import MatchingResultPage from "./pages/TeamMatchingResult/MatchingResultPage";
 

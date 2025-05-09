@@ -1,10 +1,12 @@
+/* components/form/LeftPanel.css */
+
 .left-panel {
     flex: 1;
     display: flex;
     max-width: fit-content;
-    flex-direction: column;        /* 수직 정렬 */
-    justify-content: flex-start;   /* 위쪽 정렬 */
-    align-items: flex-start;       /* 왼쪽 정렬 */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     box-sizing: border-box;
     padding: 40px 0 0 60px;
 }
@@ -25,7 +27,6 @@
     flex-shrink: 0;
 }
 
-/* 🧾 모바일 반응형 스타일 */
 @media screen and (max-width: 768px) {
     .left-panel {
         padding: 0;

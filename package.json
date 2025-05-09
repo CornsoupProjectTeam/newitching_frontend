@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "proxy": "http://210.110.103.135:8080",
   "private": true,
-  "proxy": "http://210.110.103.135:8080",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

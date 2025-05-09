@@ -1,4 +1,8 @@
+// components/TeamMatchingResult/TeamSidebar.jsx
+
 import React from 'react';
+
+/* css */
 import './TeamSidebar.css';
 
 /* assets */

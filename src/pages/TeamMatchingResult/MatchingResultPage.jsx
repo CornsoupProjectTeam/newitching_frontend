@@ -1,6 +1,11 @@
+// src/pages/TeamMatchingResult/MatchingResultPage.jsx
+
 import React from 'react';
+
+/* css */
 import './MatchingResultPage.css';
 
+/* components */
 import TeamSidebar from '../../components/TeamMatchingResult/TeamSidebar';
 import TeamInfoCard from '../../components/TeamMatchingResult/TeamInfoCard';
 import AverageMatchingResultCard from '../../components/TeamMatchingResult/AverageMatchingResultCard';
@@ -8,6 +13,7 @@ import SimilarityMatchingResultCard from '../../components/TeamMatchingResult/Si
 import DiversityMatchingResultCard from '../../components/TeamMatchingResult/DiversityMatchingResultCard';
 
 const MatchingResultPage = () => {
+  // TODO: 백엔드 연동 후 하드코딩 지우기 => 디자인 점검
   const projectName = "콘스프";
   const teamList = ["Team 01", "Team 02", "Team 03"];
   const teamInfo = {

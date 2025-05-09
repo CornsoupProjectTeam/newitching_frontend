@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+// components/form/MemberBox.jsx
+
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+
+/* css */
 import "./MemberBox.css";
+
+/* assets */
 import { ReactComponent as StartChatButton } from "../button/MemberStartButton.svg";
 
 const MemberBox = () => {

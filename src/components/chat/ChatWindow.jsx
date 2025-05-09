@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
+
+/* css */
+import "./ChatWindow.css";
+
+/* components */
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
-import "./ChatWindow.css";
 
 const ChatWindow = () => {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
-
+    
+    // TODO: 웹소켓 연결 후 로그 정리 및 디자인 점검
     useEffect(() => {
         const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${process.env.REACT_APP_WS_TOKEN}`;
 

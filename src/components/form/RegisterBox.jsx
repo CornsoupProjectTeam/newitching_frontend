@@ -1,9 +1,15 @@
+// components/form/RegisterBox.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./RegisterBox.css";
 import "../../components/button/RegisterMatching/CancelButton.css";
 import "../../components/button/RegisterMatching/NextButton.css";
 import "../../components/button/RegisterMatching/DoubleCheckButton.css";
+
+/* components */
 import CancelButton from "../../components/button/RegisterMatching/CancelButton";
 import NextButton from "../../components/button/RegisterMatching/NextButton";
 import DoubleCheckButton from "../button/RegisterMatching/DoubleCheckButton";

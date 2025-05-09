@@ -1,3 +1,5 @@
+/* components/button/RegisterMatching/NextButton.css*/
+
 .next-btn {
     display: flex;
     padding: 14px 36px;
@@ -11,10 +13,9 @@
     leading-trim: both;
     text-edge: cap;
 
-    /* body/bold/Large - prominent */
     font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 160%; /* 25.6px */
+    line-height: 160%;
 }

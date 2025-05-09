@@ -1,4 +1,5 @@
-// traitDescriptions.js
+// assets/datas/traitDescriptions.js
+
 export const traitDescriptions = {
     외향성:
         '외향성은 사교적이고 활동적이며, 사람들과 어울리는 것을 즐기는 성격 특성입니다. 외향성이 높은 사람은 자신감 있고 긍정적인 에너지를 발산하며, 새로운 경험과 자극을 추구하는 경향이 있습니다. 반면, 외향성이 낮은 사람은 내향적인 성향을 보여 혼자 있는 시간을 선호하고, 신중하며 조용한 태도를 보입니다.',

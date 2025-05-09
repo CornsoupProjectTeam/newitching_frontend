@@ -1,6 +1,9 @@
-// components/MainHeader.jsx
+// components/header/MainHeader.jsx
+
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+/* css */
 import './MainHeader.css';
 
 /* asset */

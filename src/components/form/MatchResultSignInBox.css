@@ -1,3 +1,5 @@
+/* components/form/MatchResultSignInBox.css */
+
 .matchresult-container {
     display: flex;
     flex-direction: column;
@@ -71,7 +73,6 @@
     margin-top: -4px;
 }
 
-/* 버튼 그룹 */
 .matchresult-buttons {
     display: flex;
     justify-content: flex-end;
@@ -86,7 +87,6 @@
     cursor: pointer;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
     .matchresult-container {
         padding: 24px;

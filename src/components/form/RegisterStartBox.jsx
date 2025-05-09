@@ -1,11 +1,19 @@
+// components/form/RegisterStartBox.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+
+/* css */
 import "react-datepicker/dist/react-datepicker.css";
 import "./RegisterStartBox.css";
 import "../../components/drop-down/CustomCalender.css";
+
+/* components */
 import BeforeButton from "../button/RegisterMatching/BeforeButton";
 import StartButton from "../button/RegisterMatching/StartButton";
+
+/* assets s*/
 import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
 
 const RegisterStartBox = ({ onStepChange, matchingId, password }) => {

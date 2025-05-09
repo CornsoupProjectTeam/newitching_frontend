@@ -1,6 +1,9 @@
+// components/TeamMatchingResult/TeamInfoCard.jsx
+
 import React, { useState } from 'react';
 import './TeamInfoCard.css';
 
+/* components */
 import BigFiveSummary from './BigFiveSummary';
 
 const TeamInfoCard = ({ teamName, teamId, teamIndex, totalTeams, members }) => {

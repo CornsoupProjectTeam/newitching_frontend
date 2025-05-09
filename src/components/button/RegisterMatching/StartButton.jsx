@@ -1,4 +1,8 @@
+// components/button/RegisterMatching/StartButton.jsx
+
 import React from "react";
+
+/* css */
 import "./StartButton.css";
 
 const StartButton = () => {

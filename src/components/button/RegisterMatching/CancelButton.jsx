@@ -1,5 +1,9 @@
+/* components/button/RegisterMatching/CancelButton.css*/
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./CancelButton.css";
 
 const CancelButton = () => {

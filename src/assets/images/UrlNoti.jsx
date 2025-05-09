@@ -1,4 +1,8 @@
+// src/assets/images/UrlNoti.jsx
+
 import React from "react";
+
+/* css */
 import "./UrlNoti.css";
 
 const UrlNoti = () => {
