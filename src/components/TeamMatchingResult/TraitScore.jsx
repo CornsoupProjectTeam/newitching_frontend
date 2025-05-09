@@ -1,7 +1,15 @@
+// components/TeamMatchingResult/TraitScore.jsx
+
 import React from 'react';
+
+/* css */
 import './TraitScore.css';
+
+/* assets */
 import { ReactComponent as GoldBadge } from '../../assets/images/goldBadge.svg';
 import { ReactComponent as SilverBadge } from '../../assets/images/silverBadge.svg';
+
+/* datas */
 import { resultDescription } from '../../assets/datas/resultDescription';
 
 const evaluationLabel = {

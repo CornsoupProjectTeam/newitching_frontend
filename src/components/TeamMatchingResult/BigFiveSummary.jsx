@@ -1,7 +1,14 @@
-// BigFiveSummary.jsx
+// components/TeamMatchingResult/BigFiveSummary.jsx
+
 import React from 'react';
+
+/* css */
 import './BigFiveSummary.css';
+
+/* assets */
 import { ReactComponent as ItchingLogo } from '../../assets/images/itching_title.svg';
+
+/* datas */
 import { traitDescriptions } from '../../assets/datas/traitDescriptions';
 
 const BigFiveSummary = () => {

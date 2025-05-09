@@ -1,4 +1,8 @@
+// components/button/RegisterMatching/NextButton.jsx
+
 import React from "react";
+
+/* css */
 import "./NextButton.css";
 
 const NextButton = () => {

@@ -1,5 +1,9 @@
+// components/button/Home/CheckReportButton.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./CheckReportButton.css";
 
 const CheckReportButton = () => {

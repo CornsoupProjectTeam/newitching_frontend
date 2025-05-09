@@ -1,5 +1,9 @@
+// components/button/Home/StartHomeButton.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./StartHomeButton.css";
 
 const StartHomeButton = () => {

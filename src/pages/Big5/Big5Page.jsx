@@ -1,17 +1,24 @@
+// pages/Big5/Big5Page.jsx
+
 import React from "react";
 
+/* css */
 import "./Big5Page.css";
+
+/* components */
 import LeftPanel from "../../components/form/LeftPanel";
 
 /* assets  */
 import logo from "../../assets/images/Logo_wb.svg"; // 실제 경로에 맞춰 수정
 
-const getBarColor = (score) => {// 진한 오렌지
-    if (score >= 70) return "#FD8B3E";     // 중간 오렌지
-    else return "#FDA265";     // 연한 오렌지     // 매우 연한 오렌지
+const getBarColor = (score) => {
+    if (score >= 70) return "#FD8B3E";
+    else return "#FDA265";
 };
 
 const Big5Page = () => {
+    
+    // TODO: 백엔드 연동
     const result = {
         name: "한나윤",
         date: "2024년 10월 28일 (월) 16:40",

@@ -1,8 +1,9 @@
-// src/components/footer/Footer.jsx
+// components/footer/Footer.jsx
 
 import React from "react";
 import { useLocation, useMatch } from "react-router-dom";
 
+/* css */
 import "./Footer.css";
 
 /* assets */

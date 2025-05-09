@@ -1,9 +1,17 @@
+// src/pages/HomePage/HomePage.jsx
+
 import React from "react";
+
+/* css */
 import "./HomePage.css";
-import RegisterButton from "../components/button/Home/RegisterButton";
-import CheckReportButton from "../components/button/Home/CheckReportButton";
-import CtaButton from "../components/button/Home/StartHomeButton"
-import OrangeLogo from "../assets/images/Orange_logo.svg";
+
+/* components */
+import RegisterButton from "../../components/button/Home/RegisterButton";
+import CheckReportButton from "../../components/button/Home/CheckReportButton";
+import CtaButton from "../../components/button/Home/StartHomeButton"
+
+/* assets */
+import OrangeLogo from "../../assets/images/Orange_logo.svg";
 
 const HomePage = () => {
     return (

@@ -1,8 +1,16 @@
+// components/form/Url.jsx
+
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+
+/* css */
 import "./UrlBox.css";
-import DublicateUrlButton from "../button/RegisterMatching/DublicateUrlButton";
+
+/* components */
+import DublicateUrlButton from "../button/RegisterMatching/DuplicateUrlButton";
 import UrlNoti from "../../assets/images/UrlNoti";
+
+/* assets */
 import emaillogo from "../../assets/images/email.svg";
 
 const UrlBox = () => {

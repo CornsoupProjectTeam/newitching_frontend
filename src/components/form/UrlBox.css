@@ -1,3 +1,5 @@
+/* components/form/Url.css */
+
 .url-box {
     display: flex;
     flex-direction: column;
@@ -7,14 +9,13 @@
     max-width: 1200px;
     height: auto;
     padding: 40px;
-    gap: 32px; /* 🔽 줄임 */
+    gap: 32px;
     background: var(--maincolor-white, #FFF);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     border-radius: 16px;
     box-sizing: border-box;
 }
 
-/* 제목 영역 */
 .url-box-title {
     font-size: 24px;
     font-weight: 700;
@@ -39,7 +40,6 @@
     white-space: normal;
 }
 
-/* 본문 영역 */
 .url-box-content {
     display: flex;
     flex-direction: column;
@@ -68,7 +68,6 @@
     white-space: normal;
 }
 
-/* 버튼 영역 */
 .url-box-btn-group {
     display: flex;
     justify-content: flex-end;
@@ -83,7 +82,6 @@
     cursor: pointer;
 }
 
-/* 복사 알림 */
 .url-box-noti {
     position: fixed;
     top: 40px;
@@ -114,8 +112,6 @@
     }
 }
 
-
-/* ✅ 모바일 반응형 */
 @media (max-width: 768px) {
     .url-box {
         padding: 24px;
@@ -147,7 +143,7 @@
     .url-box-noti {
         max-width: 110%;
         border-radius: 80px;
-        white-space: nowrap;         /* 텍스트 줄바꿈 방지 */
+        white-space: nowrap;
         text-overflow: ellipsis;
     }
 }

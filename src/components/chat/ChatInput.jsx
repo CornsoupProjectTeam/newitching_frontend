@@ -1,6 +1,8 @@
 // components/chat/ChatInput.jsx
 
 import React, { useState } from "react";
+
+/* css */
 import "./ChatInput.css";
 
 /* assets */

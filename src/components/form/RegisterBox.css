@@ -1,3 +1,5 @@
+/* components/form/RegisterBox.css */
+
 .registerbox-container {
     display: flex;
     flex-direction: column;
@@ -27,7 +29,7 @@
     align-items: flex-start;
     width: 100%;
     max-width: 600px;
-    gap: 10px; /* 🔽 여백 축소 */
+    gap: 10px;
     position: relative;
 }
 
@@ -59,7 +61,7 @@
 .registerbox-input-wrapper input:focus,
 .registerbox-group input[type="password"]:focus {
     outline: none;
-    border-color: var(--grayscale-gray800, #ACA5A3); /* 기존 테두리 색으로 고정 */
+    border-color: var(--grayscale-gray800, #ACA5A3);
     box-shadow: none;
 }
 
@@ -98,7 +100,6 @@
     color: #b76632;
 }
 
-/* 버튼 그룹 */
 .registerbox-buttons {
     display: flex;
     justify-content: flex-end;
@@ -113,7 +114,6 @@
     cursor: pointer;
 }
 
-/* ✅ 반응형 */
 @media (max-width: 768px) {
     .registerbox-container {
         padding: 24px;
@@ -133,7 +133,7 @@
     .registerbox-inline-btn {
         font-size: 13px;
         height: 30px;
-        padding: 10 10px;
+        padding: 10px 10px;
     }
 
     .registerbox-msg {

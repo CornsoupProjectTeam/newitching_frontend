@@ -1,3 +1,5 @@
+/* components/drop-down/CustomCalender.css */
+
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
     background-color: var(--orange-400, #FD8B3E) !important;

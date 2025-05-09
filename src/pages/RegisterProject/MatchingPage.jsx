@@ -1,9 +1,16 @@
+// src/pages/RegisterProject/MatchingPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+/* css */
+import "../RegisterProject/MatchingPage.css";
+
+/* components */
 import RegisterBox from "../../components/form/RegisterBox";
 import RegisterStartBox from "../../components/form/RegisterStartBox";
 import LeftPanel from "../../components/form/LeftPanel";
-import "../RegisterProject/MatchingPage.css";
+
 
 const MatchingPage = () => {
     const location = useLocation();

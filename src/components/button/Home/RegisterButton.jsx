@@ -1,5 +1,9 @@
+// components/button/Home/RegisterButton.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./RegisterButton.css";
 
 const RegisterButton = () => {

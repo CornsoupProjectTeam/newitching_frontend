@@ -1,6 +1,14 @@
+// components/TeamMatchingResult/SimilarityMatchingResultCard.jsx
+
 import React from 'react';
+
+/* css */
 import './MatchingResultCard.css';
+
+/* components */
 import TraitScore from './TraitScore';
+
+/* assets */
 import Logo_wb from "../../assets/images/Logo_wb.svg";
 
 const SimilarityMatchingResultCard = ({ scores, teamIndex }) => {
