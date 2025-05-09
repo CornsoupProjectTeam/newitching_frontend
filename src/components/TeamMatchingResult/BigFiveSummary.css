@@ -1,0 +1,83 @@
+/* components/TeamMatchingResult/BigFiveSummary.css */
+
+/* fonts */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.bigfive-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 44px;
+    align-self: stretch;
+}
+
+.bigfive-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+}
+
+.itching-logo {
+    width: 114.632px;
+    height: 35.986px;
+    flex-shrink: 0;
+    margin: 0px;
+}
+
+.bigfive-title {
+    margin: 0;
+
+    color: var(--orange-500, #F1853C);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.bigfive-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+}
+
+.bigfive-trait {
+    padding: 0px 28px;
+    border-left: 4px solid var(--grayscale-gray400, #EDE5E0);
+}
+
+.trait-title {
+    margin: 0;
+
+    color: var(--grayscale-alpha-700, rgba(19, 17, 21, 0.70));
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/bold/Large */
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.trait-description {
+    margin: 0;
+
+    color: var(--grayscale-alpha-600, rgba(19, 17, 21, 0.60));
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/medium/Small */
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+}

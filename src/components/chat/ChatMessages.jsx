@@ -1,9 +1,13 @@
 // components/chat/ChatMessages.jsx
 import React, { useEffect, useRef, useState } from "react";
-import ChatMessage from "./ChatMessage";
-import "./ChatMessages.css";
 import { format, isSameDay, parseISO } from "date-fns";
 import { ko } from "date-fns/locale";
+
+/* css */
+import "./ChatMessages.css";
+
+/* components */
+import ChatMessage from "./ChatMessage";
 
 const ChatMessages = ({ messages = [] }) => {
     const messagesEndRef = useRef(null);

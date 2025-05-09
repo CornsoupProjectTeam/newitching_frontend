@@ -5,6 +5,9 @@ import "../../components/button/ResultStartButton.css";
 import CancelButton from "../../components/button/RegisterMatching/CancelButton";
 import ResultStartButton from "../button/ResultStartButton";
 
+// 암호화 유틸리티 함수 임포트
+import { encryptPassword } from "../../utils/cryptoUtils";
+
 const MatchResultSignIn = () => {
     const [matchingId, setMatchingId] = useState("");
     const [password, setPassword] = useState("");
@@ -16,12 +19,15 @@ const MatchResultSignIn = () => {
         setMatchingIdError("");
 
         try {
+            // 비밀번호 암호화
+            const encryptedPassword = encryptPassword(password);
+
             const resultResponse = await fetch("/matching/results", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     matchingId: matchingId,
-                    password: password
+                    password: encryptedPassword, // 암호화된 비밀번호 전송
                 }),
             });
 

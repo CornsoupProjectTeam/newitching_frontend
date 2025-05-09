@@ -1,0 +1,158 @@
+/* components/TeamMatchingResult/TeamSidebar.css */
+
+
+/* fonts */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.matching-sidebar {
+    display: flex;
+    width: 400px;
+    height: 800px;
+    min-height: 800px;
+    padding: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 52px;
+    flex-shrink: 0;
+
+    border-radius: 16px;
+    background: var(--maincolor-white, #FFF);
+}
+
+.matching-sidebar h2 {
+    margin: 0;
+    align-self: stretch;
+
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* headline/large */
+    font-family: "Pretendard";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; /* 150% */
+}
+
+.sidebar-title{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    align-self: stretch;
+}
+
+.sidebar-meta{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+}
+
+.sidebar-meta p{
+    margin:0;
+    align-self: stretch;
+
+    color: var(--grayscale-gray600, #D7D0CC);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* body/bold/Medium */
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.sidebar-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.sidebar-summary{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.sidebar-summary img{
+    width: 24px;
+    height: 24px;
+}
+
+.matching-count{
+    margin: 0;
+    color: var(--orange-400, #FD8B3E);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* title/bold/Large */
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.sidebar-teamlist{
+    align-self: stretch;
+}
+
+.team-list {
+    display: flex;           /* flexbox를 사용하여 아이템들을 배열 */
+    flex-direction: column;  /* 아이템들을 수직으로 나열 */
+    gap: 8px;                /* 아이템 간 간격 설정 */
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.team-list li {
+    padding: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 8px;
+
+    color: var(--grayscale-alpha-900, rgba(19, 17, 21, 0.90));
+    leading-trim: both;
+    text-edge: cap;
+
+    /* body/bold/Large - prominent */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    border-radius: 4px;
+    border: 1px solid var(--grayscale-gray200, #F4EFEC);
+    background: var(--maincolor-white, #FFF);
+
+    /* 컨테이너 */
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.04);
+}
+
+.team-list li.active {
+    color: var(--orange-500, #F1853C);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* body/bold/Large - prominent */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    border-radius: 4px;
+    border: 1px solid var(--linear, #FD8B3E);
+    background: var(--orange-100, #FFE8D8);
+}

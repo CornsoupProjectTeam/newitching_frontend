@@ -1,8 +1,11 @@
 // components/chat/MemberRegister.jsx
 
 import React from "react";
+
+/* css */
 import "./MemberRegister.css";
 
+/* components */
 import LeftPanel from "../form/LeftPanel";
 import MemberBox from "../form/MemberBox";
 

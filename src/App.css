@@ -1,3 +1,47 @@
+/* src/App.css */
+
 .App {
     text-align: center;
+}
+
+:root {
+    /* 메인 색상 */
+    --maincolor-white: #FFFFFF;
+    --maincolor-black: #131115;
+
+    /* 회색 계열 (Grayscale) */
+    --grayscale-gray100: #FBFAF9;
+    --grayscale-gray200: #F4EFEC;
+    --grayscale-gray400: #EDE5E0;
+    --grayscale-gray600: #D7D0CC;
+    --grayscale-gray700: #C1BBB7;
+    --grayscale-gray800: #ACA5A3;
+    --grayscale-gray900: #6A6666;
+
+    /* 투명한 회색 계열 (Alpha Grayscale) */
+    --grayscale-alpha-200: rgba(19, 17, 21, 0.20);
+    --grayscale-alpha-600: rgba(19, 17, 21, 0.60);
+    --grayscale-alpha-700: rgba(19, 17, 21, 0.70);
+    --grayscale-alpha-800: rgba(19, 17, 21, 0.80);
+    --grayscale-alpha-900: rgba(19, 17, 21, 0.90);
+
+    /* 오렌지 계열 */
+    --orange-100: #FFE8D8;
+    --orange-200: #FEB98B;
+    --orange-300: #FDA265;
+    --orange-400: #FD8B3E;
+    --orange-500: #F1853C;
+
+    /* 보라색 계열 */
+    --purple-400: #D382D4;
+
+    /* 파란색 계열 */
+    --blue-900: #1B1E33;
+
+    /* 노란색 계열 */
+    --yellow-100: #FAFADC;
+    --yellow-900: #3D3B21;
+
+    /* 그라데이션 또는 대체 색상 */
+    --linear: #FD8B3E;
 }

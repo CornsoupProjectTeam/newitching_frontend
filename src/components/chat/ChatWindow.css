@@ -1,4 +1,5 @@
 /* components/chat/ChatWindow.css */
+
 .chat-page{
     display: flex;
     align-items: flex-start;
@@ -7,13 +8,20 @@
     padding: 0px 60px;
 }
 
-/* 모바일 대응: 768px 이하일 때 패딩 제거 */
 @media (max-width: 768px) {
     .chat-page {
         padding: 0;
         gap: 0;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .chat-page > .left-panel {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+}
+
 
 .chat-window {
     display: flex;
@@ -39,11 +47,11 @@
     border-radius: 16px 16px 0px 0px;
     border: 1px solid var(--grayscale-gray200, #F4EFEC);
 
-    /* 스크롤바 숨기기 */
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE 10+ */
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .chat-body::-webkit-scrollbar {
-    display: none;                /* Chrome, Safari, Opera */
+    display: none;
 }
