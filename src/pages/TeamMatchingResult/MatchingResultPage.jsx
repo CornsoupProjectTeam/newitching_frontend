@@ -1,6 +1,6 @@
-// src/pages/TeamMatchingResult/MatchingResultPage.jsx
+// pages/TeamMatchingResult/MatchingResultPage.jsx
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* css */
 import './MatchingResultPage.css';
@@ -13,77 +13,105 @@ import SimilarityMatchingResultCard from '../../components/TeamMatchingResult/Si
 import DiversityMatchingResultCard from '../../components/TeamMatchingResult/DiversityMatchingResultCard';
 
 const MatchingResultPage = () => {
-  // TODO: 백엔드 연동 후 하드코딩 지우기 => 디자인 점검
-  const projectName = "콘스프";
-  const teamList = ["Team 01", "Team 02", "Team 03"];
-  const teamInfo = {
-    teamName: "Team 01",
-    teamId: "T100007160"
-  };
+    const [projectName, setProjectName] = useState("");
+    const [teamList, setTeamList] = useState([]);
+    const [teamInfo, setTeamInfo] = useState({ teamName: "", teamId: "" });
+    const [teamMembers, setTeamMembers] = useState([]);
+    const [averageScores, setAverageScores] = useState([]);
+    const [similarityScores, setSimilarityScores] = useState([]);
+    const [diversityScores, setDiversityScores] = useState([]);
+    const [date, setDate] = useState("");
 
-  const teamMembers = [
-    { name: '이현우', affiliation: '금융서비스IT운영팀' },
-    { name: '한나윤', affiliation: '금융서비스IT보안팀' },
-    { name: '유은서', affiliation: '디지털마케팅팀' },
-    { name: '서하윤', affiliation: 'UX/UI디자인팀' },
-    { name: '한나윤', affiliation: '금융서비스IT보안팀' },
-    { name: '유은서', affiliation: '디지털마케팅팀' },
-    { name: '서하윤', affiliation: 'UX/UI디자인팀' }
-  ];
+    // API 연동 - 팀 매칭 결과 조회
+    useEffect(() => {
+        const matchingId = localStorage.getItem("matchingId");
 
-  const averageScores = [
-    { label: "성실성", score: 87, eval: 4 },
-    { label: "친화성", score: 75, eval: 3 }
-  ];
+        if (!matchingId) {
+            alert("매칭 ID가 없습니다. 다시 시도해 주세요.");
+            return;
+        }
 
-  const similarityScores = [
-    { label: "성실성", score: 87, eval: 4 },
-    { label: "친화성", score: 75, eval: 3 },
-    { label: "신경증", score: 40, eval: 2 }
-  ];
+        fetch(`${window.location.origin}/matching/${matchingId}/results`)
+            .then((response) => {
+                if (!response.ok) throw new Error("매칭 결과 조회 실패");
+                return response.json();
+            })
+            .then((data) => {
+                if (data.length === 0) throw new Error("매칭 결과가 없습니다.");
 
-  const diversityScores = [
-    { label: "개방성", score: 52, eval: 3 },
-    { label: "외향성", score: 63, eval: 4 }
-  ];
+                // 프로젝트 이름과 날짜 동적으로 설정
+                setProjectName(`프로젝트 ${matchingId}`);
+                setDate(new Date().toLocaleString());
 
-  return (
-      <div className="matching-layout">
-        {/* 사이드바 */}
-        <TeamSidebar
-            projectName="콘스프"
-            date="2024.11.22 (월) 16:40"
-            maxUsers={12}
-            teamSize={4}
-            teamList={["Team 01", "Team 02", "Team 03"]}
-            currentTeam="Team 01"
-        />
-        {/* 본문 */}
-        <main className="matching-content">
-          <TeamInfoCard
-              teamName={teamInfo.teamName}
-              teamId={teamInfo.teamId}
-              teamIndex={teamList.indexOf(teamInfo.teamName)}
-              totalTeams={teamList.length}
-              members={teamMembers}
-          />
-          <AverageMatchingResultCard
-              scores={averageScores}
-              teamIndex={teamList.indexOf(teamInfo.teamName)}
-          />
+                const teamNames = data.map((team) => `Team ${team.teamId}`);
+                setTeamList(teamNames);
 
-          <SimilarityMatchingResultCard
-              scores={similarityScores}
-              teamIndex={teamList.indexOf(teamInfo.teamName)}
-          />
+                const firstTeam = data[0];
+                setTeamInfo({ teamName: `Team ${firstTeam.teamId}`, teamId: firstTeam.teamId });
 
-          <DiversityMatchingResultCard
-              scores={diversityScores}
-              teamIndex={teamList.indexOf(teamInfo.teamName)}
-          />
-        </main>
-      </div>
-  );
+                const members = firstTeam.memberNames.map((name) => {
+                    const [affiliation, memberName] = name.split(" ");
+                    return { name: memberName, affiliation };
+                });
+                setTeamMembers(members);
+
+                setAverageScores([
+                    { label: "성실성", score: firstTeam.conscientiousnessMeanScore, eval: firstTeam.conscientiousnessMeanEval },
+                    { label: "친화성", score: firstTeam.agreeablenessMeanScore, eval: firstTeam.agreeablenessMeanEval },
+                ]);
+
+                setSimilarityScores([
+                    { label: "성실성", score: firstTeam.conscientiousnessSimilarityScore, eval: firstTeam.conscientiousnessSimilarityEval },
+                    { label: "친화성", score: firstTeam.agreeablenessSimilarityScore, eval: firstTeam.agreeablenessSimilarityEval },
+                    { label: "신경증", score: firstTeam.neuroticismSimilarityScore, eval: firstTeam.neuroticismSimilarityEval },
+                ]);
+
+                setDiversityScores([
+                    { label: "개방성", score: firstTeam.opennessDiversityEval, eval: 3 },
+                    { label: "외향성", score: firstTeam.extraversionDiversityEval, eval: 4 },
+                ]);
+            })
+            .catch((error) => {
+                console.error("오류 발생:", error.message);
+                alert("팀 매칭 결과를 불러올 수 없습니다.");
+            });
+    }, []);
+
+    return (
+        <div className="matching-layout">
+            {/* 사이드바 */}
+            <TeamSidebar
+                projectName={projectName}
+                date={date}
+                maxUsers={teamMembers.length}
+                teamSize={teamMembers.length / teamList.length || 1}
+                teamList={teamList}
+                currentTeam={teamInfo.teamName}
+            />
+            {/* 본문 */}
+            <main className="matching-content">
+                <TeamInfoCard
+                    teamName={teamInfo.teamName}
+                    teamId={teamInfo.teamId}
+                    teamIndex={teamList.indexOf(teamInfo.teamName)}
+                    totalTeams={teamList.length}
+                    members={teamMembers}
+                />
+                <AverageMatchingResultCard
+                    scores={averageScores}
+                    teamIndex={teamList.indexOf(teamInfo.teamName)}
+                />
+                <SimilarityMatchingResultCard
+                    scores={similarityScores}
+                    teamIndex={teamList.indexOf(teamInfo.teamName)}
+                />
+                <DiversityMatchingResultCard
+                    scores={diversityScores}
+                    teamIndex={teamList.indexOf(teamInfo.teamName)}
+                />
+            </main>
+        </div>
+    );
 };
 
-export default MatchingResultPage;
+export default MatchingResultPage
