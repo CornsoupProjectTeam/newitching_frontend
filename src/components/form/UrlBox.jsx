@@ -26,7 +26,7 @@ const UrlBox = () => {
 
     const handleCopy = () => {
         if (!urlKey) return;
-        const url = `${window.location.origin}/chat/${urlKey}`;
+        const url = `${window.location.origin}/${urlKey}`;
         navigator.clipboard.writeText(url).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
@@ -36,7 +36,7 @@ const UrlBox = () => {
     return (
         <div className="url-box">
             <div className="url-box-title">
-                <h2>프로젝트 URL을 생성했습니다!</h2>
+                <h2>팀 매칭 URL을 생성했습니다!</h2>
                 <p>공유한 링크를 눌러서 팀원들이 바로 챗봇과 대화를 시작할 수 있어요.</p>
             </div>
 

@@ -11,6 +11,9 @@ import "../../components/button/ResultStartButton.css";
 import CancelButton from "../../components/button/RegisterMatching/CancelButton";
 import ResultStartButton from "../button/ResultStartButton";
 
+// 암호화 유틸리티 함수 임포트
+import { encryptPassword } from "../../utils/cryptoUtils";
+
 const MatchResultSignIn = () => {
     const [matchingId, setMatchingId] = useState("");
     const [password, setPassword] = useState("");
@@ -22,12 +25,15 @@ const MatchResultSignIn = () => {
         setMatchingIdError("");
 
         try {
+            // 비밀번호 암호화
+            const encryptedPassword = encryptPassword(password);
+
             const resultResponse = await fetch("/matching/results", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     matchingId: matchingId,
-                    password: password
+                    password: encryptedPassword, // 암호화된 비밀번호 전송
                 }),
             });
 
@@ -50,7 +56,7 @@ const MatchResultSignIn = () => {
 
             {/* 매칭 ID 입력 */}
             <div className="matchresult-group">
-                <label className="matchresult-label">프로젝트 아이디</label>
+                <label className="matchresult-label">팀 매칭 아이디</label>
                 <div className="matchresult-input-wrapper">
                     <input
                         type="text"
