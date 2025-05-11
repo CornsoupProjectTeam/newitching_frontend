@@ -29,7 +29,7 @@ const MatchingResultPage = () => {
             return;
         }
 
-        fetch(`${window.location.origin}/matching/${matchingId}/results`)
+        fetch(`${window.location.origin}/matching/${matchingId}`)
             .then((response) => {
                 if (!response.ok) throw new Error("매칭 결과 조회 실패");
                 return response.json();
