@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+// src/pages/TeamMatchingResult/MatchingResultPage.jsx
+
+import React, { useState, useEffect, useRef } from "react";
 
 /* css */
-import './MatchingResultPage.css';
+import "./MatchingResultPage.css";
 
 /* components */
-import TeamSidebar from '../../components/TeamMatchingResult/TeamSidebar';
-import TeamInfoCard from '../../components/TeamMatchingResult/TeamInfoCard';
-import AverageMatchingResultCard from '../../components/TeamMatchingResult/AverageMatchingResultCard';
-import SimilarityMatchingResultCard from '../../components/TeamMatchingResult/SimilarityMatchingResultCard';
-import DiversityMatchingResultCard from '../../components/TeamMatchingResult/DiversityMatchingResultCard';
+import TeamSidebar from "../../components/TeamMatchingResult/TeamSidebar";
+import TeamInfoCard from "../../components/TeamMatchingResult/TeamInfoCard";
+import AverageMatchingResultCard from "../../components/TeamMatchingResult/AverageMatchingResultCard";
+import SimilarityMatchingResultCard from "../../components/TeamMatchingResult/SimilarityMatchingResultCard";
+import DiversityMatchingResultCard from "../../components/TeamMatchingResult/DiversityMatchingResultCard";
 
 const MatchingResultPage = () => {
     const [projectName, setProjectName] = useState("");
@@ -19,65 +21,96 @@ const MatchingResultPage = () => {
     const [similarityScores, setSimilarityScores] = useState([]);
     const [diversityScores, setDiversityScores] = useState([]);
     const [date, setDate] = useState("");
+    const socketRef = useRef(null);
 
-    // API 연동 - 팀 매칭 결과 조회
+    // WebSocket 연결 설정
     useEffect(() => {
         const matchingId = localStorage.getItem("matchingId");
+        const token = localStorage.getItem("authToken");
 
-        if (!matchingId) {
-            alert("매칭 ID가 없습니다. 다시 시도해 주세요.");
+        if (!matchingId || !token) {
+            console.error("매칭 ID 또는 토큰이 없습니다. WebSocket을 연결할 수 없습니다.");
             return;
         }
 
-        fetch(`${window.location.origin}/matching/${matchingId}`)
-            .then((response) => {
-                if (!response.ok) throw new Error("매칭 결과 조회 실패");
-                return response.json();
-            })
-            .then((data) => {
-                if (data.length === 0) throw new Error("매칭 결과가 없습니다.");
+        const wsUrl = `${process.env.REACT_APP_WS_URL}/matching/${matchingId}/team_matching_results?token=${token}`;
+        console.log("WebSocket 연결 시도:", wsUrl);
+        socketRef.current = new WebSocket(wsUrl);
 
-                // 프로젝트 이름과 날짜 동적으로 설정
-                setProjectName(`프로젝트 ${matchingId}`);
-                setDate(new Date().toLocaleString());
+        socketRef.current.onopen = () => {
+            console.log("WebSocket connected for Matching Results");
+        };
 
-                const teamNames = data.map((team) => `Team ${team.teamId}`);
-                setTeamList(teamNames);
+        socketRef.current.onmessage = (event) => {
+            console.log("WebSocket raw message:", event.data);
 
-                const firstTeam = data[0];
-                setTeamInfo({ teamName: `Team ${firstTeam.teamId}`, teamId: firstTeam.teamId });
+            try {
+                const data = JSON.parse(event.data);
+                if (data && data.teams && data.teams.length > 0) {
+                    console.log("Received team matching results:", data);
 
-                const members = firstTeam.memberNames.map((name) => {
-                    const [affiliation, memberName] = name.split(" ");
-                    return { name: memberName, affiliation };
-                });
-                setTeamMembers(members);
+                    const firstTeam = data.teams[0];
 
-                setAverageScores([
-                    { label: "성실성", score: firstTeam.conscientiousnessMeanScore, eval: firstTeam.conscientiousnessMeanEval },
-                    { label: "친화성", score: firstTeam.agreeablenessMeanScore, eval: firstTeam.agreeablenessMeanEval },
-                ]);
+                    // 프로젝트 이름과 날짜 설정
+                    setProjectName(`프로젝트 ${data.matchingId}`);
+                    setDate(new Date().toLocaleString());
 
-                setSimilarityScores([
-                    { label: "성실성", score: firstTeam.conscientiousnessSimilarityScore, eval: firstTeam.conscientiousnessSimilarityEval },
-                    { label: "친화성", score: firstTeam.agreeablenessSimilarityScore, eval: firstTeam.agreeablenessSimilarityEval },
-                    { label: "신경증", score: firstTeam.neuroticismSimilarityScore, eval: firstTeam.neuroticismSimilarityEval },
-                ]);
+                    // 팀 목록 설정
+                    const teamNames = data.teams.map((team, index) => `Team ${index + 1}`);
+                    setTeamList(teamNames);
 
-                setDiversityScores([
-                    { label: "개방성", score: firstTeam.opennessDiversityEval, eval: 3 },
-                    { label: "외향성", score: firstTeam.extraversionDiversityEval, eval: 4 },
-                ]);
-            })
-            .catch((error) => {
-                console.error("오류 발생:", error.message);
-                alert("팀 매칭 결과를 불러올 수 없습니다.");
-            });
+                    // 첫 번째 팀 정보 설정
+                    setTeamInfo({ teamName: `Team ${firstTeam.teamIndex + 1}`, teamId: firstTeam.teamIndex });
+
+                    // 멤버 목록 설정
+                    const members = firstTeam.memberIds.map((memberId) => ({
+                        name: memberId,
+                        affiliation: "소속 없음"  // 소속 정보가 없는 경우 기본값
+                    }));
+                    setTeamMembers(members);
+
+                    // 평균 점수 설정
+                    setAverageScores([
+                        { label: "성실성", score: firstTeam.conscientiousnessMeanScore || 0, eval: firstTeam.conscientiousnessMeanEval || 0 },
+                        { label: "친화성", score: firstTeam.agreeablenessMeanScore || 0, eval: firstTeam.agreeablenessMeanEval || 0 },
+                    ]);
+
+                    // 유사도 점수 설정
+                    setSimilarityScores([
+                        { label: "성실성", score: firstTeam.conscientiousnessSimilarityScore || 0, eval: firstTeam.conscientiousnessSimilarityEval || 0 },
+                        { label: "친화성", score: firstTeam.agreeablenessSimilarityScore || 0, eval: firstTeam.agreeablenessSimilarityEval || 0 },
+                        { label: "신경증", score: firstTeam.neuroticismSimilarityScore || 0, eval: firstTeam.neuroticismSimilarityEval || 0 },
+                    ]);
+
+                    // 다양성 점수 설정
+                    setDiversityScores([
+                        { label: "개방성", score: firstTeam.opennessDiversityScore || 0, eval: firstTeam.opennessDiversityEval || 0 },
+                        { label: "외향성", score: firstTeam.extraversionDiversityScore || 0, eval: firstTeam.extraversionDiversityEval || 0 },
+                    ]);
+                }
+            } catch (error) {
+                console.error("Failed to parse message:", error);
+            }
+        };
+
+        socketRef.current.onclose = (event) => {
+            console.log("WebSocket disconnected", event);
+        };
+
+        socketRef.current.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        };
+
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.close();
+                console.log("WebSocket connection closed.");
+            }
+        };
     }, []);
 
     return (
         <div className="matching-layout">
-            {/* 사이드바 */}
             <TeamSidebar
                 projectName={projectName}
                 date={date}
@@ -86,7 +119,6 @@ const MatchingResultPage = () => {
                 teamList={teamList}
                 currentTeam={teamInfo.teamName}
             />
-            {/* 본문 */}
             <main className="matching-content">
                 <TeamInfoCard
                     teamName={teamInfo.teamName}
