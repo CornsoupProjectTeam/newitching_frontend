@@ -43,7 +43,7 @@ const Footer = () => {
                         <h4>모든 기능</h4>
                         <ul>
                             <li>
-                                <a href="/matching/result">팀 매칭 결과 확인하기</a>
+                                <a href="/matchresultsignin">팀 매칭 결과 확인하기</a>
                             </li>
                             <li>
                                 <a href="/matching">팀 매칭 등록하기</a>

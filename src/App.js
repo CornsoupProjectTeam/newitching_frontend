@@ -29,7 +29,7 @@ const App = () => {
                 <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/big5" element={<Big5ResultPage />} />
-                <Route path="/matching/result" element={<MatchingResultPage />} />
+                <Route path="/matching/:matchingId" element={<MatchingResultPage />} />
             </Routes>
             <Footer />
             </div>

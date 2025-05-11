@@ -11,45 +11,82 @@ import LeftPanel from "../../components/form/LeftPanel";
 /* assets */
 import logo from "../../assets/images/Logo_wb.svg"; // 실제 경로에 맞춰 수정
 
-// 점수에 따른 바 색상 설정
 const getBarColor = (score) => {
     if (score >= 70) return "#FD8B3E";
     else return "#FDA265";
 };
 
 const Big5Page = () => {
-    const [result, setResult] = useState({
-        name: "Unknown",
-        date: new Date().toLocaleString(),
-        traits: [],
-    });
+    const [result, setResult] = useState(null);
+    const socketRef = useRef(null);
 
-    // API에서 Big5 성향 점수 가져오기
     useEffect(() => {
-        // 멤버 ID를 URL 또는 상태로부터 가져옵니다.
-        const memberId = localStorage.getItem("memberId");
+        const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${process.env.REACT_APP_WS_TOKEN}`;
 
-        fetch(`${window.location.origin}/big5/${memberId}`)
-            .then((response) => {
-                if (!response.ok) throw new Error("성향 점수 조회 실패");
-                return response.json();
-            })
-            .then((data) => {
-                const traits = Object.keys(data).map((key) => ({
-                    label: key,
-                    score: data[key],
-                }));
-                setResult({
-                    name: "팀원",
-                    date: new Date().toLocaleString(),
-                    traits: traits,
-                });
-            })
-            .catch((error) => {
-                console.error("성향 점수 조회 오류:", error.message);
-                alert("성향 점수를 불러올 수 없습니다.");
-            });
+        if (!process.env.REACT_APP_WS_URL || !process.env.REACT_APP_WS_TOKEN) {
+            console.error("환경변수가 비어있습니다. .env 파일을 확인하세요.");
+            return;
+        }
+
+        console.log("WebSocket 연결 시도: ", wsUrl);
+        socketRef.current = new WebSocket(wsUrl);
+
+        socketRef.current.onopen = () => {
+            console.log("Big5 WebSocket connected");
+        };
+
+        socketRef.current.onmessage = (event) => {
+            console.log("WebSocket raw message:", event.data);
+
+            try {
+                const data = JSON.parse(event.data);
+                if (data.scores) {
+                    console.log("Received Big5 scores:", data);
+
+                    const traits = Object.keys(data.scores).map((label) => ({
+                        label,
+                        score: data.scores[label],
+                    }));
+
+                    setResult({
+                        name: data.memberId,
+                        date: new Date(data.timestamp).toLocaleString("ko-KR"),
+                        traits,
+                    });
+
+                    // WebSocket 연결 종료
+                    socketRef.current.close();
+                }
+            } catch (error) {
+                console.error("Failed to parse message:", error);
+            }
+        };
+
+        socketRef.current.onclose = (event) => {
+            console.log("Big5 WebSocket disconnected", event);
+        };
+
+        socketRef.current.onerror = (error) => {
+            console.error("Big5 WebSocket error:", error);
+        };
+
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.close();
+            }
+        };
     }, []);
+
+    if (!result) {
+        return (
+            <div className="big5-page">
+                <LeftPanel />
+                <div className="big5-window">
+                    <h2>성향 분석 결과를 불러오는 중입니다...</h2>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="big5-page">
@@ -78,7 +115,7 @@ const Big5Page = () => {
                                             backgroundColor: getBarColor(trait.score),
                                         }}
                                     >
-                                        <span className="trait-percent">{trait.score.toFixed(2)}</span>
+                                        <span className="trait-percent">{trait.score}%</span>
                                     </div>
                                 </div>
                             </div>
