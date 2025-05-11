@@ -20,6 +20,11 @@ const MatchingResultPage = () => {
     const [diversityScores, setDiversityScores] = useState([]);
     const [date, setDate] = useState("");
 
+    // 유사도와 다양성 상위 퍼센트 계산 함수
+    const calculateRank = (score) => {
+        return Math.round((1 - score) * 100);
+    };
+
     // API 연동 - 팀 매칭 결과 조회
     useEffect(() => {
         const matchingId = localStorage.getItem("matchingId");
@@ -59,14 +64,14 @@ const MatchingResultPage = () => {
                 ]);
 
                 setSimilarityScores([
-                    { label: "성실성", score: firstTeam.conscientiousnessSimilarityScore, eval: firstTeam.conscientiousnessSimilarityEval },
-                    { label: "친화성", score: firstTeam.agreeablenessSimilarityScore, eval: firstTeam.agreeablenessSimilarityEval },
-                    { label: "신경증", score: firstTeam.neuroticismSimilarityScore, eval: firstTeam.neuroticismSimilarityEval },
+                    { label: "성실성", rank: calculateRank(firstTeam.conscientiousnessSimilarityScore), eval: firstTeam.conscientiousnessSimilarityEval },
+                    { label: "친화성", rank: calculateRank(firstTeam.agreeablenessSimilarityScore), eval: firstTeam.agreeablenessSimilarityEval },
+                    { label: "신경증", rank: calculateRank(firstTeam.neuroticismSimilarityScore), eval: firstTeam.neuroticismSimilarityEval },
                 ]);
 
                 setDiversityScores([
-                    { label: "개방성", score: firstTeam.opennessDiversityEval, eval: 3 },
-                    { label: "외향성", score: firstTeam.extraversionDiversityEval, eval: 4 },
+                    { label: "개방성", rank: calculateRank(firstTeam.opennessDiversityEval), eval: 3 },
+                    { label: "외향성", rank: calculateRank(firstTeam.extraversionDiversityEval), eval: 4 },
                 ]);
             })
             .catch((error) => {
@@ -102,10 +107,12 @@ const MatchingResultPage = () => {
                 <SimilarityMatchingResultCard
                     scores={similarityScores}
                     teamIndex={teamList.indexOf(teamInfo.teamName)}
+                    showRank={true} // 상위 몇 % 표시
                 />
                 <DiversityMatchingResultCard
                     scores={diversityScores}
                     teamIndex={teamList.indexOf(teamInfo.teamName)}
+                    showRank={true} // 상위 몇 % 표시
                 />
             </main>
         </div>
