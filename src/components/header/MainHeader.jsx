@@ -48,8 +48,8 @@ function MainHeader() {
                                 </li>
                                 <li>
                                     <a
-                                        href="/matching/result"
-                                        className={`nav-button ${currentPath === '/matching/result' ? 'active' : ''}`}
+                                        href="/matchresultsignin"
+                                        className={`nav-button ${currentPath === '/matchresultsignin' ? 'active' : ''}`}
                                     >
                                         팀 매칭 결과
                                     </a>
