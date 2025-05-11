@@ -84,7 +84,7 @@ const RegisterBox = ({ onStepChange }) => {
             <h2 className="registerbox-title">팀 매칭 등록하기</h2>
 
             <div className="registerbox-group">
-                <label className="registerbox-label">매칭 아이디</label>
+                <label className="registerbox-label">팀 매칭 아이디</label>
                 <div className="registerbox-input-wrapper">
                     <input
                         type="text"

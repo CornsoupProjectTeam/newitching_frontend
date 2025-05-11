@@ -40,7 +40,7 @@ const MatchingResultPage = () => {
                 if (data.length === 0) throw new Error("매칭 결과가 없습니다.");
 
                 // 프로젝트 이름과 날짜 동적으로 설정
-                setProjectName(`프로젝트 ${matchingId}`);
+                setProjectName(`팀 매칭 ${matchingId}`);
                 setDate(new Date().toLocaleString());
 
                 const teamNames = data.map((team) => `Team ${team.teamId}`);

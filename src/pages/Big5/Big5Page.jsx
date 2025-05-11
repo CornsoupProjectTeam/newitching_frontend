@@ -1,6 +1,6 @@
 // pages/Big5/Big5Page.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 /* css */
 import "./Big5Page.css";

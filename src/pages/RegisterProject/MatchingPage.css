@@ -1,6 +1,6 @@
 /* src/pages/RegisterProject/MatchingPage.css */
 
-.matching-container {
+.matching-register-container {
     display: flex;
     width: 100%;
     min-height: 150vh;
@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-.matching-content {
+.matching-register-content {
     padding: 65px 0 0 100px;
     width: 100%;
     box-sizing: border-box;

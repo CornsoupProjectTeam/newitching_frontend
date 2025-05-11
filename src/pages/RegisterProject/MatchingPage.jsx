@@ -28,9 +28,9 @@ const MatchingPage = () => {
     }, [location.state]);
 
     return (
-        <div className="matching-container">
+        <div className="matching-register-container">
             <LeftPanel />
-            <div className="matching-content">
+            <div className="matching-register-content">
                 {step === 1 && <RegisterBox onStepChange={setStep} />}
                 {step === 2 && (
                     <RegisterStartBox
