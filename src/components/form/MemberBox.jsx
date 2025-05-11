@@ -13,7 +13,7 @@ const MemberBox = () => {
 
     // URL에서 추출한 urlKey를 이용하여 프로젝트 아이디 가져오기
     useEffect(() => {
-        fetch(`${window.location.origin}/matching/${urlKey}`)
+        fetch(`${window.location.origin}/${urlKey}`)
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
@@ -34,7 +34,7 @@ const MemberBox = () => {
         console.log("이름:", name, "소속:", organization, "프로젝트:", matchingId);
 
         // 백엔드 API로 프로젝트 ID와 사용자 정보를 전송
-        fetch(`${window.location.origin}/${urlKey}/register`, {
+        fetch(`${window.location.origin}/{urlKey}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const MemberBox = () => {
             .then((data) => {
                 if (data.success) {
                     console.log("채팅 시작 성공:", data);
-                    navigate(`/chat/${urlKey}/start`);
+                    navigate(`/{urlKey}/chat`);
                 } else {
                     console.error("채팅 시작 실패:", data.message);
                     alert("채팅 시작에 실패했습니다.");

@@ -18,7 +18,7 @@ const UrlBox = () => {
 
     const handleCopy = () => {
         if (!urlKey) return;
-        const url = `${window.location.origin}/chat/${urlKey}`;
+        const url = `${window.location.origin}/${urlKey}`;
         navigator.clipboard.writeText(url).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
