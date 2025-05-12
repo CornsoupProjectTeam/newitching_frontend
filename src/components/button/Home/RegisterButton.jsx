@@ -10,7 +10,7 @@ const RegisterButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/matching");
+        window.open("/matching", "_blank", "width=1200,height=800");
     };
 
     return (

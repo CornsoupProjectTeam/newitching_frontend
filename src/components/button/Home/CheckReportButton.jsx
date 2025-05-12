@@ -10,7 +10,7 @@ const CheckReportButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/MatchResultSignIn");
+        window.open("/matching/signin", "_blank", "width=1200,height=800");
     };
 
     return (

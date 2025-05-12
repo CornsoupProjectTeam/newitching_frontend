@@ -14,7 +14,7 @@ function MainHeader() {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matchresultsignin', '/memberregister'];
+    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matching/signin', '/member/register'];
     const showRightMenu = !hiddenMenuPaths.includes(currentPath);
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -48,18 +48,25 @@ function MainHeader() {
                                 </li>
                                 <li>
                                     <a
-                                        href="/matchresultsignin"
-                                        className={`nav-button ${currentPath === '/matchresultsignin' ? 'active' : ''}`}
+                                        href="#"
+                                        className={`nav-button ${currentPath === '/matching/result/signin' ? 'active' : ''}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open('/matching/signin', '_blank', 'width=1200,height=800');
+                                        }}
                                     >
                                         팀 매칭 결과
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="/matching"
+                                        href="#"
                                         className="nav-button primary"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open('/matching', '_blank', 'width=1200,height=800');
+                                        }}
+                                    >
                                         팀 매칭 등록하기
                                     </a>
                                 </li>
