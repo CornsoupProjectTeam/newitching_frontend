@@ -67,38 +67,38 @@ const MemberBox = () => {
     };
 
     return (
-        <div className="member-box">
-            <h2 className="member-box-title">팀 매칭을 위한 챗봇 분석 시작하기</h2>
+        <div className="member-register-box">
+            <h2 className="member-register-box-title">팀 매칭을 위한 챗봇 분석 시작하기</h2>
 
-            <div className="member-box-form">
-                <div className="member-box-form-group">
-                    <label className="member-box-label">프로젝트 아이디</label>
-                    <div className="member-box-readonly">{matchingId}</div> {/* 수정 부분 */}
+            <div className="member-register-box-form">
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">프로젝트 아이디</label>
+                    <div className="member-register-box-readonly">{matchingId}</div> {/* 수정 부분 */}
                 </div>
 
-                <div className="member-box-form-group">
-                    <label className="member-box-label">내 이름</label>
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">내 이름</label>
                     <input
                         type="text"
                         placeholder="실명을 입력하세요"
-                        className="member-box-input"
+                        className="member-register-box-input"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
 
-                <div className="member-box-form-group">
-                    <label className="member-box-label">소속</label>
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">소속</label>
                     <input
                         type="text"
                         placeholder="소속을 입력하세요"
-                        className="member-box-input"
+                        className="member-register-box-input"
                         value={organization}
                         onChange={(e) => setOrganization(e.target.value)}
                     />
                 </div>
 
-                <button className="member-box-start-btn" onClick={handleStart}>
+                <button className="member-register-box-start-btn" onClick={handleStart}>
                     <StartChatButton />
                 </button>
             </div>

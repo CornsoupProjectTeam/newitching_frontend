@@ -5,7 +5,7 @@
 
 .main-header-wrapper {
     width: 100%;
-    background-color: white; /* 헤더 배경색 필요시 */
+    background-color: white;
 }
 
 .main-header {
@@ -13,7 +13,7 @@
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 20px 5vw; /* ✅ 여백이 화면 넓이에 따라 유동적으로 늘어남 */
+    padding: 20px 5vw;
     justify-content: space-between;
     align-items: center;
     position: relative;

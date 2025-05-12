@@ -1,12 +1,20 @@
 /* src/pages/MatchResultProject/MatchResultSignIn.css */
 
+.MatchResultSignIn-section{
+    width: 100%;
+    background-color: #f9f8f6;
+}
 .MatchResultSignIn-container {
     display: flex;
     width: 100%;
-    min-height: 150vh;
-    background-color: #f9f8f6;
-    overflow-x: hidden;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 5vw;
+    justify-content: space-between;
+    position: relative;
     box-sizing: border-box;
+    min-height: 150vh;
+    overflow-x: hidden;
 }
 
 .MatchResultSignIn-right {

@@ -11,10 +11,12 @@ import LeftPanel from "../../components/form/LeftPanel";
 
 const ChatPage = () => {
     return (
-        <div className="chat-page">
-            <LeftPanel />
-            <ChatWindow />
-        </div>
+        <section className="chat-section">
+            <div className="chat-page">
+                <LeftPanel />
+                <ChatWindow />
+            </div>
+        </section>
     );
 };
 

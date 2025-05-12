@@ -1,5 +1,8 @@
 /* components/form/MemberBox.css */
 
+/* fonts */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
 .member-register-box {
     display: flex;
     flex-direction: column;
@@ -20,7 +23,7 @@
     font-size: 24px;
     font-weight: 700;
     color: var(--blue-900, #1B1E33);
-    font-family: Pretendard;
+    font-family: "Pretendard";
 }
 
 .member-register-box-form {
@@ -45,7 +48,7 @@
     color: var(--grayscale-gray900, #6A6666);
     font-size: 18px;
     font-weight: 500;
-    font-family: Pretendard;
+    font-family: "Pretendard";
 }
 
 .member-register-box-input,

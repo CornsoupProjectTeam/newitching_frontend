@@ -1,11 +1,21 @@
 /* components/chat/ChatWindow.css */
 
+.chat-section{
+    width: 100%;
+    background-color: white;
+}
+
 .chat-page{
     display: flex;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 5vw;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
     align-items: flex-start;
     gap: 140px;
     flex: 1 0 0;
-    padding: 0px 60px;
 }
 
 @media (max-width: 768px) {
@@ -21,7 +31,6 @@
         max-width: 30%;
     }
 }
-
 
 .chat-window {
     display: flex;
