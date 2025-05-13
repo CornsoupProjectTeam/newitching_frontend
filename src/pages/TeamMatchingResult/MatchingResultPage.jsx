@@ -112,7 +112,7 @@ const MatchingResultPage = () => {
                 if (data && data.teams && data.teams.length > 0) {
                     console.log("팀 매칭 결과 수신:", data);
 
-                    setProjectName(`프로젝트 ${data.matchingId}`);
+                    setProjectName(`팀 아이디 ${data.matchingId}`);
 
                     const teamNames = data.teams.map((_, i) => `Team ${i + 1}`);
                     setTeamList(teamNames);

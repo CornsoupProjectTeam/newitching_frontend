@@ -12,16 +12,16 @@ const ChatWindow = () => {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
 
-    const memberId = "214e2729-e21e-4b78-8c20-03aa6ff6377a";
-
-    // TODO: 웹소켓 연결 후 로그 정리 및 디자인 점검
     useEffect(() => {
-        const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${process.env.REACT_APP_WS_TOKEN}`;
+        const token = localStorage.getItem("authToken");
 
-        if (!process.env.REACT_APP_WS_URL || !process.env.REACT_APP_WS_TOKEN) {
-            console.error("환경변수가 비어있습니다. .env 파일을 확인하세요.");
+        if (!process.env.REACT_APP_WS_URL || !token) {
+            console.error("WebSocket URL 또는 토큰이 없습니다.");
             return;
         }
+
+        const matchingId = window.location.pathname.split("/")[1];
+        const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${token}`;
 
         console.log("WebSocket 최종 URL:", wsUrl);
         socketRef.current = new WebSocket(wsUrl);
@@ -84,7 +84,6 @@ const ChatWindow = () => {
             socketRef.current.send(
                 JSON.stringify({
                     type: "chat",
-                    memberId,
                     message: text,
                     timestamp,
                 })

@@ -6,8 +6,8 @@ import React from 'react';
 import './TraitScore.css';
 
 /* assets */
-import { ReactComponent as GoldBadge } from '../../assets/images/goldBadge.svg';
-import { ReactComponent as SilverBadge } from '../../assets/images/silverBadge.svg';
+import GoldWB from '../../assets/images/Logo_wb_gold.svg';
+import SilverWB from '../../assets/images/Logo_silver_wb.svg';
 
 /* datas */
 import { resultDescription } from '../../assets/datas/resultDescription';
@@ -22,7 +22,6 @@ const TraitScore = ({ label, score, eval: evalScore, showBadge = true }) => {
 
     const isGold = evalScore === 4;
     const isSilver = evalScore === 3;
-    const resultLabel = evaluationLabel[evalScore];
 
     const traitName = label.replace(/ (유사도|평균|다양성)/, '');
     const type = label.includes('유사도')
@@ -42,11 +41,17 @@ const TraitScore = ({ label, score, eval: evalScore, showBadge = true }) => {
                 <span className="trait-label">{label}</span>
 
                 {showBadge && (isGold || isSilver) && (
-                    <span className="trait-badge">
-                        {isGold && <GoldBadge className="badge-icon" />}
-                        {isSilver && <SilverBadge className="badge-icon" />}
+                    <span className={`trait-badge ${isGold ? "gold" : "silver"}`}>
+                        <img
+                            src={isGold ? GoldWB : SilverWB}
+                            alt={evaluationLabel[evalScore]}
+                            className="badge-icon"
+                        />
+                        {evaluationLabel[evalScore]}
                     </span>
                 )}
+
+
                 <span className="score-badge">{score}점</span>
             </div>
 

@@ -1,7 +1,7 @@
 // components/header/MainHeader.jsx
 
 import React, { useState } from 'react';
-import { useLocation, useMatch } from 'react-router-dom';
+import { useLocation, useMatch, matchPath } from 'react-router-dom';
 
 /* css */
 import './MainHeader.css';
