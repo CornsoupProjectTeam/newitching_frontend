@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 /* css */
 import "./ChatWindow.css";
@@ -15,7 +15,8 @@ const ChatWindow = () => {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
     const [teamId, setTeamId] = useState("");
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat`)
             .then(res => res.json())
@@ -50,9 +51,14 @@ const ChatWindow = () => {
                 const data = JSON.parse(event.data);
                 console.log("Parsed WebSocket message:", data);
 
-                // [1] 대화 종료 시 팝업
+                // [1] 대화 종료 시 big5 넘어가기
                 if (data.type === "done") {
-                    <NotiPopup message="대화가 종료되었습니다. 오늘 함께해 주셔서 감사합니다." />
+                    console.log("대화 종료됨. 잠시 후 BIG5 페이지로 이동합니다.");
+
+                    setTimeout(() => {
+                        navigate("/member/big5");
+                    }, 3000);
+                    
                     return; // 빈 메시지로 추가되는 걸 막음
                 }
 
