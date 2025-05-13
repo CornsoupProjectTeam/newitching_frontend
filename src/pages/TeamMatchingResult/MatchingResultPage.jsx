@@ -80,8 +80,8 @@ const MatchingResultPage = () => {
             teamName: `Team ${team.teamId}`,
             teamId: team.teamId,
             members: team.members.map((member) => ({
-                name: member.name || "이름 없음",
-                affiliation: member.affiliation || "소속 없음",
+                name: member.name || "",
+                affiliation: member.affiliation || "",
             })),
             averageScores: [
                 { label: "성실성", score: team.conscientiousnessMeanScore || 0, eval: team.conscientiousnessMeanEval || 0 },
