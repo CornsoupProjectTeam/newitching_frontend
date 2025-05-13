@@ -40,7 +40,7 @@ const MemberBox = () => {
         console.log("이름:", name, "소속:", organization, "프로젝트:", matchingId);
 
         // 백엔드 API로 프로젝트 ID와 사용자 정보를 전송
-        fetch(`${window.location.origin}/{urlKey}/register`, {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/{urlKey}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

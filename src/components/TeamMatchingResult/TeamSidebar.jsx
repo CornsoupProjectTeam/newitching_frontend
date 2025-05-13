@@ -10,7 +10,6 @@ import LogoWb from '../../assets/images/Logo_wb.svg';
 
 const TeamSidebar = ({
                          projectName,
-                         date,
                          maxUsers,
                          teamSize,
                          teamList,
@@ -23,7 +22,6 @@ const TeamSidebar = ({
                 <h2>{projectName}의<br />AI 팀 매칭 리포트</h2>
 
                 <div className="sidebar-meta">
-                    <p>{date}</p>
                     <p>최대 테스트 가능 인원 수 : {maxUsers}명</p>
                     <p>팀원 수 : {teamSize}명</p>
                 </div>
