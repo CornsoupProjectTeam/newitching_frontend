@@ -1,5 +1,7 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+// pages/TeamMatchingResult/MatchingResultPage.css
+
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import Lottie from "lottie-react";
 
 /* css */
@@ -17,6 +19,7 @@ import noDataAnimation from "../../assets/lottie/no-data.json";
 
 // 초기 상태값 상수로 분리
 const INITIAL_TEAM_INFO = {
+    matchingId:"",
     teamName: "",
     teamId: "",
     conscientiousnessMeanScore: 0,
@@ -37,38 +40,26 @@ const INITIAL_TEAM_INFO = {
 
 const MatchingResultPage = () => {
     const location = useLocation();
+    const { matchingId } = useParams();
     const resultData = location.state;
 
-    // 결과 데이터 검증
-    if (!resultData || !resultData.results || resultData.results.length === 0) {
-        return (
-            <div className="no-result-container">
-                <Lottie animationData={noDataAnimation} loop={false} autoplay={true} style={{ width: 260, height: 260 }} />
-                <h2 className="no-result-title">매칭 결과를 찾을 수 없어요.</h2>
-                <a href="/matching/signin" className="retry-button">다시 시도하기</a>
-            </div>
-        );
-    }
+    const sortedResults = resultData?.results
+        ? [...resultData.results].sort((a, b) => a.teamIndex - b.teamIndex)
+        : [];
 
-    const { teamSize, memberCount, results } = resultData;
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const selectedTeam = sortedResults[selectedIndex];
 
-    // 첫 번째 팀을 기본으로 설정
-    const firstTeam = results[0] || INITIAL_TEAM_INFO;
-
-    // 팀 클릭 시 실행
     const handleTeamSelect = (index) => {
-        const selectedTeam = results[index];
-        updateTeam(selectedTeam);
+        setSelectedIndex(index);
     };
 
-    // 팀 정보 갱신 함수
     const updateTeam = (team) => {
-        // 팀이 없거나 팀 멤버가 없는 경우 방어 코드 추가
         if (!team || !Array.isArray(team.members)) {
             console.error("유효하지 않은 팀 데이터:", team);
             return {
                 teamName: "팀 정보 없음",
-                teamId: -1,
+                teamIndex: -1,
                 members: [],
                 averageScores: [],
                 similarityScores: [],
@@ -77,11 +68,11 @@ const MatchingResultPage = () => {
         }
 
         return {
-            teamName: `Team ${team.teamId}`,
-            teamId: team.teamId,
+            teamName: `Team ${team.teamIndex}`,
+            teamIndex: team.teamIndex,
             members: team.members.map((member) => ({
                 name: member.name || "이름 없음",
-                affiliation: member.affiliation || "소속 없음",
+                affiliation: member.department || "소속 없음",
             })),
             averageScores: [
                 { label: "성실성", score: team.conscientiousnessMeanScore || 0, eval: team.conscientiousnessMeanEval || 0 },
@@ -99,55 +90,48 @@ const MatchingResultPage = () => {
         };
     };
 
-    const currentTeam = updateTeam(firstTeam);
+    if (!resultData || !resultData.results || resultData.results.length === 0 || !selectedTeam) {
+        console.warn("매칭 결과 없음 - Raw resultData:", resultData);
+        return (
+            <div className="no-result-container">
+                <Lottie animationData={noDataAnimation} loop={false} autoplay={true} style={{ width: 260, height: 260 }} />
+                <h2 className="no-result-title">매칭 결과를 찾을 수 없어요.</h2>
+                <a href="/matching/signin" className="retry-button">다시 시도하기</a>
+            </div>
+        );
+    }
+
+    const teamData = updateTeam(selectedTeam);
+    const { teamSize, memberCount } = resultData;
 
     return (
         <div className="matching-layout">
-            {/* 사이드바 */}
             <TeamSidebar
-                projectName={`프로젝트 ${firstTeam.teamId || "N/A"}`}
+                projectName={`${matchingId}`}
                 maxUsers={memberCount}
                 teamSize={teamSize}
-                teamList={results.map((team) => `Team ${team.teamId}`)}
-                currentTeam={currentTeam.teamName || ""}
+                teamList={sortedResults.map((team, idx) => ({
+                    label: `Team ${team.teamIndex}`,
+                    index: idx,
+                }))}
+                currentTeam={`Team ${selectedTeam.teamIndex}`}
                 onTeamSelect={handleTeamSelect}
             />
-            {/* 본문 */}
+
             <main className="matching-content">
-                {results.map((team, index) => {
-                    const teamData = updateTeam(team);
-                    return (
-                        <div key={index}>
-                            {/* 팀 정보 카드 */}
-                            <TeamInfoCard
-                                teamName={teamData.teamName}
-                                teamId={teamData.teamId}
-                                teamIndex={index}
-                                totalTeams={results.length}
-                                members={teamData.members}
-                            />
-                            {/* 평균 점수 카드 */}
-                            <AverageMatchingResultCard
-                                scores={teamData.averageScores}
-                                teamIndex={index}
-                            />
-                            {/* 유사성 점수 카드 */}
-                            <SimilarityMatchingResultCard
-                                scores={teamData.similarityScores}
-                                teamIndex={index}
-                            />
-                            {/* 다양성 점수 카드 */}
-                            <DiversityMatchingResultCard
-                                scores={teamData.diversityScores}
-                                teamIndex={index}
-                            />
-                        </div>
-                    );
-                })}
+                <TeamInfoCard
+                    teamName={teamData.teamName}
+                    teamId={teamData.teamIndex}
+                    teamIndex={selectedIndex}
+                    totalTeams={sortedResults.length}
+                    members={teamData.members}
+                />
+                <AverageMatchingResultCard scores={teamData.averageScores} teamIndex={selectedIndex} />
+                <SimilarityMatchingResultCard scores={teamData.similarityScores} teamIndex={selectedIndex} />
+                <DiversityMatchingResultCard scores={teamData.diversityScores} teamIndex={selectedIndex} />
             </main>
         </div>
     );
 };
 
 export default MatchingResultPage;
-

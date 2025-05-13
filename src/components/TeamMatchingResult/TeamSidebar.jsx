@@ -14,13 +14,15 @@ const TeamSidebar = ({
                          teamSize,
                          teamList,
                          currentTeam,
-                         onTeamSelect
+                         onTeamSelect,
                      }) => {
     return (
         <aside className="matching-sidebar">
             <div className="sidebar-title">
-                <h2>{projectName}의<br />AI 팀 매칭 리포트</h2>
-
+                <h2>
+                    {projectName}의<br />
+                    AI 팀 매칭 리포트
+                </h2>
                 <div className="sidebar-meta">
                     <p>최대 테스트 가능 인원 수 : {maxUsers}명</p>
                     <p>팀원 수 : {teamSize}명</p>
@@ -35,13 +37,13 @@ const TeamSidebar = ({
 
                 <div className="sidebar-teamlist">
                     <ul className="team-list">
-                        {teamList.map((team, idx) => (
+                        {teamList.map((team) => (
                             <li
-                                key={idx}
-                                className={team === currentTeam ? 'active' : ''}
-                                onClick={() => onTeamSelect && onTeamSelect(idx)}
+                                key={team.index}
+                                className={team.label === currentTeam ? 'active' : ''}
+                                onClick={() => onTeamSelect?.(team.index)}
                             >
-                                {team}
+                                {team.label}
                             </li>
                         ))}
                     </ul>
