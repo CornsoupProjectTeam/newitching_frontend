@@ -13,7 +13,7 @@ const MemberBox = () => {
     // URL에서 urlKey를 추출하여 상태로 관리
     const { urlKey } = useParams();
     const [name, setName] = useState("");
-    const [organization, setOrganization] = useState("");
+    const [department, setDepartment] = useState("");  // 소속 상태명 변경
     const [matchingId, setMatchingId] = useState("");  // 팀매칭 아이디 상태 추가
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const MemberBox = () => {
 
     // 채팅 시작 버튼 클릭 핸들러
     const handleStart = () => {
-        console.log("이름:", name, "소속:", organization, "팀 아이디:", matchingId);
+        console.log("이름:", name, "소속:", department, "팀 아이디:", matchingId);
 
         // 백엔드 API로 팀 ID와 사용자 정보를 전송
         fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/register`, {
@@ -47,11 +47,10 @@ const MemberBox = () => {
             },
             body: JSON.stringify({
                 name: name,
-                organization: organization,
+                department: department,  // 소속 필드명 변경
             }),
         })
             .then((response) => response.json())
-
             .then((data) => {
                 if (data.token) {
                     console.log("채팅 시작 성공:", data);
@@ -95,8 +94,8 @@ const MemberBox = () => {
                         type="text"
                         placeholder="소속을 입력하세요"
                         className="member-register-box-input"
-                        value={organization}
-                        onChange={(e) => setOrganization(e.target.value)}
+                        value={department}  // 소속 필드명 변경
+                        onChange={(e) => setDepartment(e.target.value)}
                     />
                 </div>
 

@@ -80,8 +80,8 @@ const MatchingResultPage = () => {
             teamName: `Team ${team.teamId}`,
             teamId: team.teamId,
             members: team.members.map((member) => ({
-                name: member.name || "이름 없음",
-                affiliation: member.affiliation || "소속 없음",
+                name: member.name || "",
+                affiliation: member.affiliation || "",
             })),
             averageScores: [
                 { label: "성실성", score: team.conscientiousnessMeanScore || 0, eval: team.conscientiousnessMeanEval || 0 },
@@ -105,7 +105,7 @@ const MatchingResultPage = () => {
         <div className="matching-layout">
             {/* 사이드바 */}
             <TeamSidebar
-                projectName={`프로젝트 ${firstTeam.teamId || "N/A"}`}
+                projectName={`팀 매칭 ${firstTeam.teamId || ""}`}
                 maxUsers={memberCount}
                 teamSize={teamSize}
                 teamList={results.map((team) => `Team ${team.teamId}`)}
