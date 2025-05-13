@@ -98,7 +98,7 @@ const MatchingResultPage = () => {
             return;
         }
 
-        const wsUrl = `${process.env.REACT_APP_WS_URL}/matching/${matchingId}/team_matching_results?token=${token}`;
+        const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${token}`;
         console.log("WebSocket 연결 시도:", wsUrl);
         socketRef.current = new WebSocket(wsUrl);
 
