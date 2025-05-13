@@ -11,14 +11,16 @@ import MemberBox from "../form/MemberBox";
 
 const MemberRegister = () => {
     return (
-        <div className="MemberRegister-container">
-            <div className="MemberRegister-left">
-                <LeftPanel />
+        <section className="MemberRegister-section">
+            <div className="MemberRegister-container">
+                <div className="MemberRegister-left">
+                    <LeftPanel />
+                </div>
+                <div className="MemberRegister-right">
+                    <MemberBox />
+                </div>
             </div>
-            <div className="MemberRegister-right">
-                <MemberBox />
-            </div>
-        </div>
+        </section>
     );
 };
 

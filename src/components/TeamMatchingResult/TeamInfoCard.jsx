@@ -1,6 +1,8 @@
 // components/TeamMatchingResult/TeamInfoCard.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+/* css */
 import './TeamInfoCard.css';
 
 /* components */
@@ -8,6 +10,10 @@ import BigFiveSummary from './BigFiveSummary';
 
 const TeamInfoCard = ({ teamName, teamId, teamIndex, totalTeams, members }) => {
     const [selectedAffil, setSelectedAffil] = useState('전체');
+
+    useEffect(() => {
+        setSelectedAffil('전체');
+    }, [teamId]);
 
     const affiliations = Array.from(new Set(members.map(m => m.affiliation)));
     const filtered = selectedAffil === '전체'

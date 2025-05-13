@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+import Select from "react-select";
 
 /* css */
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,21 +14,74 @@ import "../../components/drop-down/CustomCalender.css";
 import BeforeButton from "../button/RegisterMatching/BeforeButton";
 import StartButton from "../button/RegisterMatching/StartButton";
 
-/* assets s*/
-import { ReactComponent as ArrowDownButton } from "../button/RegisterMatching/arrow-down.svg";
+const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        borderColor: "#aca5a3",
+        borderRadius: "8px",
+        padding: "2px",
+        boxShadow: "none",
+        width: "384px",
+        fontSize: "14px", // 기본 글자 크기
+        "&:hover": {
+            borderColor: "#aca5a3",
+        },
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            width: "284px", // 모바일 너비
+            fontSize: "16px", // 모바일 글자 크기
+        },
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isFocused ? "#FD8B3E" : "#FFFFFF",
+        color: state.isFocused ? "#FFFFFF" : "#131115",
+        fontSize: "14px", // 기본 글자 크기
+        "&:hover": {
+            backgroundColor: "#FD8B3E",
+            color: "#FFFFFF",
+        },
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            fontSize: "14px", // 모바일 글자 크기
+            padding: "8px", // 선택 옵션 크기 축소
+        },
+    }),
+    menu: (provided) => ({
+        ...provided,
+        borderRadius: "12px",
+        overflow: "hidden",
+        width: "384px",
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            width: "300px", // 모바일 너비
+        },
+        "@media (max-width: 480px)": {
+            width: "240px", // 더 작은 화면 너비
+        },
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: "#131115",
+        fontSize: "14px", // 기본 글자 크기
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            fontSize: "14px", // 모바일 글자 크기
+        },
+    }),
+};
 
 const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
     const [maxTesters, setMaxTesters] = useState("");
-    const [teamSize, setTeamSize] = useState("");
+    const [teamSize, setTeamSize] = useState(null);
     const [deadline, setDeadline] = useState(null);
-
     const navigate = useNavigate();
 
     const handleStart = async () => {
         if (!maxTesters || !teamSize || !deadline) return;
 
         const memberCount = Number(maxTesters);
-        const teamSizeNum = Number(teamSize);
+        const teamSizeNum = Number(teamSize.value);
         const matchCount = Math.floor(memberCount / teamSizeNum);
 
         const payload = {
@@ -77,7 +131,7 @@ const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
         if (!testers || testers < 2) return [];
         const divisors = [];
         for (let i = 2; i <= testers; i++) {
-            if (testers % i === 0) divisors.push(i);
+            if (testers % i === 0) divisors.push({ value: i, label: `${i}명` });
         }
         return divisors;
     };
@@ -102,26 +156,20 @@ const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
                     value={maxTesters}
                     onChange={(e) => {
                         setMaxTesters(e.target.value);
-                        setTeamSize("");
+                        setTeamSize(null);
                     }}
                 />
             </div>
 
             <div className="register-start-box-form-group">
                 <label className="register-start-box-label">팀원 수</label>
-                <div className="register-start-box-select-wrapper">
-                    <select
-                        className="register-start-box-select"
-                        value={teamSize}
-                        onChange={(e) => setTeamSize(e.target.value)}
-                    >
-                        <option value="" disabled>선택하세요</option>
-                        {validTeamSizes().map((size) => (
-                            <option key={size} value={size}>{size}명</option>
-                        ))}
-                    </select>
-                    <ArrowDownButton className="register-start-box-arrow-icon" />
-                </div>
+                <Select
+                    styles={customStyles}
+                    value={teamSize}
+                    onChange={(option) => setTeamSize(option)}
+                    options={validTeamSizes()}
+                    placeholder="선택하세요"
+                />
             </div>
 
             <div className="register-start-box-form-group">

@@ -13,14 +13,16 @@ import MatchResultSignInBox from "../../components/form/MatchResultSignInBox";
 
 const MatchResultSignIn = () => {
     return (
-        <div className="MatchResultSignIn-container">
-            <div className="MatchResultSignIn-left">
-                <LeftPanel />
+        <section className="MatchResultSignIn-section">
+            <div className="MatchResultSignIn-container">
+                <div className="MatchResultSignIn-left">
+                    <LeftPanel />
+                </div>
+                <div className="MatchResultSignIn-right">
+                    <MatchResultSignInBox />
+                </div>
             </div>
-            <div className="MatchResultSignIn-right">
-                <MatchResultSignInBox />
-            </div>
-        </div>
+        </section>
     );
 };
 

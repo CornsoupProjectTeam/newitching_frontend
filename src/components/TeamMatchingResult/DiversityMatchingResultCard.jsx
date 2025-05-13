@@ -12,7 +12,10 @@ import TraitScore from './TraitScore';
 import Logo_wb from "../../assets/images/Logo_wb.svg";
 
 const DiversityMatchingResultCard = ({ scores, teamIndex }) => {
-    const visibleScores = scores.filter(score => score.eval >= 3); // 또는 scores 그대로 사용해도 OK
+    const visibleScores = scores.filter(score => score.eval >= 3);
+
+    // 표시할 성향이 없다면 전체 컴포넌트 렌더링하지 않음
+    if (visibleScores.length === 0) return null;
 
     return (
         <div className="result-card">
@@ -29,7 +32,7 @@ const DiversityMatchingResultCard = ({ scores, teamIndex }) => {
                         score={item.score}
                         eval={item.eval}
                         teamIndex={teamIndex}
-                        showBadge={true} // 다양성도 뱃지 보여줌!
+                        showBadge={true}
                     />
                 ))}
             </div>

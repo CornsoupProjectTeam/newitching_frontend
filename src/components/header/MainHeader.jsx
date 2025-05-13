@@ -1,7 +1,7 @@
 // components/header/MainHeader.jsx
 
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useMatch, matchPath } from 'react-router-dom';
 
 /* css */
 import './MainHeader.css';
@@ -14,8 +14,13 @@ function MainHeader() {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matchresultsignin', '/memberregister'];
-    const showRightMenu = !hiddenMenuPaths.includes(currentPath);
+    const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matching/signin', '/member/register'];
+    const isChatRoot = useMatch("/:urlKey");
+    const isChatPage = useMatch("/:urlKey/chat");
+    const isMatchingPage = useMatch("/matching/:matchingId");
+    const isBig5Page = useMatch("/:urlKey/member/big5");
+    const showRightMenu =
+        !hiddenMenuPaths.includes(currentPath) && !isChatPage && !isChatRoot && !isBig5Page && !isMatchingPage;
 
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(prev => !prev);
@@ -48,18 +53,25 @@ function MainHeader() {
                                 </li>
                                 <li>
                                     <a
-                                        href="/matchresultsignin"
-                                        className={`nav-button ${currentPath === '/matchresultsignin' ? 'active' : ''}`}
+                                        href="#"
+                                        className={`nav-button ${ isMatchingPage ? 'active' : ''}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open('/matching/signin', '_blank', 'width=1200,height=800');
+                                        }}
                                     >
                                         팀 매칭 결과
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="/matching"
+                                        href="#"
                                         className="nav-button primary"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open('/matching', '_blank', 'width=1200,height=800');
+                                        }}
+                                    >
                                         팀 매칭 등록하기
                                     </a>
                                 </li>

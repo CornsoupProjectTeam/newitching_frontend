@@ -34,6 +34,62 @@
   line-height: normal;
 }
 
+.trait-badge {
+  display: flex;
+  width: fit-content;
+  height: 18px;
+  padding: 6px;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 4px;
+
+  text-edge: cap;
+  /* body/bold/Small */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.trait-badge.gold {
+  color: var(--bedge-gold, #EA9C00);
+  border: 1px solid var(--bedge-gold, #EA9C00);
+  background: var(--bdg_gold, linear-gradient(94deg, #FFD589 2.89%, #FFF6E5 50.03%, #FFD589 97.18%));
+}
+
+.trait-badge.silver {
+  color: var(--bedge-silver, #878787);
+  border: 1px solid var(--bedge-silver, #878787);
+  background: var(--bdg_silver, linear-gradient(94deg, rgba(48, 48, 48, 0.20) 1.81%, rgba(255, 255, 255, 0.20) 52.27%, rgba(48, 48, 48, 0.20) 98.01%));
+}
+
+.score-badge{
+  display: flex;
+  height: 18px;
+  width: fit-content;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--Space-100, 4px);
+
+  border-radius: 4px;
+  border: 1px solid var(--purple-500, #C97CCB);
+  background: var(--purple-100, #F6E6F6);
+
+  color: var(--purple-500, #C97CCB);
+  leading-trim: both;
+
+  text-edge: cap;
+  /* body/bold/Small */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .trait-explanation{
   align-self: stretch;
   margin: 0px;

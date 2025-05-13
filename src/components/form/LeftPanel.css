@@ -8,7 +8,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     box-sizing: border-box;
-    padding: 40px 0 0 60px;
+    flex-shrink: 0;
 }
 
 .left-panel-logo {
@@ -25,6 +25,10 @@
     width: 276px;
     height: 180px;
     flex-shrink: 0;
+}
+
+.explain-text{
+    margin:0;
 }
 
 @media screen and (max-width: 768px) {

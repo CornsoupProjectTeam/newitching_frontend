@@ -6,7 +6,8 @@
 
 .matching-sidebar {
     display: flex;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: 800px;
     min-height: 800px;
     padding: 40px;
@@ -14,6 +15,7 @@
     align-items: center;
     gap: 52px;
     flex-shrink: 0;
+    box-sizing: border-box;
 
     border-radius: 16px;
     background: var(--maincolor-white, #FFF);

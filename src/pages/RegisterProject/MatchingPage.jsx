@@ -28,19 +28,21 @@ const MatchingPage = () => {
     }, [location.state]);
 
     return (
-        <div className="matching-register-container">
-            <LeftPanel />
-            <div className="matching-register-content">
-                {step === 1 && <RegisterBox onStepChange={setStep} />}
-                {step === 2 && (
-                    <RegisterStartBox
-                        onStepChange={setStep}
-                        matchingId={matchingInfo.matchingId}
-                        password={matchingInfo.password}
-                    />
-                )}
+        <section className="matching-register-section">
+            <div className="matching-register-container">
+                <LeftPanel />
+                <div className="matching-register-content">
+                    {step === 1 && <RegisterBox onStepChange={setStep} />}
+                    {step === 2 && (
+                        <RegisterStartBox
+                            onStepChange={setStep}
+                            matchingId={matchingInfo.matchingId}
+                            password={matchingInfo.password}
+                        />
+                    )}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

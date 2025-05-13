@@ -13,14 +13,16 @@ import UrlBox from "../../components/form/UrlBox";
 
 const MatchingUrl = () => {
     return (
-        <div className="RegisterUrl-container">
-            <div className="RegisterUrl-left">
-                <LeftPanel />
+        <section className="RegisterUrl-section">
+            <div className="RegisterUrl-container">
+                <div className="RegisterUrl-left">
+                    <LeftPanel />
+                </div>
+                <div className="RegisterUrl-right">
+                    <UrlBox />
+                </div>
             </div>
-            <div className="RegisterUrl-right">
-                <UrlBox />
-            </div>
-        </div>
+        </section>
     );
 };
 

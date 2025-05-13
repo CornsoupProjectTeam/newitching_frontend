@@ -1,117 +1,137 @@
-// pages/TeamMatchingResult/MatchingResultPage.jsx
+// pages/TeamMatchingResult/MatchingResultPage.css
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import Lottie from "lottie-react";
 
 /* css */
-import './MatchingResultPage.css';
+import "./MatchingResultPage.css";
 
 /* components */
-import TeamSidebar from '../../components/TeamMatchingResult/TeamSidebar';
-import TeamInfoCard from '../../components/TeamMatchingResult/TeamInfoCard';
-import AverageMatchingResultCard from '../../components/TeamMatchingResult/AverageMatchingResultCard';
-import SimilarityMatchingResultCard from '../../components/TeamMatchingResult/SimilarityMatchingResultCard';
-import DiversityMatchingResultCard from '../../components/TeamMatchingResult/DiversityMatchingResultCard';
+import TeamSidebar from "../../components/TeamMatchingResult/TeamSidebar";
+import TeamInfoCard from "../../components/TeamMatchingResult/TeamInfoCard";
+import AverageMatchingResultCard from "../../components/TeamMatchingResult/AverageMatchingResultCard";
+import SimilarityMatchingResultCard from "../../components/TeamMatchingResult/SimilarityMatchingResultCard";
+import DiversityMatchingResultCard from "../../components/TeamMatchingResult/DiversityMatchingResultCard";
+
+/* lottie */
+import noDataAnimation from "../../assets/lottie/no-data.json";
+
+// 초기 상태값 상수로 분리
+const INITIAL_TEAM_INFO = {
+    matchingId:"",
+    teamName: "",
+    teamId: "",
+    conscientiousnessMeanScore: 0,
+    agreeablenessMeanScore: 0,
+    conscientiousnessMeanEval: 0,
+    agreeablenessMeanEval: 0,
+    conscientiousnessSimilarityScore: 0,
+    agreeablenessSimilarityScore: 0,
+    neuroticismSimilarityScore: 0,
+    conscientiousnessSimilarityEval: 0,
+    agreeablenessSimilarityEval: 0,
+    neuroticismSimilarityEval: 0,
+    opennessDiversityScore: 0,
+    extraversionDiversityScore: 0,
+    opennessDiversityEval: 0,
+    extraversionDiversityEval: 0,
+};
 
 const MatchingResultPage = () => {
-    const [projectName, setProjectName] = useState("");
-    const [teamList, setTeamList] = useState([]);
-    const [teamInfo, setTeamInfo] = useState({ teamName: "", teamId: "" });
-    const [teamMembers, setTeamMembers] = useState([]);
-    const [averageScores, setAverageScores] = useState([]);
-    const [similarityScores, setSimilarityScores] = useState([]);
-    const [diversityScores, setDiversityScores] = useState([]);
-    const [date, setDate] = useState("");
+    const location = useLocation();
+    const { matchingId } = useParams();
+    const resultData = location.state;
 
-    // API 연동 - 팀 매칭 결과 조회
-    useEffect(() => {
-        const matchingId = localStorage.getItem("matchingId");
+    const sortedResults = resultData?.results
+        ? [...resultData.results].sort((a, b) => a.teamIndex - b.teamIndex)
+        : [];
 
-        if (!matchingId) {
-            alert("매칭 ID가 없습니다. 다시 시도해 주세요.");
-            return;
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const selectedTeam = sortedResults[selectedIndex];
+
+    const handleTeamSelect = (index) => {
+        setSelectedIndex(index);
+    };
+
+    const updateTeam = (team) => {
+        if (!team || !Array.isArray(team.members)) {
+            console.error("유효하지 않은 팀 데이터:", team);
+            return {
+                teamName: "팀 정보 없음",
+                teamIndex: -1,
+                members: [],
+                averageScores: [],
+                similarityScores: [],
+                diversityScores: [],
+            };
         }
 
-        fetch(`${window.location.origin}/matching/${matchingId}`)
-            .then((response) => {
-                if (!response.ok) throw new Error("매칭 결과 조회 실패");
-                return response.json();
-            })
-            .then((data) => {
-                if (data.length === 0) throw new Error("매칭 결과가 없습니다.");
+        return {
+            teamName: `Team ${team.teamIndex}`,
+            teamIndex: team.teamIndex,
+            members: team.members.map((member) => ({
+                name: member.name || "이름 없음",
+                affiliation: member.department || "소속 없음",
+            })),
+            averageScores: [
+                { label: "성실성", score: team.conscientiousnessMeanScore || 0, eval: team.conscientiousnessMeanEval || 0 },
+                { label: "친화성", score: team.agreeablenessMeanScore || 0, eval: team.agreeablenessMeanEval || 0 },
+            ],
+            similarityScores: [
+                { label: "성실성", score: team.conscientiousnessSimilarityScore || 0, eval: team.conscientiousnessSimilarityEval || 0 },
+                { label: "친화성", score: team.agreeablenessSimilarityScore || 0, eval: team.agreeablenessSimilarityEval || 0 },
+                { label: "신경증", score: team.neuroticismSimilarityScore || 0, eval: team.neuroticismSimilarityEval || 0 },
+            ],
+            diversityScores: [
+                { label: "개방성", score: team.opennessDiversityScore || 0, eval: team.opennessDiversityEval || 0 },
+                { label: "외향성", score: team.extraversionDiversityScore || 0, eval: team.extraversionDiversityEval || 0 },
+            ],
+        };
+    };
 
-                // 프로젝트 이름과 날짜 동적으로 설정
-                setProjectName(`팀 매칭 ${matchingId}`);
-                setDate(new Date().toLocaleString());
+    if (!resultData || !resultData.results || resultData.results.length === 0 || !selectedTeam) {
+        console.warn("매칭 결과 없음 - Raw resultData:", resultData);
+        return (
+            <div className="no-result-container">
+                <Lottie animationData={noDataAnimation} loop={false} autoplay={true} style={{ width: 260, height: 260 }} />
+                <h2 className="no-result-title">매칭 결과를 찾을 수 없어요.</h2>
+                <a href="/matching/signin" className="retry-button">다시 시도하기</a>
+            </div>
+        );
+    }
 
-                const teamNames = data.map((team) => `Team ${team.teamId}`);
-                setTeamList(teamNames);
-
-                const firstTeam = data[0];
-                setTeamInfo({ teamName: `Team ${firstTeam.teamId}`, teamId: firstTeam.teamId });
-
-                const members = firstTeam.memberNames.map((name) => {
-                    const [affiliation, memberName] = name.split(" ");
-                    return { name: memberName, affiliation };
-                });
-                setTeamMembers(members);
-
-                setAverageScores([
-                    { label: "성실성", score: firstTeam.conscientiousnessMeanScore, eval: firstTeam.conscientiousnessMeanEval },
-                    { label: "친화성", score: firstTeam.agreeablenessMeanScore, eval: firstTeam.agreeablenessMeanEval },
-                ]);
-
-                setSimilarityScores([
-                    { label: "성실성", score: firstTeam.conscientiousnessSimilarityScore, eval: firstTeam.conscientiousnessSimilarityEval },
-                    { label: "친화성", score: firstTeam.agreeablenessSimilarityScore, eval: firstTeam.agreeablenessSimilarityEval },
-                    { label: "신경증", score: firstTeam.neuroticismSimilarityScore, eval: firstTeam.neuroticismSimilarityEval },
-                ]);
-
-                setDiversityScores([
-                    { label: "개방성", score: firstTeam.opennessDiversityEval, eval: 3 },
-                    { label: "외향성", score: firstTeam.extraversionDiversityEval, eval: 4 },
-                ]);
-            })
-            .catch((error) => {
-                console.error("오류 발생:", error.message);
-                alert("팀 매칭 결과를 불러올 수 없습니다.");
-            });
-    }, []);
+    const teamData = updateTeam(selectedTeam);
+    const { teamSize, memberCount } = resultData;
 
     return (
         <div className="matching-layout">
-            {/* 사이드바 */}
             <TeamSidebar
-                projectName={projectName}
-                date={date}
-                maxUsers={teamMembers.length}
-                teamSize={teamMembers.length / teamList.length || 1}
-                teamList={teamList}
-                currentTeam={teamInfo.teamName}
+                projectName={`${matchingId}`}
+                maxUsers={memberCount}
+                teamSize={teamSize}
+                teamList={sortedResults.map((team, idx) => ({
+                    label: `Team ${team.teamIndex}`,
+                    index: idx,
+                }))}
+                currentTeam={`Team ${selectedTeam.teamIndex}`}
+                onTeamSelect={handleTeamSelect}
             />
-            {/* 본문 */}
+
             <main className="matching-content">
                 <TeamInfoCard
-                    teamName={teamInfo.teamName}
-                    teamId={teamInfo.teamId}
-                    teamIndex={teamList.indexOf(teamInfo.teamName)}
-                    totalTeams={teamList.length}
-                    members={teamMembers}
+                    teamName={teamData.teamName}
+                    teamId={teamData.teamIndex}
+                    teamIndex={selectedIndex}
+                    totalTeams={sortedResults.length}
+                    members={teamData.members}
                 />
-                <AverageMatchingResultCard
-                    scores={averageScores}
-                    teamIndex={teamList.indexOf(teamInfo.teamName)}
-                />
-                <SimilarityMatchingResultCard
-                    scores={similarityScores}
-                    teamIndex={teamList.indexOf(teamInfo.teamName)}
-                />
-                <DiversityMatchingResultCard
-                    scores={diversityScores}
-                    teamIndex={teamList.indexOf(teamInfo.teamName)}
-                />
+                <AverageMatchingResultCard scores={teamData.averageScores} teamIndex={selectedIndex} />
+                <SimilarityMatchingResultCard scores={teamData.similarityScores} teamIndex={selectedIndex} />
+                <DiversityMatchingResultCard scores={teamData.diversityScores} teamIndex={selectedIndex} />
             </main>
         </div>
     );
 };
 
-export default MatchingResultPage
+export default MatchingResultPage;
