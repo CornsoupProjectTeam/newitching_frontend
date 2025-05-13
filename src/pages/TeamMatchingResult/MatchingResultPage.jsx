@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import Lottie from "lottie-react";
 
 /* css */
 import "./MatchingResultPage.css";
@@ -10,6 +11,9 @@ import TeamInfoCard from "../../components/TeamMatchingResult/TeamInfoCard";
 import AverageMatchingResultCard from "../../components/TeamMatchingResult/AverageMatchingResultCard";
 import SimilarityMatchingResultCard from "../../components/TeamMatchingResult/SimilarityMatchingResultCard";
 import DiversityMatchingResultCard from "../../components/TeamMatchingResult/DiversityMatchingResultCard";
+
+/* lottie */
+import noDataAnimation from "../../assets/lottie/no-data.json";
 
 // 초기 상태값 상수로 분리
 const INITIAL_TEAM_INFO = {
@@ -36,8 +40,14 @@ const MatchingResultPage = () => {
     const resultData = location.state;
 
     // 결과 데이터 검증
-    if (!resultData || !resultData.results) {
-        return <div>매칭 결과가 없습니다. 다시 시도해 주세요.</div>;
+    if (!resultData || !resultData.results || resultData.results.length === 0) {
+        return (
+            <div className="no-result-container">
+                <Lottie animationData={noDataAnimation} loop={false} autoplay={true} style={{ width: 260, height: 260 }} />
+                <h2 className="no-result-title">매칭 결과를 찾을 수 없어요.</h2>
+                <a href="/matching/signin" className="retry-button">다시 시도하기</a>
+            </div>
+        );
     }
 
     const { teamSize, memberCount, results } = resultData;
