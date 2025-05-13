@@ -1,5 +1,3 @@
-// pages/TeamMatchingResult/MatchingResultPage.jsx
-
 import React, { useState, useEffect, useRef } from "react";
 
 /* css */
@@ -14,7 +12,6 @@ import DiversityMatchingResultCard from "../../components/TeamMatchingResult/Div
 
 const MatchingResultPage = () => {
     const [projectName, setProjectName] = useState("");
-    const [date, setDate] = useState("");
     const [teamList, setTeamList] = useState([]);
     const [teamsData, setTeamsData] = useState([]);
     const [selectedTeamIndex, setSelectedTeamIndex] = useState(0);
@@ -27,25 +24,32 @@ const MatchingResultPage = () => {
 
     // 선택된 팀 정보를 갱신하는 함수
     const updateTeam = (team) => {
+        if (!team) return;
+
+        // 팀명과 팀 ID 업데이트
         setTeamInfo({ teamName: `Team ${team.teamIndex + 1}`, teamId: team.teamIndex });
 
+        // 멤버 정보 업데이트 (하드코딩 제거)
         const members = team.members.map((member) => ({
-            name: member.name,
-            affiliation: member.department || "소속 없음",
+            name: member.name || "이름 없음",
+            affiliation: member.affiliation || "소속 없음",
         }));
         setTeamMembers(members);
 
+        // 평균 점수 업데이트
         setAverageScores([
             { label: "성실성", score: team.conscientiousnessMeanScore || 0, eval: team.conscientiousnessMeanEval || 0 },
             { label: "친화성", score: team.agreeablenessMeanScore || 0, eval: team.agreeablenessMeanEval || 0 },
         ]);
 
+        // 유사성 점수 업데이트
         setSimilarityScores([
             { label: "성실성", score: team.conscientiousnessSimilarityScore || 0, eval: team.conscientiousnessSimilarityEval || 0 },
             { label: "친화성", score: team.agreeablenessSimilarityScore || 0, eval: team.agreeablenessSimilarityEval || 0 },
             { label: "신경증", score: team.neuroticismSimilarityScore || 0, eval: team.neuroticismSimilarityEval || 0 },
         ]);
 
+        // 다양성 점수 업데이트
         setDiversityScores([
             { label: "개방성", score: team.opennessDiversityScore || 0, eval: team.opennessDiversityEval || 0 },
             { label: "외향성", score: team.extraversionDiversityScore || 0, eval: team.extraversionDiversityEval || 0 },
@@ -58,7 +62,7 @@ const MatchingResultPage = () => {
         updateTeam(teamsData[index]);
     };
 
-    // WebSocket 연결
+    // WebSocket 연결 설정
     useEffect(() => {
         const matchingId = localStorage.getItem("matchingId");
         const token = localStorage.getItem("authToken");
@@ -73,21 +77,23 @@ const MatchingResultPage = () => {
         socketRef.current = new WebSocket(wsUrl);
 
         socketRef.current.onopen = () => {
-            console.log("WebSocket connected");
+            console.log("WebSocket connected for Matching Results");
         };
 
         socketRef.current.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data);
                 if (data && data.teams && data.teams.length > 0) {
-                    setProjectName(`프로젝트 ${data.matchingId}`);
-                    setDate(new Date().toLocaleString());
+                    console.log("Received team matching results:", data);
 
+                    setProjectName(`프로젝트 ${data.matchingId}`);
+
+                    // 팀 목록 설정
                     const teamNames = data.teams.map((_, i) => `Team ${i + 1}`);
                     setTeamList(teamNames);
                     setTeamsData(data.teams);
 
-                    // 디폴트는 첫 번째 팀
+                    // 첫 번째 팀을 디폴트로 설정
                     setSelectedTeamIndex(0);
                     updateTeam(data.teams[0]);
                 }
@@ -116,7 +122,6 @@ const MatchingResultPage = () => {
         <div className="matching-layout">
             <TeamSidebar
                 projectName={projectName}
-                date={date}
                 maxUsers={teamMembers.length}
                 teamSize={teamMembers.length}
                 teamList={teamList}
