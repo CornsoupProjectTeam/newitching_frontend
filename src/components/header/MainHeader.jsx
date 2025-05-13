@@ -18,9 +18,9 @@ function MainHeader() {
     const isChatRoot = useMatch("/:urlKey");
     const isChatPage = useMatch("/:urlKey/chat");
     const isMatchingPage = useMatch("/matching/:matchingId");
-    const isBig5Page = useMatch("/member/big5");
+    const isBig5Page = useMatch("/:urlKey/member/big5");
     const showRightMenu =
-        !hiddenMenuPaths.includes(currentPath) && !isChatPage && !isChatRoot && !isBig5Page;
+        !hiddenMenuPaths.includes(currentPath) && !isChatPage && !isChatRoot && !isBig5Page && !isMatchingPage;
 
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(prev => !prev);
