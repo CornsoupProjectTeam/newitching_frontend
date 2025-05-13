@@ -14,7 +14,7 @@ const MemberBox = () => {
     const { urlKey } = useParams();
     const [name, setName] = useState("");
     const [organization, setOrganization] = useState("");
-    const [matchingId, setMatchingId] = useState("");  // 프로젝트 아이디 상태 추가
+    const [matchingId, setMatchingId] = useState("");  // 팀매칭 아이디 상태 추가
     const navigate = useNavigate();
 
     // URL에서 추출한 urlKey를 이용하여 프로젝트 아이디 가져오기
@@ -31,16 +31,16 @@ const MemberBox = () => {
             })
             .catch((error) => {
                 console.error("API 오류:", error);
-                alert("프로젝트 정보를 불러오는 데 실패했습니다.");
+                alert("팀 매칭 정보를 불러오는 데 실패했습니다.");
             });
     }, [urlKey]);
 
     // 채팅 시작 버튼 클릭 핸들러
     const handleStart = () => {
-        console.log("이름:", name, "소속:", organization, "프로젝트:", matchingId);
+        console.log("이름:", name, "소속:", organization, "팀 아이디:", matchingId);
 
-        // 백엔드 API로 프로젝트 ID와 사용자 정보를 전송
-        fetch(`${window.location.origin}/{urlKey}/register`, {
+        // 백엔드 API로 팀 ID와 사용자 정보를 전송
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -51,10 +51,12 @@ const MemberBox = () => {
             }),
         })
             .then((response) => response.json())
+
             .then((data) => {
-                if (data.success) {
+                if (data.token) {
                     console.log("채팅 시작 성공:", data);
-                    navigate(`/{urlKey}/chat`);
+                    localStorage.setItem("authToken", data.token);
+                    navigate(`/${urlKey}/chat`);
                 } else {
                     console.error("채팅 시작 실패:", data.message);
                     alert("채팅 시작에 실패했습니다.");
@@ -72,8 +74,8 @@ const MemberBox = () => {
 
             <div className="member-register-box-form">
                 <div className="member-register-box-form-group">
-                    <label className="member-register-box-label">프로젝트 아이디</label>
-                    <div className="member-register-box-readonly">{matchingId}</div> {/* 수정 부분 */}
+                    <label className="member-register-box-label">팀 매칭 아이디</label>
+                    <div className="member-register-box-readonly">{matchingId}</div>
                 </div>
 
                 <div className="member-register-box-form-group">

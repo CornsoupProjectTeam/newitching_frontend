@@ -14,7 +14,6 @@ import DiversityMatchingResultCard from "../../components/TeamMatchingResult/Div
 
 const MatchingResultPage = () => {
     const [projectName, setProjectName] = useState("");
-    const [date, setDate] = useState("");
     const [teamList, setTeamList] = useState([]);
     const [teamsData, setTeamsData] = useState([]);
     const [selectedTeamIndex, setSelectedTeamIndex] = useState(0);
@@ -80,8 +79,7 @@ const MatchingResultPage = () => {
             try {
                 const data = JSON.parse(event.data);
                 if (data && data.teams && data.teams.length > 0) {
-                    setProjectName(`프로젝트 ${data.matchingId}`);
-                    setDate(new Date().toLocaleString());
+                    setProjectName(`팀 아이디 ${data.matchingId}`);
 
                     const teamNames = data.teams.map((_, i) => `Team ${i + 1}`);
                     setTeamList(teamNames);
@@ -116,7 +114,6 @@ const MatchingResultPage = () => {
         <div className="matching-layout">
             <TeamSidebar
                 projectName={projectName}
-                date={date}
                 maxUsers={teamMembers.length}
                 teamSize={teamMembers.length}
                 teamList={teamList}
