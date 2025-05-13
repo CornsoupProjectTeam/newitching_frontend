@@ -18,19 +18,21 @@ import MatchingResultPage from "./pages/TeamMatchingResult/MatchingResultPage";
 const App = () => {
     return (
         <Router>
+            <div className="main-body">
             <MainHeader />
             <Routes>
                 <Route path="/:urlKey" element={<MemberRegister />} />
                 <Route path="/:urlKey/chat" element={<Chat />} />
                 <Route path="/matching" element={<MatchingPage />} />
                 <Route path="/matching/register" element={<MatchingUrl />} />
-                <Route path="/memberregister" element={<MemberRegister />} />
-                <Route path="/matchresultsignin" element={<MatchResultSignIn />} />
+                <Route path="/member/register" element={<MemberRegister />} />
+                <Route path="/matching/signin" element={<MatchResultSignIn />} />
                 <Route path="/" element={<HomePage />} />
-                <Route path="/big5" element={<Big5ResultPage />} />
+                <Route path="/member/big5" element={<Big5ResultPage />} />
                 <Route path="/matching/:matchingId" element={<MatchingResultPage />} />
             </Routes>
             <Footer />
+            </div>
         </Router>
     );
 };

@@ -12,6 +12,8 @@ const ChatWindow = () => {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
 
+    const memberId = "214e2729-e21e-4b78-8c20-03aa6ff6377a";
+
     // TODO: 웹소켓 연결 후 로그 정리 및 디자인 점검
     useEffect(() => {
         const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${process.env.REACT_APP_WS_TOKEN}`;
@@ -82,6 +84,7 @@ const ChatWindow = () => {
             socketRef.current.send(
                 JSON.stringify({
                     type: "chat",
+                    memberId,
                     message: text,
                     timestamp,
                 })

@@ -1,3 +1,5 @@
+/* components/button/Home/RegisterButton.css*/
+
 .registerhome-btn {
     display: flex;
     padding: 20px 60px;
@@ -7,12 +9,11 @@
     border-radius: 30px;
     border: 2px solid var(--orange-400, #FD8B3E);
     color: var(--maincolor-white, #FFF);
-    background-color: #111015; /* 배경: 까맣게 */
+    background-color: #111015;
     text-align: center;
     leading-trim: both;
     text-edge: cap;
 
-    /* title/bold/Medium */
     font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
@@ -21,6 +22,6 @@
 }
 
 .registerhome-btn:hover {
-    background-color: var(--orange-400, #FD8B3E); /* hover시 주황 배경 */
-    color: #111015;            /* hover시 검은 텍스트 */
+    background-color: var(--orange-400, #FD8B3E);
+    color: #111015;
 }

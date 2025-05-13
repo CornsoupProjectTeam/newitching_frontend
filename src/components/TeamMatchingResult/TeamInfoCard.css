@@ -4,173 +4,175 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 .team-card {
-    display: flex;
-    padding: 40px;
-    flex-direction: column;
-    align-items: center;
-    gap: 52px;
-    align-self: stretch;
+  display: flex;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+  align-self: stretch;
 
-    border-radius: 16px;
-    border: 2px solid var(--linear, #FD8B3E);
-    background: var(--maincolor-white, #FFF);
-    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  border: 2px solid var(--linear, #FD8B3E);
+  background: var(--maincolor-white, #FFF);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.04);
 }
 
 .team-header{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
 }
 
 .team-title{
-    margin: 0px;
+  margin: 0px;
 
-    color: var(--orange-400, #FD8B3E);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--orange-400, #FD8B3E);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* headline/large */
-    font-family: Pretendard;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 48px; /* 150% */
+  /* headline/large */
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px; /* 150% */
 }
 
 .team-match-info{
-    margin: 0px;
+  margin: 0px;
 
-    color: var(--grayscale-gray700, #C1BBB7);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--grayscale-gray700, #C1BBB7);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* title/medium/Medium */
-    font-family: Pretendard;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+  /* title/medium/Medium */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .team-body{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-    align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  align-self: stretch;
 }
 
 .team-member-count{
-    align-self: stretch;
+  align-self: stretch;
 
-    color: var(--grayscale-gray700, #C1BBB7);
+  color: var(--grayscale-gray700, #C1BBB7);
 
-    /* body/bold/Large */
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+/* body/bold/Large */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .team-filter{
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
 }
 
 .team-filter button{
-    display: flex;
-    height: 40px;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  height: 40px;
+  padding: 6px 12px;
+  align-items: center;
+  gap: 4px;
 
-    color: var(--orange-200, #FEB98B);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--orange-200, #FEB98B);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* body/bold/Large - prominent */
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%; /* 25.6px */
+  /* body/bold/Large - prominent */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
 
-    border: none;
-    border-radius: 4px;
-    background: rgba(255, 232, 216, 0.40);
+  border: none;
+  border-radius: 4px;
+  background: rgba(255, 232, 216, 0.40);
 }
 
 .team-filter button.active{
-    color: var(--orange-500, #F1853C);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--orange-500, #F1853C);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* body/bold/Large - prominent */
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%; /* 25.6px */
+  /* body/bold/Large - prominent */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
 
-    border-radius: 4px;
-    border: 1.5px solid var(--orange-500, #F1853C);
-    background: var(--orange-100, #FFE8D8);
+  border-radius: 4px;
+  border: 1.5px solid var(--orange-500, #F1853C);
+  background: var(--orange-100, #FFE8D8);
 }
 
 .team-member-list{
-    display: flex;
-    align-items: flex-start;
-    align-content: flex-start;
-    position: relative;
-    box-sizing: border-box;
-    gap: 8px;
-    align-self: stretch;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  position: relative;
+  box-sizing: border-box;
+  gap: 8px;
+  align-self: stretch;
+  flex-wrap: wrap;
 }
 
 .member-box{
-    display: flex;
-    flex-direction: row;
-    width: 264px;
-    height: fit-content;
-    padding: 15px 17px;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  flex-direction: row;
+  width: 264px;
+  height: fit-content;
+  padding: 15px 17px;
+  align-items: center;
+  gap: 12px;
 
-    position: relative;
-    margin: 0;
-    top: auto;
-    transform: none;
+  position: relative;
+  margin: 0;
+  top: auto;
+  transform: none;
 }
 
 .member-name{
-    color: var(--grayscale-gray900, #6A6666);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--grayscale-gray900, #6A6666);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* body/bold/Large - prominent */
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%; /* 25.6px */
+  /* body/bold/Large - prominent */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
 }
 
 .member-affil{
-    color: var(--grayscale-gray700, #C1BBB7);
-    leading-trim: both;
-    text-edge: cap;
+  color: var(--grayscale-gray700, #C1BBB7);
+  leading-trim: both;
+  text-edge: cap;
 
-    /* body/bold/Large - prominent */
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%; /* 25.6px */
+  /* body/bold/Large - prominent */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
 }

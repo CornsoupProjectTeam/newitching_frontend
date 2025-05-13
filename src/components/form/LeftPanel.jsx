@@ -1,6 +1,8 @@
-// src/components/layout/LeftPanel.jsx
+// components/form/LeftPanel.jsx
 
 import React from "react";
+
+/* css */
 import "./LeftPanel.css";
 
 /* assets */
@@ -11,9 +13,9 @@ import Explainlogo from "../../assets/icons/LeftPanel_explain";
 const LeftPanel = () => {
     return (
         <div className="left-panel">
-                <Explainlogo />
-                <img src={leftpanellogo} alt="LeftPanelLogo" className="left-panel-logo" />
-                <img src={orangelogo} alt="OrangeLogo" className="orange-logo" />
+            <Explainlogo />
+            <img src={leftpanellogo} alt="LeftPanelLogo" className="left-panel-logo" />
+            <img src={orangelogo} alt="OrangeLogo" className="orange-logo" />
         </div>
     );
 };

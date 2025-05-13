@@ -1,9 +1,16 @@
+// src/pages/RegisterProject/MatchingPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+/* css */
+import "../RegisterProject/MatchingPage.css";
+
+/* components */
 import RegisterBox from "../../components/form/RegisterBox";
 import RegisterStartBox from "../../components/form/RegisterStartBox";
 import LeftPanel from "../../components/form/LeftPanel";
-import "../RegisterProject/MatchingPage.css";
+
 
 const MatchingPage = () => {
     const location = useLocation();
@@ -21,19 +28,21 @@ const MatchingPage = () => {
     }, [location.state]);
 
     return (
-        <div className="matching-container">
-            <LeftPanel />
-            <div className="matching-content">
-                {step === 1 && <RegisterBox onStepChange={setStep} />}
-                {step === 2 && (
-                    <RegisterStartBox
-                        onStepChange={setStep}
-                        matchingId={matchingInfo.matchingId}
-                        password={matchingInfo.password}
-                    />
-                )}
+        <section className="matching-register-section">
+            <div className="matching-register-container">
+                <LeftPanel />
+                <div className="matching-register-content">
+                    {step === 1 && <RegisterBox onStepChange={setStep} />}
+                    {step === 2 && (
+                        <RegisterStartBox
+                            onStepChange={setStep}
+                            matchingId={matchingInfo.matchingId}
+                            password={matchingInfo.password}
+                        />
+                    )}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

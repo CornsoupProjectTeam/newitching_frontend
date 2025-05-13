@@ -1,7 +1,13 @@
+// components/form/MatchResultSignInBox.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./MatchResultSignInBox.css";
 import "../../components/button/ResultStartButton.css";
+
+/* components */
 import CancelButton from "../../components/button/RegisterMatching/CancelButton";
 import ResultStartButton from "../button/ResultStartButton";
 
@@ -50,7 +56,7 @@ const MatchResultSignIn = () => {
 
             {/* 매칭 ID 입력 */}
             <div className="matchresult-group">
-                <label className="matchresult-label">프로젝트 아이디</label>
+                <label className="matchresult-label">팀 매칭 아이디</label>
                 <div className="matchresult-input-wrapper">
                     <input
                         type="text"

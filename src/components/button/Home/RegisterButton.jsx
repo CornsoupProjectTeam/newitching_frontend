@@ -1,12 +1,16 @@
+// components/button/Home/RegisterButton.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./RegisterButton.css";
 
 const RegisterButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/matching");
+        window.open("/matching", "_blank", "width=1200,height=800");
     };
 
     return (

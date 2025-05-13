@@ -8,7 +8,15 @@ import './TeamSidebar.css';
 /* assets */
 import LogoWb from '../../assets/images/Logo_wb.svg';
 
-const TeamSidebar = ({ projectName, date, maxUsers, teamSize, teamList, currentTeam }) => {
+const TeamSidebar = ({
+                         projectName,
+                         date,
+                         maxUsers,
+                         teamSize,
+                         teamList,
+                         currentTeam,
+                         onTeamSelect
+                     }) => {
     return (
         <aside className="matching-sidebar">
             <div className="sidebar-title">
@@ -30,7 +38,11 @@ const TeamSidebar = ({ projectName, date, maxUsers, teamSize, teamList, currentT
                 <div className="sidebar-teamlist">
                     <ul className="team-list">
                         {teamList.map((team, idx) => (
-                            <li key={idx} className={team === currentTeam ? 'active' : ''}>
+                            <li
+                                key={idx}
+                                className={team === currentTeam ? 'active' : ''}
+                                onClick={() => onTeamSelect && onTeamSelect(idx)}
+                            >
                                 {team}
                             </li>
                         ))}

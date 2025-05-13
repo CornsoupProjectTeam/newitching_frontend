@@ -1,3 +1,5 @@
+// assets/icons/LeftPanel_explain.jsx
+
 import React from "react";
 import "./LeftPanel_explain.css";
 

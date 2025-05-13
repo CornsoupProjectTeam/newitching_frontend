@@ -1,12 +1,15 @@
+// components/button/RegisterMatching/BeforeButton.jsx
+
 import React from "react";
-import { useNavigate } from "react-router-dom";
+
+/* css */
 import "./BeforeButton.css";
 
 const BeforeButton = () => {
     return (
-        <button className="before-btn">
+        <div className="before-btn">
             이전으로
-        </button>
+        </div>
     );
 };
 

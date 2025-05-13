@@ -1,8 +1,16 @@
+// components/form/Url.jsx
+
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+
+/* css */
 import "./UrlBox.css";
-import DublicateUrlButton from "../button/RegisterMatching/DublicateUrlButton";
-import UrlNoti from "../../assets/images/UrlNoti";
+
+/* components */
+import DublicateUrlButton from "../button/RegisterMatching/DuplicateUrlButton";
+import UrlNoti from "./UrlNoti";
+
+/* assets */
 import emaillogo from "../../assets/images/email.svg";
 
 const UrlBox = () => {
@@ -28,7 +36,7 @@ const UrlBox = () => {
     return (
         <div className="url-box">
             <div className="url-box-title">
-                <h2>프로젝트 URL을 생성했습니다!</h2>
+                <h2>팀 매칭 URL을 생성했습니다!</h2>
                 <p>공유한 링크를 눌러서 팀원들이 바로 챗봇과 대화를 시작할 수 있어요.</p>
             </div>
 

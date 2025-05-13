@@ -1,6 +1,12 @@
+// components/form/MemberBox.jsx
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+/* css */
 import "./MemberBox.css";
+
+/* assets */
 import { ReactComponent as StartChatButton } from "../button/MemberStartButton.svg";
 
 const MemberBox = () => {
@@ -13,19 +19,19 @@ const MemberBox = () => {
 
     // URL에서 추출한 urlKey를 이용하여 프로젝트 아이디 가져오기
     useEffect(() => {
-        fetch(`${window.location.origin}/${urlKey}`)
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    setMatchingId(data.matchingId);  // 프로젝트 아이디 설정
-                } else {
-                    console.error("프로젝트 아이디 불러오기 실패:", data.message);
-                    alert("프로젝트 정보를 불러올 수 없습니다.");
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                return response.json();
+            })
+            .then((data) => {
+                setMatchingId(data.matchingId);
             })
             .catch((error) => {
-                console.error("오류 발생:", error);
-                alert("서버 연결에 실패했습니다.");
+                console.error("API 오류:", error);
+                alert("프로젝트 정보를 불러오는 데 실패했습니다.");
             });
     }, [urlKey]);
 
@@ -61,38 +67,38 @@ const MemberBox = () => {
     };
 
     return (
-        <div className="member-box">
-            <h2 className="member-box-title">팀 매칭을 위한 챗봇 분석 시작하기</h2>
+        <div className="member-register-box">
+            <h2 className="member-register-box-title">팀 매칭을 위한 챗봇 분석 시작하기</h2>
 
-            <div className="member-box-form">
-                <div className="member-box-form-group">
-                    <label className="member-box-label">프로젝트 아이디</label>
-                    <div className="member-box-readonly">{matchingId}</div> {/* 수정 부분 */}
+            <div className="member-register-box-form">
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">프로젝트 아이디</label>
+                    <div className="member-register-box-readonly">{matchingId}</div> {/* 수정 부분 */}
                 </div>
 
-                <div className="member-box-form-group">
-                    <label className="member-box-label">내 이름</label>
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">내 이름</label>
                     <input
                         type="text"
                         placeholder="실명을 입력하세요"
-                        className="member-box-input"
+                        className="member-register-box-input"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
 
-                <div className="member-box-form-group">
-                    <label className="member-box-label">소속</label>
+                <div className="member-register-box-form-group">
+                    <label className="member-register-box-label">소속</label>
                     <input
                         type="text"
                         placeholder="소속을 입력하세요"
-                        className="member-box-input"
+                        className="member-register-box-input"
                         value={organization}
                         onChange={(e) => setOrganization(e.target.value)}
                     />
                 </div>
 
-                <button className="member-box-start-btn" onClick={handleStart}>
+                <button className="member-register-box-start-btn" onClick={handleStart}>
                     <StartChatButton />
                 </button>
             </div>
