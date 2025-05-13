@@ -23,15 +23,13 @@ const Big5Page = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
-
         if (!process.env.REACT_APP_WS_URL || !token) {
-            console.error("WebSocket URL 또는 토큰이 없습니다.");
+            console.error("환경변수가 비어있거나 토큰이 없습니다. .env 파일을 확인하세요.");
             return;
         }
 
         const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${token}`;
         console.log("WebSocket 연결 시도: ", wsUrl);
-
         socketRef.current = new WebSocket(wsUrl);
 
         socketRef.current.onopen = () => {
@@ -76,9 +74,11 @@ const Big5Page = () => {
         return () => {
             if (socketRef.current) {
                 socketRef.current.close();
+                console.log("WebSocket 연결 해제");
             }
         };
     }, []);
+
 
     if (!result) {
         return (

@@ -76,6 +76,7 @@
     background-color: #fff;
     padding: 12px 40px 12px 16px;
     cursor: pointer;
+    color: #131115;
 }
 
 .register-start-box-arrow-icon {
@@ -88,8 +89,6 @@
 
 .register-start-box-date {
     cursor: pointer;
-
-
 }
 
 .register-start-box-buttons {
