@@ -1,11 +1,11 @@
-// src/assets/images/UrlNoti.jsx
+// src/assets/images/NotiPopup.jsx
 
 import React from "react";
 
 /* css */
-import "./UrlNoti.css";
+import "./NotiPopup.css";
 
-const UrlNoti = () => {
+const NotiPopup = () => {
     return (
         <button className="urlnoti">
             링크 복사 완료! 링크를 팀원들에게 공유해보세요.
@@ -13,4 +13,4 @@ const UrlNoti = () => {
     );
 };
 
-export default UrlNoti;
+export default NotiPopup;
