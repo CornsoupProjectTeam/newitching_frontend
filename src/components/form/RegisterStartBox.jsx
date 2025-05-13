@@ -21,22 +21,53 @@ const customStyles = {
         borderRadius: "8px",
         padding: "2px",
         boxShadow: "none",
+        width: "384px",
+        fontSize: "14px", // 기본 글자 크기
         "&:hover": {
             borderColor: "#aca5a3",
+        },
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            width: "284px", // 모바일 너비
+            fontSize: "16px", // 모바일 글자 크기
         },
     }),
     option: (provided, state) => ({
         ...provided,
         backgroundColor: state.isFocused ? "#FD8B3E" : "#FFFFFF",
         color: state.isFocused ? "#FFFFFF" : "#131115",
+        fontSize: "14px", // 기본 글자 크기
         "&:hover": {
             backgroundColor: "#FD8B3E",
             color: "#FFFFFF",
+        },
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            fontSize: "14px", // 모바일 글자 크기
+            padding: "8px", // 선택 옵션 크기 축소
+        },
+    }),
+    menu: (provided) => ({
+        ...provided,
+        borderRadius: "12px",
+        overflow: "hidden",
+        width: "384px",
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            width: "300px", // 모바일 너비
+        },
+        "@media (max-width: 480px)": {
+            width: "240px", // 더 작은 화면 너비
         },
     }),
     singleValue: (provided) => ({
         ...provided,
         color: "#131115",
+        fontSize: "14px", // 기본 글자 크기
+        // 모바일 반응형
+        "@media (max-width: 768px)": {
+            fontSize: "14px", // 모바일 글자 크기
+        },
     }),
 };
 

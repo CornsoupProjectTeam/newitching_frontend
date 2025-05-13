@@ -1,6 +1,5 @@
-// pages/Big5/Big5Page.jsx
-
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 /* css */
 import "./Big5Page.css";
@@ -9,131 +8,94 @@ import "./Big5Page.css";
 import LeftPanel from "../../components/form/LeftPanel";
 
 /* assets */
-import logo from "../../assets/images/Logo_wb.svg";
 import loadingImage from "../../assets/images/itchingSymbol-orange.svg";
 
-const getBarColor = (score) => {
-    if (score >= 70) return "#FD8B3E";
-    else return "#FDA265";
-};
+const getBarColor = (score) => (score >= 70 ? "#FD8B3E" : "#FDA265");
 
 const Big5Page = () => {
     const [result, setResult] = useState(null);
-    const socketRef = useRef(null);
+    const { urlKey } = useParams();
 
     useEffect(() => {
-        const token = localStorage.getItem("authToken");
-        if (!process.env.REACT_APP_WS_URL || !token) {
-            console.error("환경변수가 비어있거나 토큰이 없습니다. .env 파일을 확인하세요.");
-            return;
-        }
-
-        const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${token}`;
-        console.log("WebSocket 연결 시도: ", wsUrl);
-        socketRef.current = new WebSocket(wsUrl);
-
-        socketRef.current.onopen = () => {
-            console.log("Big5 WebSocket connected");
-        };
-
-        socketRef.current.onmessage = (event) => {
-            console.log("WebSocket raw message:", event.data);
-
+        const fetchBig5Scores = async () => {
             try {
-                const data = JSON.parse(event.data);
-                if (data.scores) {
-                    console.log("Received Big5 scores:", data);
+                const token = localStorage.getItem("authToken");
+                const memberId = localStorage.getItem("memberId"); // 로컬에 저장된 memberId 사용
 
-                    const traits = Object.keys(data.scores).map((label) => ({
-                        label,
-                        score: data.scores[label],
-                    }));
-
-                    setResult({
-                        name: data.memberId,
-                        date: new Date(data.timestamp).toLocaleString("ko-KR"),
-                        traits,
-                    });
-
-                    // WebSocket 연결 종료
-                    socketRef.current.close();
+                if (!token || !memberId) {
+                    console.error("토큰 또는 멤버 ID가 없습니다.");
+                    return;
                 }
+
+                const response = await fetch(
+                    `${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat/results`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ memberId }),
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("성향 분석 결과를 가져오는 데 실패했습니다.");
+                }
+
+                const data = await response.json();
+                console.log("Big5 데이터:", data);
+
+                const traits = Object.keys(data.scores).map((label) => ({
+                    label,
+                    score: data.scores[label],
+                }));
+
+                setResult({
+                    name: data.memberId,
+                    date: new Date(data.timestamp).toLocaleString("ko-KR"),
+                    traits,
+                });
+
             } catch (error) {
-                console.error("Failed to parse message:", error);
+                console.error("Error fetching Big5 scores:", error);
             }
         };
 
-        socketRef.current.onclose = (event) => {
-            console.log("Big5 WebSocket disconnected", event);
-        };
-
-        socketRef.current.onerror = (error) => {
-            console.error("Big5 WebSocket error:", error);
-        };
-
-        return () => {
-            if (socketRef.current) {
-                socketRef.current.close();
-                console.log("WebSocket 연결 해제");
-            }
-        };
-    }, []);
-
+        fetchBig5Scores();
+    }, [urlKey]);
 
     if (!result) {
         return (
-            <section className="big5-section">
-                <div className="big5-page">
-                    <div className="custom-loader-container">
-                        <img src={loadingImage} alt="loading" className="custom-loader-image" />
-                        <p className="custom-loader-text">
-                            검사 결과를 불러오고 있어요<br />
-                            잠시만 기다려주세요...
-                        </p>
-                    </div>
+            <div className="big5-page">
+                <div className="custom-loader-container">
+                    <img src={loadingImage} alt="loading" className="custom-loader-image" />
+                    <p className="custom-loader-text">성향 분석 결과를 불러오는 중입니다...</p>
                 </div>
-            </section>
+            </div>
         );
     }
 
     return (
-        <section className="big5-section">
-            <div className="big5-page">
-                <LeftPanel />
-                <div className="big5-window">
-                    <div className="big5-header">
-                        <h1 className="big5-title">{result.name}님의 성향 분석 결과</h1>
-                        <p className="big5-date">{result.date}</p>
-                    </div>
-
-                    <div className="big5-result-box">
-                        <div className="result-title-row">
-                            <img src={logo} alt="icon" className="result-icon" />
-                            <p className="result-text">{result.name}님은 이런 협업 성향을 갖고 있어요.</p>
-                        </div>
-
-                        <div className="trait-list">
-                            {result.traits.map((trait) => (
-                                <div key={trait.label} className="trait-item">
-                                    <p className="trait-label">{trait.label}</p>
-                                    <div className="trait-bar-bg">
-                                        <div
-                                            className="trait-bar-fill"
-                                            style={{
-                                                width: `${trait.score}%`,
-                                                backgroundColor: getBarColor(trait.score),
-                                            }}
-                                        >
-                                            <span className="trait-percent">{trait.score}%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+        <div className="big5-page">
+            <LeftPanel />
+            <div className="big5-window">
+                <h1>{result.name}님의 성향 분석 결과</h1>
+                {result.traits.map((trait) => (
+                    <div key={trait.label}>
+                        <p>{trait.label}</p>
+                        <div
+                            style={{
+                                backgroundColor: getBarColor(trait.score),
+                                width: `${trait.score}%`,
+                            }}
+                        >
+                            {trait.score}%
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
-        </section>
+        </div>
     );
 };
 

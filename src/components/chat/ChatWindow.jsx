@@ -16,7 +16,7 @@ const ChatWindow = () => {
     const socketRef = useRef(null);
     const [teamId, setTeamId] = useState("");
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat`)
             .then(res => res.json())
@@ -53,12 +53,19 @@ const ChatWindow = () => {
 
                 // [1] 대화 종료 시 big5 넘어가기
                 if (data.type === "done") {
+
                     console.log("대화 종료됨. 잠시 후 BIG5 페이지로 이동합니다.");
 
+                    // WebSocket 연결 해제
+                    if (socketRef.current) {
+                        socketRef.current.close();
+                        console.log("WebSocket 연결 해제");
+                    }
+
                     setTimeout(() => {
-                        navigate("/member/big5");
+                        navigate("/:urlKey/chat/big5");
                     }, 3000);
-                    
+
                     return; // 빈 메시지로 추가되는 걸 막음
                 }
 
