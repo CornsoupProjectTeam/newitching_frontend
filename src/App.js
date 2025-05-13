@@ -15,10 +15,6 @@ import HomePage from "./pages/HomePage/HomePage";
 import Big5ResultPage from "./pages/Big5/Big5Page"
 import MatchingResultPage from "./pages/TeamMatchingResult/MatchingResultPage";
 
-/* 테스트용 컴포넌트 */
-import Big5Test from "./pages/Big5/test"
-import MatchingTest from "./pages/TeamMatchingResult/test";
-
 const App = () => {
     return (
         <Router>
@@ -34,9 +30,6 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/member/big5" element={<Big5ResultPage />} />
                 <Route path="/matching/:matchingId" element={<MatchingResultPage />} />
-
-                <Route path="/matching/test" element={<MatchingTest />} />
-                <Route path="/member/test" element={<Big5Test />} />
             </Routes>
             <Footer />
             </div>
