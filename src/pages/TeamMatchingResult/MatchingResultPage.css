@@ -15,7 +15,13 @@
 
 .matching-layout {
   display: flex;
-  padding: 0px 60px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 5vw;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
   align-items: flex-start;
   gap: 24px;
   margin-bottom: 60px;
@@ -23,9 +29,40 @@
 
 .matching-content {
   display: flex;
+  width: 100%;
+  overflow-x: hidden;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 16px;
   flex: 1 0 0;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .matching-layout {
+    flex-direction: column;
+  }
+
+  .matching-content {
+    width: inherit;
+    box-sizing: border-box;
+  }
+
+  .matching-sidebar {
+    width: inherit;
+    text-align: center;
+    box-sizing: border-box;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: fit-content !important;
+  }
+
+  .team-card {
+    width: 100%;
+  }
+
+  .result-card {
+    width: 100%;
+  }
 }

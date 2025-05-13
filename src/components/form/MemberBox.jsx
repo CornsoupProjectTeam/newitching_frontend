@@ -19,19 +19,19 @@ const MemberBox = () => {
 
     // URL에서 추출한 urlKey를 이용하여 프로젝트 아이디 가져오기
     useEffect(() => {
-        fetch(`${window.location.origin}/${urlKey}`)
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    setMatchingId(data.matchingId);  // 프로젝트 아이디 설정
-                } else {
-                    console.error("프로젝트 아이디 불러오기 실패:", data.message);
-                    alert("프로젝트 정보를 불러올 수 없습니다.");
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                return response.json();
+            })
+            .then((data) => {
+                setMatchingId(data.matchingId);
             })
             .catch((error) => {
-                console.error("오류 발생:", error);
-                alert("서버 연결에 실패했습니다.");
+                console.error("API 오류:", error);
+                alert("프로젝트 정보를 불러오는 데 실패했습니다.");
             });
     }, [urlKey]);
 

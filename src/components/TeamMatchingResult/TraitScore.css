@@ -34,6 +34,38 @@
   line-height: normal;
 }
 
+.trait-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.score-badge{
+  display: flex;
+  height: 18px;
+  width: fit-content;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--Space-100, 4px);
+
+  border-radius: 4px;
+  border: 1px solid var(--purple-500, #C97CCB);
+  background: var(--purple-100, #F6E6F6);
+
+  color: var(--purple-500, #C97CCB);
+  leading-trim: both;
+
+  text-edge: cap;
+  /* body/bold/Small */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .trait-explanation{
   align-self: stretch;
   margin: 0px;

@@ -21,7 +21,26 @@ const Big5Page = () => {
     const [result, setResult] = useState(null);
     const socketRef = useRef(null);
 
+    const USE_MOCK = true;
+
     useEffect(() => {
+        if (USE_MOCK) {
+            setTimeout(() => {
+                setResult({
+                    name: "테스트 유저",
+                    date: new Date().toLocaleString("ko-KR"),
+                    traits: [
+                        { label: "개방성", score: 80 },
+                        { label: "성실성", score: 65 },
+                        { label: "외향성", score: 75 },
+                        { label: "우호성", score: 50 },
+                        { label: "신경성", score: 30 },
+                    ],
+                });
+            }, 1500);
+            return;
+        }
+
         const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${process.env.REACT_APP_WS_TOKEN}`;
 
         if (!process.env.REACT_APP_WS_URL || !process.env.REACT_APP_WS_TOKEN) {
@@ -55,7 +74,6 @@ const Big5Page = () => {
                         traits,
                     });
 
-                    // WebSocket 연결 종료
                     socketRef.current.close();
                 }
             } catch (error) {
@@ -122,7 +140,7 @@ const Big5Page = () => {
                                                 backgroundColor: getBarColor(trait.score),
                                             }}
                                         >
-                                            <span className="trait-percent">{trait.score}%</span>
+                                            <span className="trait-percent">{trait.score}점</span>
                                         </div>
                                     </div>
                                 </div>

@@ -19,9 +19,11 @@ const Footer = () => {
      const hideFooterPaths = ["/matching/signin", "/matching"];
 
     // 동적 채팅 상세 페이지가 있다면 useMatch로 처리
-    const isChatPage = useMatch("/:urlKey", "/:urlKey/chat");
+    const isChatRoot = useMatch("/:urlKey");
+    const isChatPage = useMatch("/:urlKey/chat");
 
-     const shouldHideFooter = hideFooterPaths.includes(location.pathname) || isChatPage;
+    const shouldHideFooter =
+        hideFooterPaths.includes(currentPath) || isChatRoot || isChatPage;
 
     if (shouldHideFooter) {
          return null;

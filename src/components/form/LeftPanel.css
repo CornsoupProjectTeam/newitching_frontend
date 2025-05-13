@@ -26,6 +26,10 @@
     flex-shrink: 0;
 }
 
+.explain-text{
+    margin:0;
+}
+
 @media screen and (max-width: 768px) {
     .left-panel {
         padding: 0;

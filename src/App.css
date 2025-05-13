@@ -33,7 +33,9 @@
     --orange-500: #F1853C;
 
     /* 보라색 계열 */
+    --purple-100: #F6E6F6;
     --purple-400: #D382D4;
+    --purple-500: #C97CCB;
 
     /* 파란색 계열 */
     --blue-900: #1B1E33;
@@ -44,6 +46,12 @@
 
     /* 그라데이션 또는 대체 색상 */
     --linear: #FD8B3E;
+    --bedge-silver: #878787;
+    --bdg_silver: linear-gradient(94deg, rgba(48, 48, 48, 0.20) 1.81%, rgba(255, 255, 255, 0.20) 52.27%, rgba(48, 48, 48, 0.20) 98.01%);
+    --bedge-gold: #EA9C00;
+    --bdg_gold: linear-gradient(94deg, #FFD589 2.89%, #FFF6E5 50.03%, #FFD589 97.18%);
+
+    --Space-100: 4px;
 }
 
 .main-body {

@@ -8,7 +8,7 @@ import "./UrlBox.css";
 
 /* components */
 import DublicateUrlButton from "../button/RegisterMatching/DuplicateUrlButton";
-import UrlNoti from "../../assets/images/UrlNoti";
+import UrlNoti from "./UrlNoti";
 
 /* assets */
 import emaillogo from "../../assets/images/email.svg";

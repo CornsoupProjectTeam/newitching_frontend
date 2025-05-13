@@ -18,6 +18,8 @@ const evaluationLabel = {
 };
 
 const TraitScore = ({ label, score, eval: evalScore, showBadge = true }) => {
+    if (![3, 4].includes(evalScore)) return null;
+
     const isGold = evalScore === 4;
     const isSilver = evalScore === 3;
     const resultLabel = evaluationLabel[evalScore];
@@ -41,10 +43,11 @@ const TraitScore = ({ label, score, eval: evalScore, showBadge = true }) => {
 
                 {showBadge && (isGold || isSilver) && (
                     <span className="trait-badge">
-            {isGold && <GoldBadge className="badge-icon" />}
+                        {isGold && <GoldBadge className="badge-icon" />}
                         {isSilver && <SilverBadge className="badge-icon" />}
-          </span>
+                    </span>
                 )}
+                <span className="score-badge">{score}점</span>
             </div>
 
             {detailDescription && (

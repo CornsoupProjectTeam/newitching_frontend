@@ -31,7 +31,6 @@
     margin: 0;
 }
 
-/* ul과 li 공통 스타일 */
 .main-footer ul {
     padding-left: 0;
     margin: 0;
@@ -44,7 +43,6 @@
     padding-bottom: 16px;
 }
 
-/* a 링크 스타일 */
 .main-footer li a {
     text-decoration: none;
     color: #b76632;
@@ -71,8 +69,8 @@
 .footer-service,
 .footer-page,
 .footer-cs {
-    flex: 1 1 240px; /* grow, shrink, basis */
-    max-width: 100%;
+    flex: 1 1 240px;
+    max-width: fit-content;
     flex-direction: column;
     align-items: flex-start;
 }
