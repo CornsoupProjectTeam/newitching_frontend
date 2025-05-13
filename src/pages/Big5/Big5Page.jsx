@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+// pages/Big5/Big5Page.jsx
+
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 /* css */
@@ -8,94 +10,134 @@ import "./Big5Page.css";
 import LeftPanel from "../../components/form/LeftPanel";
 
 /* assets */
+import logo from "../../assets/images/Logo_wb.svg";
 import loadingImage from "../../assets/images/itchingSymbol-orange.svg";
 
-const getBarColor = (score) => (score >= 70 ? "#FD8B3E" : "#FDA265");
+const getBarColor = (score) => {
+    if (score >= 70) return "#FD8B3E";
+    else return "#FDA265";
+};
 
 const Big5Page = () => {
     const [result, setResult] = useState(null);
     const { urlKey } = useParams();
 
     useEffect(() => {
-        const fetchBig5Scores = async () => {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+            console.error("authToken이 localStorage에 없습니다.");
+            return;
+        }
+
+        let memberId;
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1])); // JWT 디코드
+            memberId = payload.sub;
+        } catch (e) {
+            console.error("JWT 디코딩 실패:", e);
+            return;
+        }
+
+        if (!urlKey || !memberId) {
+            console.error("urlKey 또는 memberId 없음");
+            return;
+        }
+
+        const fetchBig5Result = async () => {
             try {
-                const token = localStorage.getItem("authToken");
-                const memberId = localStorage.getItem("memberId"); // 로컬에 저장된 memberId 사용
-
-                if (!token || !memberId) {
-                    console.error("토큰 또는 멤버 ID가 없습니다.");
-                    return;
-                }
-
-                const response = await fetch(
-                    `${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat/results`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify({ memberId }),
-                    }
-                );
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat/results`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ memberId }),
+                });
 
                 if (!response.ok) {
-                    throw new Error("성향 분석 결과를 가져오는 데 실패했습니다.");
+                    throw new Error("서버에서 Big5 결과를 받지 못했습니다.");
                 }
 
                 const data = await response.json();
-                console.log("Big5 데이터:", data);
+                console.log("Big5 API 응답:", data);
 
-                const traits = Object.keys(data.scores).map((label) => ({
-                    label,
-                    score: data.scores[label],
-                }));
+                const traits = [
+                    { label: "성실성", score: Number(data.conscientiousnessScore) },
+                    { label: "친화성", score: Number(data.agreeablenessScore) },
+                    { label: "개방성", score: Number(data.opennessScore) },
+                    { label: "외향성", score: Number(data.extraversionScore) },
+                    { label: "신경성", score: Number(data.neuroticismScore) },
+                ];
+
+                const memberName = String(data.name);
 
                 setResult({
-                    name: data.memberId,
-                    date: new Date(data.timestamp).toLocaleString("ko-KR"),
+                    name: memberName,
+                    date: new Date().toLocaleString("ko-KR"),
                     traits,
                 });
-
-            } catch (error) {
-                console.error("Error fetching Big5 scores:", error);
+            } catch (err) {
+                console.error("Big5 API 호출 오류:", err);
             }
         };
 
-        fetchBig5Scores();
+        fetchBig5Result();
     }, [urlKey]);
 
     if (!result) {
         return (
-            <div className="big5-page">
-                <div className="custom-loader-container">
-                    <img src={loadingImage} alt="loading" className="custom-loader-image" />
-                    <p className="custom-loader-text">성향 분석 결과를 불러오는 중입니다...</p>
+            <section className="big5-section">
+                <div className="big5-page">
+                    <div className="custom-loader-container">
+                        <img src={loadingImage} alt="loading" className="custom-loader-image" />
+                        <p className="custom-loader-text">
+                            검사 결과를 불러오고 있어요<br />
+                            잠시만 기다려주세요...
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </section>
         );
     }
 
     return (
-        <div className="big5-page">
-            <LeftPanel />
-            <div className="big5-window">
-                <h1>{result.name}님의 성향 분석 결과</h1>
-                {result.traits.map((trait) => (
-                    <div key={trait.label}>
-                        <p>{trait.label}</p>
-                        <div
-                            style={{
-                                backgroundColor: getBarColor(trait.score),
-                                width: `${trait.score}%`,
-                            }}
-                        >
-                            {trait.score}%
+        <section className="big5-section">
+            <div className="big5-page">
+                <LeftPanel />
+                <div className="big5-window">
+                    <div className="big5-header">
+                        <h1 className="big5-title">{result.name}님의 성향 분석 결과</h1>
+                        <p className="big5-date">{result.date}</p>
+                    </div>
+
+                    <div className="big5-result-box">
+                        <div className="result-title-row">
+                            <img src={logo} alt="icon" className="result-icon" />
+                            <p className="result-text">{result.name}님은 이런 협업 성향을 갖고 있어요.</p>
+                        </div>
+
+                        <div className="trait-list">
+                            {result.traits.map((trait) => (
+                                <div key={trait.label} className="trait-item">
+                                    <p className="trait-label">{trait.label}</p>
+                                    <div className="trait-bar-bg">
+                                        <div
+                                            className="trait-bar-fill"
+                                            style={{
+                                                width: `${trait.score}%`,
+                                                backgroundColor: getBarColor(trait.score),
+                                            }}
+                                        >
+                                            <span className="trait-percent">{trait.score}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                ))}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 
