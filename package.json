@@ -1,7 +1,7 @@
 {
   "name": "newitching_frontend",
   "version": "0.1.0",
-  "proxy": "http://210.110.103.135:8080",
+  "proxy": "http://10.0.0.17:8080",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
