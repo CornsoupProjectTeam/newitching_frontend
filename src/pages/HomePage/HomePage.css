@@ -201,10 +201,7 @@
 
 @media (max-width: 768px) {
     .hero-section {
-        padding: 100px 24px;
-        height: auto;
-        gap: 32px;
-        align-items: center;
+        width: 100%;
     }
 
     .hero-section .text-box {
@@ -270,7 +267,7 @@
     }
 
     .detail-section {
-        padding: 60px 16px;
+        width: 100%;
     }
 
     .detail-section .text-box {
