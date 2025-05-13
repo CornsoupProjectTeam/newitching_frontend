@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 /* css */
 import "./ChatWindow.css";
@@ -7,10 +8,22 @@ import "./ChatWindow.css";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
+import NotiPopup from "../form/NotiPopup";
 
 const ChatWindow = () => {
+    const { urlKey } = useParams();
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
+    const [teamId, setTeamId] = useState("");
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat`)
+            .then(res => res.json())
+            .then(data => {
+                setTeamId(data.matchingId);
+            })
+            .catch(err => console.error("matchingId 가져오기 실패:", err));
+    }, [urlKey]);
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
@@ -37,11 +50,24 @@ const ChatWindow = () => {
                 const data = JSON.parse(event.data);
                 console.log("Parsed WebSocket message:", data);
 
+                // [1] 대화 종료 시 팝업
+                if (data.type === "done") {
+                    <NotiPopup message="대화가 종료되었습니다. 오늘 함께해 주셔서 감사합니다." />
+                    return; // 빈 메시지로 추가되는 걸 막음
+                }
+
+                // [2] 메시지가 아예 없으면 추가하지 않음
+                if (!data.message || data.message.trim() === "") {
+                    console.warn("수신한 메시지가 비어있어 표시하지 않음.");
+                    return;
+                }
+
+                // [3] 정상 메시지 처리
                 setMessages((prevMessages) => [
                     ...prevMessages,
                     {
                         memberId: "bot",
-                        message: data.message || "(빈 메시지)",
+                        message: data.message,
                         timestamp: data.timestamp || new Date().toISOString(),
                     },
                 ]);
@@ -96,7 +122,7 @@ const ChatWindow = () => {
     return (
         <div className="chat-window">
             <div className="chat-header-wrap">
-                <ChatHeader />
+                <ChatHeader teamId={teamId} />
             </div>
 
             <div className="chat-body">
