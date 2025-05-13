@@ -5,6 +5,8 @@
 
 .team-card {
   display: flex;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 40px;
   flex-direction: column;
   align-items: center;

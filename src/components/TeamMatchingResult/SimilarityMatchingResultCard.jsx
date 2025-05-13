@@ -14,6 +14,9 @@ import Logo_wb from "../../assets/images/Logo_wb.svg";
 const SimilarityMatchingResultCard = ({ scores, teamIndex }) => {
     const visibleScores = scores.filter(score => score.eval >= 3);
 
+    // 표시할 성향이 없다면 전체 컴포넌트 렌더링하지 않음
+    if (visibleScores.length === 0) return null;
+
     return (
         <div className="result-card">
             <div className="result-header">

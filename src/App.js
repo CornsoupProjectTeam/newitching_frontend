@@ -28,7 +28,7 @@ const App = () => {
                 <Route path="/member/register" element={<MemberRegister />} />
                 <Route path="/matching/signin" element={<MatchResultSignIn />} />
                 <Route path="/" element={<HomePage />} />
-                <Route path="/member/big5" element={<Big5ResultPage />} />
+                <Route path="/:urlKey/member/big5" element={<Big5ResultPage />} />
                 <Route path="/matching/:matchingId" element={<MatchingResultPage />} />
             </Routes>
             <Footer />

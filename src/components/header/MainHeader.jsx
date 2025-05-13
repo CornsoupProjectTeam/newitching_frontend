@@ -1,7 +1,7 @@
 // components/header/MainHeader.jsx
 
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useMatch, matchPath } from 'react-router-dom';
 
 /* css */
 import './MainHeader.css';
@@ -15,7 +15,12 @@ function MainHeader() {
     const currentPath = location.pathname;
 
     const hiddenMenuPaths = ['/matching', '/chat', '/matching/register', '/matching/signin', '/member/register'];
-    const showRightMenu = !hiddenMenuPaths.includes(currentPath);
+    const isChatRoot = useMatch("/:urlKey");
+    const isChatPage = useMatch("/:urlKey/chat");
+    const isMatchingPage = useMatch("/matching/:matchingId");
+    const isBig5Page = useMatch("/member/big5");
+    const showRightMenu =
+        !hiddenMenuPaths.includes(currentPath) && !isChatPage && !isChatRoot && !isBig5Page;
 
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(prev => !prev);
@@ -49,7 +54,7 @@ function MainHeader() {
                                 <li>
                                     <a
                                         href="#"
-                                        className={`nav-button ${currentPath === '/matching/result/signin' ? 'active' : ''}`}
+                                        className={`nav-button ${ isMatchingPage ? 'active' : ''}`}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             window.open('/matching/signin', '_blank', 'width=1200,height=800');
