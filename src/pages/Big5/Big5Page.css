@@ -5,6 +5,7 @@
 
 .big5-section{
     width: 100%;
+    display: flex;
     background-color: white;
 }
 
@@ -24,7 +25,7 @@
 
 @media (max-width: 768px) {
     .big5-page {
-        padding: 0;
+        padding: 20px 5vw;
         gap: 0;
     }
 }
@@ -32,6 +33,7 @@
 .big5-window {
     display: flex;
     min-height: 800px;
+    min-width: 0;
     padding: 40px 40px 80px 40px;
     margin-bottom: 60px;
     flex-direction: column;
