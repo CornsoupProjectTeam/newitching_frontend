@@ -93,7 +93,7 @@ const RegisterStartBox = ({ onStepChange, matchingId, password }) => {
         };
 
         try {
-            const response = await fetch("/matching/register", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matching/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
