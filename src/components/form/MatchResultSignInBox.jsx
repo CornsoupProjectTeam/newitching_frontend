@@ -28,7 +28,7 @@ const MatchResultSignIn = () => {
             // 비밀번호 암호화
             const encryptedPassword = encryptPassword(password);
 
-            const resultResponse = await fetch("/matching/results", {
+            const resultResponse = await fetch("${process.env.REACT_APP_BACKEND_URL}/matching/results", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
