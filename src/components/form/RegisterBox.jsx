@@ -35,7 +35,7 @@ const RegisterBox = ({ onStepChange }) => {
         }
 
         try {
-            const response = await fetch("${process.env.REACT_APP_BACKEND_URL}/matching/doublecheck", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matching/doublecheck`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

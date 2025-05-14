@@ -28,14 +28,17 @@ const MatchResultSignIn = () => {
             // 비밀번호 암호화
             const encryptedPassword = encryptPassword(password);
 
-            const resultResponse = await fetch("${process.env.REACT_APP_BACKEND_URL}/matching/results", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    matchingId: matchingId,
-                    password: encryptedPassword, // 암호화된 비밀번호 전송
-                }),
-            });
+            const resultResponse = await fetch(
+                `${process.env.REACT_APP_BACKEND_URL}/matching/results`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        matchingId: matchingId,
+                        password: encryptedPassword,
+                    }),
+                }
+            );
 
             if (!resultResponse.ok) {
                 const errorData = await resultResponse.json();
