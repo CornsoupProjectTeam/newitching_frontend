@@ -27,10 +27,30 @@ const UrlBox = () => {
     const handleCopy = () => {
         if (!urlKey) return;
         const url = `${process.env.REACT_APP_BACKEND_URL}/${urlKey}`;
-        navigator.clipboard.writeText(url).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        });
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(url).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            }).catch(err => {
+                console.error("복사 실패:", err);
+                alert("URL 복사에 실패했습니다.");
+            });
+        } else {
+            // HTTPS 환경이 아닌 경우 대체 방법
+            const textArea = document.createElement("textarea");
+            textArea.value = url;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand("copy");
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            } catch (err) {
+                console.error("복사 실패:", err);
+                alert("URL 복사에 실패했습니다.");
+            }
+            document.body.removeChild(textArea);
+        }
     };
 
     return (
