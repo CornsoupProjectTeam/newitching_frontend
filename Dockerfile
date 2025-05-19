@@ -1,39 +1,48 @@
-# Step 1: Build Stage
+# 1단계: 빌드 단계
 FROM node:18-alpine AS build
 
-# 작업 디렉토리 설정
+# 빌드 타임 ARG 정의 (4개)
+ARG REACT_APP_AES_KEY
+ARG REACT_APP_AES_IV
+ARG REACT_APP_WS_URL
+ARG REACT_APP_BACKEND_URL
+
+# ENV 설정 (선택적, 디버깅용)
+ENV REACT_APP_AES_KEY=$REACT_APP_AES_KEY
+ENV REACT_APP_AES_IV=$REACT_APP_AES_IV
+ENV REACT_APP_WS_URL=$REACT_APP_WS_URL
+ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+ENV NODE_ENV=production
+
+# 작업 디렉토리
 WORKDIR /app
 
-# 패키지 파일 복사
-COPY package*.json ./
-
-# 패키지 설치
-RUN npm install
-
-# 환경 변수 복사
-COPY .env.production .env
-
-# 소스 코드 복사
+# 소스 복사
 COPY . .
 
-# React 애플리케이션 빌드
-ENV NODE_ENV=production
-RUN npm run build
+# .env 파일로 4개 환경변수 주입
+RUN echo "REACT_APP_AES_KEY=$REACT_APP_AES_KEY" >> .env && \
+    echo "REACT_APP_AES_IV=$REACT_APP_AES_IV" >> .env && \
+    echo "REACT_APP_WS_URL=$REACT_APP_WS_URL" >> .env && \
+    echo "REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL" >> .env
 
-# Step 2: Production Stage
-FROM node:18-alpine
+# 빌드
+RUN npm install --legacy-peer-deps && npm run build
 
-# 작업 디렉토리 설정
-WORKDIR /app
+# 2단계: 경량 serve 이미지로 결과물 배포
+FROM node:18-alpine AS runtime
 
-# 정적 파일 서빙을 위한 serve 패키지 설치
+# serve 설치 (정적 파일 서빙용)
 RUN npm install -g serve
 
-# 빌드 결과 복사
-COPY --from=build /app/build /app/build
+# 작업 디렉토리
+WORKDIR /app
+
+# 빌드된 정적 파일 복사
+COPY --from=build /app/build ./build
 
 # 포트 노출
 EXPOSE 3000
 
-# serve를 사용하여 정적 파일 서빙
+# 컨테이너가 뜰 때 serve 실행
 CMD ["serve", "-s", "build", "-l", "3000"]
