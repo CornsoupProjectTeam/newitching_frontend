@@ -26,7 +26,7 @@ const UrlBox = () => {
 
     const handleCopy = () => {
         if (!urlKey) return;
-        const url = `${process.env.REACT_APP_BACKEND_URL}/${urlKey}`;
+        const url = `${window.location.origin}/${urlKey}`;
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(url).then(() => {
                 setCopied(true);
