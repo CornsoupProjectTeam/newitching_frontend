@@ -8,7 +8,7 @@ import "./UrlBox.css";
 
 /* components */
 import DublicateUrlButton from "../button/RegisterMatching/DuplicateUrlButton";
-import UrlNoti from "./NotiPopup";
+import UrlNoti from "../popup/NotiPopup";
 
 /* assets */
 import emaillogo from "../../assets/images/email.svg";
@@ -79,7 +79,7 @@ const UrlBox = () => {
 
             {copied && (
                 <div className="url-box-noti">
-                    <UrlNoti message="링크가 복사되었어요! 팀원에게 전달해보세요." />
+                    <UrlNoti message="링크 복사 완료! 링크를 팀원들에게 공유해보세요." />
                 </div>
             )}
         </div>

@@ -8,7 +8,6 @@ import "./ChatWindow.css";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
-import NotiPopup from "../form/NotiPopup";
 
 const ChatWindow = () => {
     const { urlKey } = useParams();
@@ -34,7 +33,6 @@ const ChatWindow = () => {
             return;
         }
 
-        const matchingId = window.location.pathname.split("/")[1];
         const wsUrl = `${process.env.REACT_APP_WS_URL}?token=${token}`;
 
         console.log("WebSocket 최종 URL:", wsUrl);

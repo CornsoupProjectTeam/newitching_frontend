@@ -8,6 +8,7 @@ import "./MemberBox.css";
 
 /* assets */
 import { ReactComponent as StartChatButton } from "../button/MemberStartButton.svg";
+import ErrorPopup from "../popup/ErrorPopup";
 
 const MemberBox = () => {
     // URL에서 urlKey를 추출하여 상태로 관리
@@ -16,6 +17,7 @@ const MemberBox = () => {
     const [department, setDepartment] = useState("");  // 소속 상태명 변경
     const [matchingId, setMatchingId] = useState("");  // 팀매칭 아이디 상태 추가
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
 
     // URL에서 추출한 urlKey를 이용하여 프로젝트 아이디 가져오기
     useEffect(() => {
@@ -37,33 +39,32 @@ const MemberBox = () => {
 
     // 채팅 시작 버튼 클릭 핸들러
     const handleStart = () => {
-        console.log("이름:", name, "소속:", department, "팀 아이디:", matchingId);
-
-        // 백엔드 API로 팀 ID와 사용자 정보를 전송
         fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/register`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: name,
-                department: department,  // 소속 필드명 변경
-            }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, department }),
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then(async (response) => {
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const errorMsg = data.error || data.message || "채팅 시작에 실패했습니다.";
+                    setErrorMessage(errorMsg);
+                    throw new Error(errorMsg);
+                }
+
                 if (data.token) {
-                    console.log("채팅 시작 성공:", data);
                     localStorage.setItem("authToken", data.token);
                     navigate(`/${urlKey}/chat`);
                 } else {
-                    console.error("채팅 시작 실패:", data.message);
-                    alert("채팅 시작에 실패했습니다.");
+                    setErrorMessage("채팅 시작에 실패했습니다.");
                 }
             })
             .catch((error) => {
                 console.error("오류 발생:", error);
-                alert("서버 연결에 실패했습니다.");
+                if (!error.message.includes("채팅 시작에 실패했습니다.")) {
+                    setErrorMessage("서버 연결에 실패했거나 예기치 않은 오류가 발생했습니다.");
+                }
             });
     };
 
@@ -103,6 +104,9 @@ const MemberBox = () => {
                     <StartChatButton />
                 </button>
             </div>
+            {errorMessage && (
+                <ErrorPopup message={errorMessage} onClose={() => setErrorMessage("")} />
+            )}
         </div>
     );
 };
