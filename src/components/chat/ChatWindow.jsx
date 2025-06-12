@@ -15,6 +15,7 @@ const ChatWindow = () => {
     const socketRef = useRef(null);
     const [teamId, setTeamId] = useState("");
     const navigate = useNavigate();
+    const startRef = useRef(false);
     
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/${urlKey}/chat`)
@@ -40,6 +41,20 @@ const ChatWindow = () => {
 
         socketRef.current.onopen = () => {
             console.log("WebSocket connected");
+
+            if(!startRef.current) {
+                const invisibleStart = "성향 분석을 위해 대화를 시작해주세요.";
+                const timestamp = new Date().toISOString();
+
+                socketRef.current.send(
+                    JSON.stringify({
+                        type: "chat",
+                        message: invisibleStart,
+                        timestamp,
+                    })
+                );
+                startRef.current = true;
+            }
         };
 
         socketRef.current.onmessage = (event) => {
@@ -61,7 +76,7 @@ const ChatWindow = () => {
 
                     setTimeout(() => {
                         navigate(`/${urlKey}/member/big5`)
-                    }, 1000);
+                    }, 2500);
                     
                     return; // 빈 메시지로 추가되는 걸 막음
                 }
